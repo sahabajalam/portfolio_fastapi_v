@@ -1,0 +1,24 @@
+/*
+ * Modular CSS Architecture for FastAPI Portfolio
+ * 
+ * This file imports all CSS modules in the correct order.
+ * Each module handles specific concerns to maintain clean separation.
+ */
+
+/* Core Variables and Utilities */
+@import 'modules/variables.css';
+@import 'modules/utilities.css';
+
+/* Animations and Base Styles */
+@import 'modules/animations.css';
+
+/* Layout Components */
+@import 'modules/navbar.css';
+@import 'modules/hero.css';
+@import 'modules/components.css';
+@import 'modules/chat.css';
+@import 'modules/sections.css';
+@import 'modules/footer.css';
+
+/* Responsive Design */
+@import 'modules/responsive.css';

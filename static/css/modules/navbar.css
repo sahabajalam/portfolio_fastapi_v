@@ -1,0 +1,304 @@
+/* ===== NAVBAR STYLES ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-max);
+    height: clamp(60px, 8vh, 80px);
+    transition: background 180ms cubic-bezier(0.4, 0, 0.2, 1), opacity 180ms ease, box-shadow 180ms ease, backdrop-filter 180ms ease, transform 180ms ease;
+    background: var(--footer-gradient);
+    color: #ffffff;
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.navbar.scrolled {
+    background: var(--footer-gradient);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(8px);
+    transform: translateY(-4px);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 1.5rem;
+}
+
+/* Logo Styles */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.navbar-logo:hover {
+    transform: translateY(-2px);
+}
+
+.navbar-logo:hover .navbar-logo-icon {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 143, 79, 0.15), 0 8px 25px rgba(0, 143, 79, 0.25);
+}
+
+.navbar-logo-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--gradient-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(0, 143, 79, 0.15);
+    transition: all 0.3s ease;
+}
+
+.navbar-logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Navigation Links */
+.navbar-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-link {
+    position: relative;
+}
+
+.navbar-link-anchor {
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.navbar-link.active .navbar-link-anchor,
+.navbar-link-anchor:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Social Links */
+.navbar-social {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.navbar-social-link {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.95);
+    background: none;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.navbar-social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.navbar-social-link:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.navbar-social-link:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 143, 79, 0.15);
+}
+
+.navbar-social-link i {
+    position: relative;
+    z-index: 2;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-social-link:hover i {
+    transform: scale(1.1);
+}
+
+/* CTA Button */
+.navbar-cta-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+}
+
+.navbar-cta-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: white;
+}
+
+/* Mobile Menu Toggle */
+.navbar-mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 3px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: calc(var(--z-max));
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.navbar-mobile-menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-mobile-menu-toggle:active {
+    transform: scale(0.95);
+}
+
+.navbar-hamburger-line {
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: calc(var(--z-max) - 1);
+    overflow-y: auto;
+    padding-top: 80px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu.active {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: calc(var(--z-max) - 2);
+}
+
+.mobile-menu.active~.mobile-menu-overlay,
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-links {
+    list-style: none;
+    padding: 2rem;
+    margin: 0;
+}
+
+.mobile-menu-links li {
+    margin-bottom: 1rem;
+}
+
+.mobile-menu-link {
+    display: block;
+    padding: 1rem;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: transparent;
+    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link.active {
+    background: rgba(0, 143, 79, 0.1);
+    color: #00b96b;
+    transform: translateX(0.5rem);
+}

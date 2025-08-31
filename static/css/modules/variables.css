@@ -1,0 +1,22 @@
+/* ===== CSS VARIABLES ===== */
+:root {
+    /* darkened primary for stronger button appearance */
+    --color-primary: #008f4f;
+    --color-secondary: #0088cc;
+    /* Hero background used across portfolio files */
+    --hero-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%, #ffffff 100%);
+    --gradient-primary: linear-gradient(135deg, #008f4f 0%, #0088cc 100%);
+    --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+    --z-max: 9999;
+    --footer-gradient: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
+    --primary: #008f4f;
+    --secondary: #0088cc;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}

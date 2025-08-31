@@ -1,0 +1,55 @@
+<!-- Hero Section -->
+<section id="home" class="bg-white relative overflow-hidden min-h-screen pt-20 flex items-center">
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="hero-grid w-full items-center">
+            <!-- Left Side - Content -->
+            <div class="hero-content-col">
+                <div class="hero-content-wrapper">
+                    <p class="hero-intro">{{ portfolio.personal_info.intro }} <span class="intro-name">{{
+                            portfolio.personal_info.name }}</span></p>
+                    <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                        <span class="gradient-text">{{ portfolio.personal_info.title }}</span>
+                    </h1>
+
+                    <div class="space-y-4">
+                        <div class="feature-item flex items-center gap-4">
+                            <div class="feature-icon w-6 h-6 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">End-to-end ML Pipeline Development</span>
+                        </div>
+                        <div class="feature-item flex items-center gap-4">
+                            <div class="feature-icon w-6 h-6 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Agentic Retrieval‑Augmented Generation (RAG)
+                                systems</span>
+                        </div>
+                        <div class="feature-item flex items-center gap-4">
+                            <div class="feature-icon w-6 h-6 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Cloud Deployment & MLOps</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-row flex-wrap items-center justify-start gap-4 pt-4">
+                        <a href="/projects" class="btn-primary">
+                            <i class="fas fa-briefcase mr-2"></i>
+                            View Projects
+                        </a>
+                        <a href="{{ linkedin_url }}" target="_blank" class="btn-secondary">
+                            <i class="fab fa-linkedin mr-2"></i>
+                            Connect
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Chat Interface -->
+            <div class="hero-chat-col">
+                {% include 'components/chat_interface.html' %}
+            </div>
+        </div>
+    </div>
+</section>

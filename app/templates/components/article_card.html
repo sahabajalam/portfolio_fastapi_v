@@ -1,0 +1,29 @@
+<!-- Article Card -->
+<article class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden card-hover flex-1 flex flex-col">
+    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80"
+        alt="{{ article.title }}" class="w-full h-48 object-cover">
+    <div class="p-6 flex-1 flex flex-col">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">{{ article.category
+                }}</span>
+            <span class="text-gray-400 text-xs">{{ article.published_date.strftime('%b %d, %Y') }}</span>
+        </div>
+        <h3 class="font-serif text-xl font-bold text-gray-900 mb-3 leading-tight">
+            {{ article.title }}
+        </h3>
+        <p class="text-gray-600 text-sm mb-4 leading-relaxed flex-1">
+            {{ article.excerpt }}
+        </p>
+        <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500">{{ article.read_time }} min read</span>
+            <div class="flex gap-2">
+                <button class="text-gray-400 hover:text-red-500 transition-colors">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="text-gray-400 hover:text-blue-500 transition-colors">
+                    <i class="fas fa-bookmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</article>

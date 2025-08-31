@@ -1,0 +1,378 @@
+/* ===== ABOUT SECTION STYLES ===== */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #16a34a #f3f4f6;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #16a34a 0%, #2563eb 100%);
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #15803d 0%, #1d4ed8 100%);
+}
+
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.shimmer-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.shimmer-effect:hover::before {
+    transform: translateX(100%);
+}
+
+.gradient-header {
+    background: linear-gradient(135deg, #16a34a 0%, #2563eb 100%);
+    background-size: 200% 100%;
+    animation: gradient-shift 3s ease-in-out infinite;
+}
+
+.focus-ring:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* ===== CONTACT SECTION STYLES ===== */
+.follow-card {
+    padding: 2.5rem;
+    text-align: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.follow-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.follow-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.3);
+}
+
+.follow-card:hover::before {
+    transform: scaleX(1);
+}
+
+.follow-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.social-link:hover::before {
+    left: 100%;
+}
+
+.social-link--twitter {
+    background: linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(29, 161, 242, 0.3);
+}
+
+.social-link--twitter:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(29, 161, 242, 0.4);
+    color: white;
+}
+
+.social-link--linkedin {
+    background: linear-gradient(135deg, #0077B5 0%, #005582 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 119, 181, 0.3);
+}
+
+.social-link--linkedin:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 119, 181, 0.4);
+    color: white;
+}
+
+.social-link--github {
+    background: linear-gradient(135deg, #333 0%, #24292e 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(51, 51, 51, 0.3);
+}
+
+.social-link--github:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(51, 51, 51, 0.4);
+    color: white;
+}
+
+.social-link--medium {
+    background: linear-gradient(135deg, #00ab6c 0%, #009958 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 171, 108, 0.3);
+}
+
+.social-link--medium:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 171, 108, 0.4);
+    color: white;
+}
+
+.social-link i {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.social-link span {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* Quote decoration styles */
+.quote-decoration {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.quote-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gradient);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.quote-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ===== INSPIRATION SECTION STYLES ===== */
+.inspiration-section {
+    padding: 3rem 0 4rem;
+    background: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.inspiration-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(1px);
+}
+
+/* Background Elements */
+.bg-quote {
+    position: absolute;
+    font-family: Georgia, serif;
+    font-size: 6rem;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.08;
+    z-index: 1;
+    color: var(--primary);
+}
+
+.bg-quote--left {
+    top: 1.25rem;
+    left: 1.25rem;
+}
+
+.bg-quote--right {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    transform: rotate(180deg);
+    color: var(--secondary);
+}
+
+.bg-shape {
+    position: absolute;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+    opacity: 0.05;
+    animation: float 6s ease-in-out infinite;
+}
+
+.bg-shape--1 {
+    background: var(--gradient);
+    top: -9rem;
+    left: -9rem;
+}
+
+.bg-shape--2 {
+    background: linear-gradient(135deg, var(--secondary) 0%, #8b5cf6 100%);
+    bottom: -9rem;
+    right: -9rem;
+    animation-delay: 3s;
+}
+
+/* Cards Layout */
+.cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Quote Card */
+.quote-card {
+    padding: 2rem;
+    text-align: center;
+}
+
+.quote-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quote-attribution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Tech Tags */
+.tech-tag {
+    background: rgba(0, 185, 107, 0.1);
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.blog-tag {
+    background: rgba(0, 136, 204, 0.1);
+    color: var(--color-secondary);
+    font-weight: 500;
+}

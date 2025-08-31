@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - {{ app_name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Page Header -->
+<section class="bg-white relative overflow-hidden min-h-[50vh] pt-20 flex items-center">
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center">
+            <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                Note on <span
+                    class="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">Artificial
+                    Intelligence</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+                Deep insights into machine learning, AI research, and the technologies shaping tomorrow's world
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Article -->
+<section class="py-8 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-1 h-8 bg-gradient-to-b from-primary-600 to-secondary-600 rounded-full"></div>
+            <h2 class="text-2xl font-bold text-gray-900">Featured Article</h2>
+        </div>
+
+        {% set featured_article = articles | selectattr('featured') | first %}
+        {% if featured_article %}
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
+                    <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold">{{
+                        featured_article.category }}</span>
+                </div>
+                <h3 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                    {{ featured_article.title }}
+                </h3>
+                <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                    {{ featured_article.excerpt }}
+                </p>
+                <div class="flex items-center gap-4 mb-6 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <img src="assets/claude-color.svg" alt="Profile" class="w-6 h-6 rounded-full">
+                        <span>Sahabaj Alam</span>
+                    </div>
+                    <span>•</span>
+                    <span>{{ featured_article.published_date.strftime('%B %d, %Y') }}</span>
+                    <span>•</span>
+                    <span>{{ featured_article.read_time }} min read</span>
+                </div>
+                {% if featured_article.external_url %}
+                <a href="{{ featured_article.external_url }}" target="_blank"
+                    class="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold inline-block">
+                    Read Full Article
+                </a>
+                {% else %}
+                <button
+                    class="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold">
+                    Read Full Article
+                </button>
+                {% endif %}
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="relative group cursor-pointer">
+                    {% if featured_article.image_url %}
+                    <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}"
+                        class="w-full h-96 object-cover rounded-2xl shadow-2xl group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                    <div
+                        class="w-full h-96 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl shadow-2xl group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
+                        <i class="fas fa-brain text-white text-6xl opacity-50"></i>
+                    </div>
+                    {% endif %}
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl group-hover:from-black/30 transition-all duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Latest Posts Grid -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center gap-3 mb-12">
+            <div class="w-1 h-8 bg-gradient-to-b from-primary-600 to-secondary-600 rounded-full"></div>
+            <h2 class="text-2xl font-bold text-gray-900">Latest Posts</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for article in articles %}
+            {% if not article.featured %}
+            <article
+                class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:transform hover:translateY(-8px) hover:shadow-2xl">
+                {% if article.image_url %}
+                <img src="{{ article.image_url }}" alt="{{ article.title }}" class="w-full h-48 object-cover">
+                {% else %}
+                <div class="w-full h-48 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-brain text-white text-3xl opacity-50"></i>
+                </div>
+                {% endif %}
+
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        {% if article.category == "Tutorial" %}
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">{{
+                            article.category }}</span>
+                        {% elif article.category == "Analysis" %}
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-semibold">{{
+                            article.category }}</span>
+                        {% elif article.category == "Best Practices" %}
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">{{
+                            article.category }}</span>
+                        {% elif article.category == "Technical Deep Dive" %}
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs font-semibold">Deep
+                            Dive</span>
+                        {% else %}
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">{{
+                            article.category }}</span>
+                        {% endif %}
+                        <span class="text-gray-400 text-xs">{{ article.published_date.strftime('%b %d, %Y') }}</span>
+                    </div>
+
+                    <h3 class="font-serif text-xl font-bold text-gray-900 mb-3 leading-tight">
+                        {{ article.title }}
+                    </h3>
+
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                        {{ article.excerpt | truncate(120) }}
+                    </p>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-gray-500">{{ article.read_time }} min read</span>
+                        <div class="flex gap-2">
+                            {% if article.external_url %}
+                            <a href="{{ article.external_url }}" target="_blank"
+                                class="text-gray-400 hover:text-primary-500 transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            {% endif %}
+                            <button class="text-gray-400 hover:text-red-500 transition-colors">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="text-gray-400 hover:text-blue-500 transition-colors">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- View All Button -->
+        <div class="text-center mt-12">
+            <a href="#"
+                class="bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-8 py-3 rounded-lg font-semibold transition-all hover:transform hover:scale-105 inline-flex items-center gap-2">
+                <i class="fas fa-list-ul"></i>
+                View All Articles
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

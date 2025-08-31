@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ page_title }} - {{ app_name }}{% endblock %}</title>
+
+    <!-- External Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS - Modular Architecture -->
+    <link rel="stylesheet" href="/static/css/styles-modular.css">
+    {% block extra_css %}{% endblock %}
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="/assets/logo.svg">
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d'
+                        },
+                        secondary: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'shimmer': 'shimmer 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-gray-50 min-h-screen font-sans antialiased">
+    <!-- Navigation -->
+    {% include 'components/navigation.html' %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+    <!-- JavaScript -->
+    <script type="module">
+        // Import modular components
+        import { NavigationManager } from '/static/js/modules/navigation.js';
+        import { ChatManager } from '/static/js/modules/chat.js';
+        import { AnimationManager } from '/static/js/modules/animations.js';
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Initializing Modular Portfolio Application...');
+
+            // Initialize all modules
+            new NavigationManager();
+            window.chatManager = new ChatManager(); // Store globally for compatibility
+            new AnimationManager();
+
+            console.log('✅ Modular Portfolio App initialized successfully');
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`⚡ Page loaded in ${Math.round(loadTime)}ms`);
+        });
+
+        // Error handling
+        window.addEventListener('error', (event) => {
+            console.error('💥 JavaScript error:', event.error);
+        });
+
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('💥 Unhandled promise rejection:', event.reason);
+            event.preventDefault();
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

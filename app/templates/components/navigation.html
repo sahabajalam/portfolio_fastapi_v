@@ -1,0 +1,95 @@
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="navbar-container">
+        <!-- Logo Section -->
+        {% if page_title == 'Home' %}
+        <a href="#home" class="navbar-logo">
+            {% else %}
+            <a href="/" class="navbar-logo">
+                {% endif %}
+                <div class="navbar-logo-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <span class="navbar-logo-text">{{ portfolio.personal_info.name }}</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="navbar-links">
+                <li class="navbar-link {% if page_title == 'Home' %}active{% endif %}">
+                    <a href="/" class="navbar-link-anchor nav-link" data-section="home">Home</a>
+                </li>
+                <li class="navbar-link">
+                    {% if page_title == 'Home' %}
+                    <a href="#about" class="navbar-link-anchor nav-link" data-section="about">About</a>
+                    {% else %}
+                    <a href="/#about" class="navbar-link-anchor">About</a>
+                    {% endif %}
+                </li>
+                <li class="navbar-link {% if page_title == 'Projects' %}active{% endif %}">
+                    <a href="/projects" class="navbar-link-anchor">Projects</a>
+                </li>
+                <li class="navbar-link {% if page_title == 'Articles' %}active{% endif %}">
+                    <a href="/articles" class="navbar-link-anchor">NoteonAI</a>
+                </li>
+                <li class="navbar-link">
+                    {% if page_title == 'Home' %}
+                    <a href="#contact" class="navbar-link-anchor nav-link" data-section="contact">Contact</a>
+                    {% else %}
+                    <a href="/#contact" class="navbar-link-anchor">Contact</a>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <div class="navbar-social">
+                <a href="{{ github_url }}" class="navbar-social-link" target="_blank" aria-label="View GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="{{ linkedin_url }}" class="navbar-social-link" target="_blank"
+                    aria-label="Message on LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="{{ twitter_url }}" class="navbar-social-link" target="_blank" aria-label="Message on X">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+            </div>
+
+            <!-- Call to Action Button -->
+            <a href="mailto:{{ contact_email }}" class="navbar-cta-button btn-primary navbar-cta-nav">
+                <i class="fas fa-envelope"></i>
+                <span>Let's Talk</span>
+            </a>
+
+            <!-- Mobile Menu Toggle (Hamburger) -->
+            <button class="navbar-mobile-menu-toggle hamburger">
+                <span class="navbar-hamburger-line"></span>
+                <span class="navbar-hamburger-line"></span>
+                <span class="navbar-hamburger-line"></span>
+            </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <ul class="mobile-menu-links">
+            <li><a href="/" class="mobile-menu-link {% if page_title == 'Home' %}active{% endif %}"
+                    data-section="home">Home</a></li>
+            <li>
+                {% if page_title == 'Home' %}
+                <a href="#about" class="mobile-menu-link" data-section="about">About</a>
+                {% else %}
+                <a href="/#about" class="mobile-menu-link">About</a>
+                {% endif %}
+            </li>
+            <li><a href="/projects"
+                    class="mobile-menu-link {% if page_title == 'Projects' %}active{% endif %}">Projects</a></li>
+            <li><a href="/articles"
+                    class="mobile-menu-link {% if page_title == 'Articles' %}active{% endif %}">NoteonAI</a></li>
+            <li>
+                {% if page_title == 'Home' %}
+                <a href="#contact" class="mobile-menu-link" data-section="contact">Contact</a>
+                {% else %}
+                <a href="/#contact" class="mobile-menu-link">Contact</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,67 @@
+<!-- Certifications Card -->
+<div
+    class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden h-[480px] flex flex-col card-hover animate-on-load">
+    <!-- Header -->
+    <div class="gradient-header text-white py-6 px-6 flex-shrink-0">
+        <div class="flex items-center justify-center gap-3">
+            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <i class="fas fa-award text-xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Certifications</h3>
+        </div>
+    </div>
+
+    <!-- Certifications Content -->
+    <div class="flex-1 p-4 overflow-hidden">
+        <div class="relative h-full">
+            <!-- Scroll fade indicators -->
+            <div id="cert-fade-top"
+                class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none opacity-0 transition-opacity duration-300">
+            </div>
+            <div id="cert-fade-bottom"
+                class="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none">
+            </div>
+
+            <div id="certifications-container" class="h-full overflow-y-auto custom-scrollbar space-y-3 pr-2">
+                {% for cert in portfolio.certifications %}
+                <div
+                    class="certification-card shimmer-effect bg-gradient-to-r from-white to-gray-50 rounded-xl border border-gray-200 p-4 hover:border-primary-300 hover:shadow-lg transition-all duration-300">
+                    <div class="flex items-start gap-4">
+                        <div class="relative flex-shrink-0">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center border border-primary-200">
+                                <i class="fas fa-award text-xl text-primary-600"></i>
+                            </div>
+                            <div
+                                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500">
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-semibold text-gray-900 text-sm leading-tight mb-2">
+                                {{ cert.title }}
+                            </h4>
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fas fa-building text-xs text-gray-500"></i>
+                                <span class="text-xs text-gray-600 font-medium">{{ cert.issuer }}</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-calendar-alt text-xs text-primary-600"></i>
+                                    <span class="text-xs font-medium text-primary-600">{{ cert.year }}</span>
+                                </div>
+                                {% if cert.credential_url %}
+                                <a href="{{ cert.credential_url }}" target="_blank"
+                                    class="px-3 py-1 text-xs font-medium bg-secondary-100 text-secondary-700 border border-secondary-200 rounded-lg hover:bg-secondary-600 hover:text-white transition-all duration-200">
+                                    <span>View</span>
+                                    <i class="fas fa-external-link-alt ml-1"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

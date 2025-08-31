@@ -1,0 +1,325 @@
+/* ===== HERO SECTION STYLES ===== */
+.gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
+
+.gradient-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+#home {
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    background: var(--hero-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+#home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at top left, rgba(0, 143, 79, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(0, 136, 204, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+#home::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: heroShimmer 8s linear infinite;
+    pointer-events: none;
+}
+
+/* ===== HERO INTRO MINI TEXT ===== */
+.hero-intro {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+    display: inline-block;
+    position: relative;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hero-intro.intro-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.intro-name {
+    font-weight: 700;
+    color: var(--text-primary);
+    background: linear-gradient(90deg, rgba(0, 185, 107, 0.09), rgba(37, 99, 235, 0.08));
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 26px rgba(2, 6, 23, 0.06);
+}
+
+/* Make intro-name adapt on small screens */
+@media (max-width: 767px) {
+    .intro-name {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        margin: 4px 6px;
+        box-shadow: 0 8px 20px rgba(2, 6, 23, 0.05);
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-intro {
+        font-size: 0.85rem;
+    }
+}
+
+/* Keep hero CTA buttons inline on narrow screens */
+@media (max-width: 480px) {
+
+    .hero-content-wrapper .btn-primary,
+    .hero-content-wrapper .btn-secondary {
+        padding: 0.6rem 1rem;
+        font-size: 0.92rem;
+    }
+
+    .hero-content-wrapper .flex-row {
+        gap: 0.5rem;
+        justify-content: flex-start;
+        padding-left: 0.5rem;
+    }
+}
+
+/* ===== HERO GRID LAYOUT ===== */
+.hero-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    grid-auto-rows: auto;
+}
+
+.hero-content-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.hero-content-wrapper {
+    max-width: 100%;
+    width: 100%;
+}
+
+.hero-chat-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.chat-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ===== HERO RESPONSIVE BREAKPOINTS ===== */
+
+/* Mobile Portrait: Stack layout, full width */
+@media (max-width: 767px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    #home {
+        padding-top: 80px;
+        padding-bottom: 2rem;
+        min-height: auto;
+    }
+
+    .hero-content-col,
+    .hero-chat-col {
+        padding: 1rem;
+    }
+
+    .hero-title {
+        font-size: clamp(1.95rem, 6.5vw, 2.75rem);
+        text-align: center;
+    }
+
+    .chat-wrapper {
+        max-width: 100%;
+    }
+
+    .chat-container {
+        height: clamp(280px, 40vh, 400px);
+    }
+
+    .chat-messages {
+        height: clamp(160px, 26vh, 280px);
+    }
+}
+
+/* Tablet Portrait: Stack layout, centered content */
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    #home {
+        padding-top: 90px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
+        text-align: center;
+    }
+
+    .hero-content-col,
+    .hero-chat-col {
+        text-align: center;
+    }
+
+    .chat-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .chat-container {
+        height: clamp(350px, 45vh, 480px);
+    }
+
+    .chat-messages {
+        height: clamp(230px, 32vh, 360px);
+    }
+}
+
+/* Small Laptop: Balanced two-column layout */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .hero-grid {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 3rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    #home {
+        padding-top: 100px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 3.5vw, 3.6rem);
+    }
+
+    .hero-content-wrapper {
+        max-width: 520px;
+    }
+
+    .chat-wrapper {
+        max-width: 420px;
+    }
+
+    .chat-container {
+        height: clamp(380px, 48vh, 520px);
+    }
+
+    .chat-messages {
+        height: clamp(260px, 36vh, 400px);
+    }
+}
+
+/* Standard Laptop: Comfortable two-column */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .hero-grid {
+        grid-template-columns: 1.3fr 1fr;
+        gap: 4rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    #home {
+        padding-top: 110px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.75rem, 3.1vw, 3.9rem);
+    }
+
+    .hero-content-wrapper {
+        max-width: 600px;
+    }
+
+    .chat-wrapper {
+        max-width: 480px;
+    }
+
+    .chat-container {
+        height: clamp(420px, 52vh, 580px);
+    }
+
+    .chat-messages {
+        height: clamp(300px, 40vh, 460px);
+    }
+}
+
+/* Large Desktop: Spacious layout */
+@media (min-width: 1400px) {
+    .hero-grid {
+        grid-template-columns: 1.4fr 1fr;
+        gap: 5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    #home {
+        padding-top: 120px;
+    }
+
+    .hero-title {
+        font-size: clamp(3rem, 2.8vw, 4.4rem);
+    }
+
+    .hero-content-wrapper {
+        max-width: 700px;
+    }
+
+    .chat-wrapper {
+        max-width: 540px;
+    }
+
+    .chat-container {
+        height: clamp(460px, 55vh, 640px);
+    }
+
+    .chat-messages {
+        height: clamp(340px, 43vh, 520px);
+    }
+}

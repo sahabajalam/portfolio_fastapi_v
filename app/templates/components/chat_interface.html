@@ -1,0 +1,76 @@
+<!-- Chat Interface -->
+<div class="chat-wrapper">
+    <!-- Unified Chat Container -->
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header p-4">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <img src="{{ portfolio.personal_info.profile_image }}" alt="Profile"
+                        class="profile-image w-12 h-12 rounded-full">
+                    <div
+                        class="online-indicator absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-400 rounded-full border-2 border-gray-800">
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-white font-semibold">{{ portfolio.personal_info.name }} — {{
+                        portfolio.personal_info.title }}</h3>
+                    <p class="text-gray-300 text-sm">{{ portfolio.personal_info.title }} • Online now</p>
+                </div>
+                <button class="text-gray-400 hover:text-white transition-colors p-1">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Body -->
+        <div class="chat-body p-4 flex flex-col">
+            <!-- Chat Messages -->
+            <div class="chat-messages flex-1 space-y-4 mb-4" id="chatMessages">
+                <!-- Bot Welcome Message -->
+                <div class="message flex items-start gap-3">
+                    <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-green-400 text-sm"></i>
+                    </div>
+                    <div class="bot-message p-3 rounded-lg rounded-tl-none max-w-xs">
+                        <p class="text-white text-sm">
+                            👋 Hi! I'm {{ portfolio.personal_info.name.split()[0] }}'s AI assistant. I can help you
+                            learn about his
+                            experience as a {{ portfolio.personal_info.title.lower() }}, his
+                            skills, and projects. What would you like to know?
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="flex flex-wrap gap-2 ml-11" id="quickActions">
+                    <button class="quick-action-btn" onclick="askQuestion('experience')">
+                        📊 Experience
+                    </button>
+                    <button class="quick-action-btn" onclick="askQuestion('skills')">
+                        🛠️ Skills
+                    </button>
+                    <button class="quick-action-btn" onclick="askQuestion('projects')">
+                        🚀 Projects
+                    </button>
+                    <button class="quick-action-btn" onclick="askQuestion('contact')">
+                        📞 Contact
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container p-3">
+                <div class="flex gap-3">
+                    <input type="text"
+                        placeholder="Ask me anything about {{ portfolio.personal_info.name.split()[0] }}..."
+                        class="chat-input flex-1 p-3 text-sm placeholder-gray-400 focus:border-green-500 focus:outline-none"
+                        id="chatInput" onkeypress="handleKeyPress(event)">
+                    <button onclick="sendMessage()" class="chat-send-btn px-4 py-3">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
