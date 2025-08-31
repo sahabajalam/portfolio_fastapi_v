@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     assets_dir: str = Field(default="assets", description="Assets directory")
     
     # CORS Configuration
-    allowed_origins: List[str] = Field(default=["https://*.onrender.com", "http://localhost:3000", "http://localhost:8000"], description="Allowed CORS origins")
+    allowed_origins: List[str] = Field(default=["https://portfolio-fastapi-v.onrender.com", "http://localhost:3000", "http://localhost:8000"], description="Allowed CORS origins")
     allowed_methods: List[str] = Field(default=["GET", "POST", "PUT", "DELETE", "OPTIONS"], description="Allowed HTTP methods")
     allowed_headers: List[str] = Field(default=["*"], description="Allowed headers")
     
