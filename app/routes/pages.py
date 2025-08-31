@@ -48,7 +48,7 @@ class ContextBuilder:
 @router.get("/index.html", response_class=HTMLResponse)
 async def home(request: Request):
     """Serve the home page with portfolio data."""
-    context = ContextBuilder.build_base_context(request, "Home")
+    context = ContextBuilder.build_base_context(request, "Sahabaj Alam")
     context = ContextBuilder.add_featured_content(context)
     
     return template_manager.render("pages/index.html", context)
