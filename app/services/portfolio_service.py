@@ -252,6 +252,7 @@ class OptimizedPortfolioService:
     def _create_articles_data(self) -> List[Article]:
         """Create articles data with factory method."""
         articles_data = [
+            # Featured Articles
             {
                 "id": "fine-tuning-llms",
                 "title": "Fine-tuning LLMs on Custom Data: Complete Guide",
@@ -270,6 +271,55 @@ class OptimizedPortfolioService:
                 "read_time": 10,
                 "date": datetime(2024, 11, 28)
             },
+            
+            # Tutorial Category
+            {
+                "id": "pytorch-fundamentals",
+                "title": "PyTorch Fundamentals: Building Neural Networks",
+                "category": "Tutorial",
+                "tags": ["PyTorch", "Deep Learning", "Neural Networks"],
+                "featured": False,
+                "read_time": 12,
+                "date": datetime(2024, 12, 8)
+            },
+            {
+                "id": "data-preprocessing",
+                "title": "Data Preprocessing Techniques for ML",
+                "category": "Tutorial",
+                "tags": ["Data Science", "Preprocessing", "Feature Engineering"],
+                "featured": False,
+                "read_time": 9,
+                "date": datetime(2024, 12, 3)
+            },
+            {
+                "id": "docker-ml-guide",
+                "title": "Containerizing ML Models with Docker",
+                "category": "Tutorial",
+                "tags": ["Docker", "MLOps", "Deployment"],
+                "featured": False,
+                "read_time": 11,
+                "date": datetime(2024, 11, 25)
+            },
+            {
+                "id": "fastapi-ml-api",
+                "title": "Building ML APIs with FastAPI",
+                "category": "Tutorial",
+                "tags": ["FastAPI", "API", "Machine Learning"],
+                "featured": False,
+                "read_time": 13,
+                "date": datetime(2024, 11, 20)
+            },
+            {
+                "id": "apache-kafka-streaming",
+                "title": "Real-time Data Streaming with Apache Kafka",
+                "category": "Tutorial",
+                "tags": ["Kafka", "Streaming", "Data Engineering"],
+                "featured": False,
+                "read_time": 15,
+                "date": datetime(2024, 11, 15)
+            },
+            
+            # Analysis Category
             {
                 "id": "ai-ethics",
                 "title": "AI Ethics in Practice: Real-World Considerations",
@@ -278,6 +328,174 @@ class OptimizedPortfolioService:
                 "featured": False,
                 "read_time": 6,
                 "date": datetime(2024, 12, 5)
+            },
+            {
+                "id": "transformer-architecture",
+                "title": "Understanding Transformer Architecture",
+                "category": "Analysis",
+                "tags": ["Transformers", "NLP", "Architecture"],
+                "featured": False,
+                "read_time": 14,
+                "date": datetime(2024, 11, 30)
+            },
+            {
+                "id": "gpt-vs-bert",
+                "title": "GPT vs BERT: A Comprehensive Comparison",
+                "category": "Analysis",
+                "tags": ["GPT", "BERT", "NLP", "Language Models"],
+                "featured": False,
+                "read_time": 10,
+                "date": datetime(2024, 11, 22)
+            },
+            {
+                "id": "ai-market-trends",
+                "title": "AI Market Trends and Future Predictions",
+                "category": "Analysis",
+                "tags": ["AI Trends", "Market Analysis", "Industry"],
+                "featured": False,
+                "read_time": 8,
+                "date": datetime(2024, 11, 10)
+            },
+            {
+                "id": "data-privacy-ml",
+                "title": "Data Privacy Challenges in Machine Learning",
+                "category": "Analysis",
+                "tags": ["Privacy", "GDPR", "Data Security"],
+                "featured": False,
+                "read_time": 7,
+                "date": datetime(2024, 11, 5)
+            },
+            
+            # Best Practices Category
+            {
+                "id": "model-versioning",
+                "title": "Model Versioning and Experiment Tracking",
+                "category": "Best Practices",
+                "tags": ["MLflow", "Versioning", "Experiments"],
+                "featured": False,
+                "read_time": 9,
+                "date": datetime(2024, 12, 1)
+            },
+            {
+                "id": "code-quality-ml",
+                "title": "Code Quality Best Practices in ML Projects",
+                "category": "Best Practices",
+                "tags": ["Code Quality", "Testing", "ML Engineering"],
+                "featured": False,
+                "read_time": 11,
+                "date": datetime(2024, 11, 18)
+            },
+            {
+                "id": "scalable-ml-systems",
+                "title": "Building Scalable Machine Learning Systems",
+                "category": "Best Practices",
+                "tags": ["Scalability", "Architecture", "Systems Design"],
+                "featured": False,
+                "read_time": 13,
+                "date": datetime(2024, 11, 12)
+            },
+            {
+                "id": "feature-store-design",
+                "title": "Feature Store Design Patterns",
+                "category": "Best Practices",
+                "tags": ["Feature Store", "ML Infrastructure", "Data Management"],
+                "featured": False,
+                "read_time": 12,
+                "date": datetime(2024, 10, 28)
+            },
+            {
+                "id": "monitoring-ml-models",
+                "title": "Monitoring ML Models in Production",
+                "category": "Best Practices",
+                "tags": ["Monitoring", "Production", "Model Drift"],
+                "featured": False,
+                "read_time": 10,
+                "date": datetime(2024, 10, 20)
+            },
+            
+            # Technical Deep Dive Category
+            {
+                "id": "attention-mechanisms",
+                "title": "Deep Dive into Attention Mechanisms",
+                "category": "Technical Deep Dive",
+                "tags": ["Attention", "Deep Learning", "Neural Networks"],
+                "featured": False,
+                "read_time": 16,
+                "date": datetime(2024, 11, 8)
+            },
+            {
+                "id": "gradient-descent-optimization",
+                "title": "Gradient Descent Optimization Algorithms",
+                "category": "Technical Deep Dive",
+                "tags": ["Optimization", "Algorithms", "Mathematics"],
+                "featured": False,
+                "read_time": 14,
+                "date": datetime(2024, 10, 25)
+            },
+            {
+                "id": "distributed-training",
+                "title": "Distributed Training Strategies for Deep Learning",
+                "category": "Technical Deep Dive",
+                "tags": ["Distributed Computing", "Deep Learning", "Scaling"],
+                "featured": False,
+                "read_time": 18,
+                "date": datetime(2024, 10, 15)
+            },
+            {
+                "id": "reinforcement-learning-fundamentals",
+                "title": "Reinforcement Learning: From Theory to Practice",
+                "category": "Technical Deep Dive",
+                "tags": ["Reinforcement Learning", "Algorithms", "AI"],
+                "featured": False,
+                "read_time": 20,
+                "date": datetime(2024, 10, 8)
+            },
+            {
+                "id": "neural-architecture-search",
+                "title": "Neural Architecture Search: Automated Design",
+                "category": "Technical Deep Dive",
+                "tags": ["NAS", "AutoML", "Neural Networks"],
+                "featured": False,
+                "read_time": 17,
+                "date": datetime(2024, 9, 30)
+            },
+            
+            # Research Category
+            {
+                "id": "multimodal-ai-research",
+                "title": "Recent Advances in Multimodal AI Research",
+                "category": "Research",
+                "tags": ["Multimodal", "Research", "Computer Vision", "NLP"],
+                "featured": False,
+                "read_time": 12,
+                "date": datetime(2024, 10, 12)
+            },
+            {
+                "id": "quantum-ml-applications",
+                "title": "Quantum Machine Learning Applications",
+                "category": "Research",
+                "tags": ["Quantum Computing", "Machine Learning", "Research"],
+                "featured": False,
+                "read_time": 15,
+                "date": datetime(2024, 9, 28)
+            },
+            {
+                "id": "federated-learning-privacy",
+                "title": "Federated Learning and Privacy Preservation",
+                "category": "Research",
+                "tags": ["Federated Learning", "Privacy", "Distributed AI"],
+                "featured": False,
+                "read_time": 13,
+                "date": datetime(2024, 9, 20)
+            },
+            {
+                "id": "generative-ai-creativity",
+                "title": "Generative AI and Creative Applications",
+                "category": "Research",
+                "tags": ["Generative AI", "Creativity", "Art", "Innovation"],
+                "featured": False,
+                "read_time": 11,
+                "date": datetime(2024, 9, 15)
             }
         ]
         

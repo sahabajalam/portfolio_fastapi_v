@@ -67,21 +67,11 @@ async def projects(request: Request):
 @router.get("/articles", response_class=HTMLResponse)
 @router.get("/articles.html", response_class=HTMLResponse)
 async def articles(request: Request):
-    """Serve the articles page."""
+    """Serve the consolidated articles page with filtering and pagination."""
     context = ContextBuilder.build_base_context(request, "Articles")
     context["articles"] = context["portfolio"].articles
     
     return template_manager.render("pages/articles.html", context)
-
-
-@router.get("/all-articles", response_class=HTMLResponse)
-@router.get("/all-articles.html", response_class=HTMLResponse)
-async def all_articles(request: Request):
-    """Serve the all articles page with filtering and pagination."""
-    context = ContextBuilder.build_base_context(request, "All Articles")
-    context["articles"] = context["portfolio"].articles
-    
-    return template_manager.render("pages/all_articles.html", context)
 
 
 # Optional: Add a generic page renderer for future extensibility

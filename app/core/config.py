@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     """Application settings with environment variable support."""
     
     # App Configuration
-    app_name: str = Field(default="Portfolio", description="Application name")
+    app_name: str = Field(default="Sahabaj Alam", description="Application name")
     app_description: str = Field(default="Personal Portfolio Website", description="Application description")
     version: str = Field(default="1.0.0", description="Application version")
     debug: bool = Field(default=False, description="Debug mode")

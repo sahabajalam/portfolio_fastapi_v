@@ -91,10 +91,10 @@ export class NavigationManager {
                             behavior: 'smooth'
                         });
                     } else {
-                        // Navigate to home page with hash
+                        // Navigate to home page with hash if we're not on home page
                         const currentPath = window.location.pathname;
                         if (currentPath !== '/' && currentPath !== '/index.html') {
-                            window.location.href = `/${href}`;
+                            window.location.href = targetId === 'home' ? '/' : `/#${targetId}`;
                         }
                     }
                 }
