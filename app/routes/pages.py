@@ -58,3 +58,19 @@ async def articles(request: Request):
     }
     
     return template_manager.render("pages/articles.html", context)
+
+
+@router.get("/all-articles", response_class=HTMLResponse)
+@router.get("/all-articles.html", response_class=HTMLResponse)
+async def all_articles(request: Request):
+    """Serve the all articles page with filtering and pagination."""
+    portfolio_data = portfolio_service.get_portfolio_data()
+    
+    context = {
+        "request": request,
+        "portfolio": portfolio_data,
+        "articles": portfolio_data.articles,
+        "page_title": "All Articles"
+    }
+    
+    return template_manager.render("pages/all_articles.html", context)

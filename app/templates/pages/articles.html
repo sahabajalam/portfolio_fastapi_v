@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- Hero Section with Page Header -->
-<section class="bg-white relative overflow-hidden min-h-[50vh] pt-20 flex items-center">
+<section class="bg-white relative overflow-hidden min-h-[30vh] pt-20 flex items-center">
     <div class="absolute inset-0" style="background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);"></div>
     <div class="container mx-auto px-4 relative z-10">
         <div class="text-center">
@@ -38,7 +38,14 @@
                         featured_article.category }}</span>
                 </div>
                 <h3 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                    {% if featured_article.external_url %}
+                    <a href="{{ featured_article.external_url }}" target="_blank"
+                        class="hover:text-primary-600 transition-colors duration-300 hover:underline">
+                        {{ featured_article.title }}
+                    </a>
+                    {% else %}
                     {{ featured_article.title }}
+                    {% endif %}
                 </h3>
                 <p class="text-lg text-gray-600 mb-6 leading-relaxed">
                     {{ featured_article.excerpt }}
@@ -96,8 +103,8 @@
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for article in articles %}
-            {% if not article.featured %}
+            {% set latest_articles = articles | rejectattr('featured') | list %}
+            {% for article in latest_articles[:3] %}
             <article
                 class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:transform hover:translateY(-8px) hover:shadow-2xl">
                 {% if article.image_url %}
@@ -130,7 +137,14 @@
                     </div>
 
                     <h3 class="font-serif text-xl font-bold text-gray-900 mb-3 leading-tight">
+                        {% if article.external_url %}
+                        <a href="{{ article.external_url }}" target="_blank"
+                            class="hover:text-primary-600 transition-colors duration-300 hover:underline">
+                            {{ article.title }}
+                        </a>
+                        {% else %}
                         {{ article.title }}
+                        {% endif %}
                     </h3>
 
                     <p class="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -156,13 +170,12 @@
                     </div>
                 </div>
             </article>
-            {% endif %}
             {% endfor %}
         </div>
 
         <!-- View All Button -->
         <div class="text-center mt-12">
-            <a href="#"
+            <a href="/all-articles"
                 class="bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-8 py-3 rounded-lg font-semibold transition-all hover:transform hover:scale-105 inline-flex items-center gap-2">
                 <i class="fas fa-list-ul"></i>
                 View All Articles
