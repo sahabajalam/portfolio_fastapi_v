@@ -46,14 +46,18 @@ app = create_app()
 
 if __name__ == "__main__":
     import uvicorn
+    import os
+    
+    # Get port from environment (Railway sets this)
+    port = int(os.getenv("PORT", settings.port))
     
     print(f"🚀 Starting {settings.app_name} FastAPI Server...")
-    print(f"📱 Visit: http://{settings.host}:{settings.port}")
-    print(f"📖 API Docs: http://{settings.host}:{settings.port}/docs")
+    print(f"📱 Visit: http://{settings.host}:{port}")
+    print(f"📖 API Docs: http://{settings.host}:{port}/docs")
     
     uvicorn.run(
         "main:app",
         host=settings.host,
-        port=settings.port,
+        port=port,
         reload=settings.reload
     )

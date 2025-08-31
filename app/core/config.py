@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     # Server Configuration
     host: str = Field(default="0.0.0.0", description="Server host")
     port: int = Field(default=8000, description="Server port")
-    reload: bool = Field(default=True, description="Auto-reload on changes")
+    reload: bool = Field(default=False, description="Auto-reload on changes")
     
     # Template Configuration
     template_dir: str = Field(default="app/templates", description="Templates directory")
@@ -26,8 +26,8 @@ class Settings(BaseSettings):
     assets_dir: str = Field(default="assets", description="Assets directory")
     
     # CORS Configuration
-    allowed_origins: List[str] = Field(default=["*"], description="Allowed CORS origins")
-    allowed_methods: List[str] = Field(default=["*"], description="Allowed HTTP methods")
+    allowed_origins: List[str] = Field(default=["https://*.railway.app", "https://*.up.railway.app"], description="Allowed CORS origins")
+    allowed_methods: List[str] = Field(default=["GET", "POST", "PUT", "DELETE", "OPTIONS"], description="Allowed HTTP methods")
     allowed_headers: List[str] = Field(default=["*"], description="Allowed headers")
     
     # Contact Information
