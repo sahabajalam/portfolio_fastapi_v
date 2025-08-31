@@ -1,5 +1,6 @@
 /**
- * Animation and UI Effects Module
+ * Optimized Animation and UI Effects Module
+ * Consolidated scroll fade functionality and removed duplications
  */
 export class AnimationManager {
     constructor() {
@@ -8,8 +9,7 @@ export class AnimationManager {
 
     init() {
         this.setupScrollAnimations();
-        this.setupSkillsScrollFade();
-        this.setupCertificationsScrollFade();
+        this.setupScrollFadeContainers();
     }
 
     setupScrollAnimations() {
@@ -33,10 +33,17 @@ export class AnimationManager {
         });
     }
 
-    setupSkillsScrollFade() {
-        const container = document.getElementById('skills-container');
-        const fadeTop = document.getElementById('skills-fade-top');
-        const fadeBottom = document.getElementById('skills-fade-bottom');
+    /**
+     * Universal scroll fade handler - eliminates duplication
+     * @param {string} containerId - ID of the scrollable container
+     * @param {string} fadeTopId - ID of the top fade element
+     * @param {string} fadeBottomId - ID of the bottom fade element
+     * @param {number} threshold - Scroll threshold for fade trigger
+     */
+    setupScrollFade(containerId, fadeTopId, fadeBottomId, threshold = 10) {
+        const container = document.getElementById(containerId);
+        const fadeTop = document.getElementById(fadeTopId);
+        const fadeBottom = document.getElementById(fadeBottomId);
 
         if (!container || !fadeTop || !fadeBottom) return;
 
@@ -44,50 +51,46 @@ export class AnimationManager {
             const { scrollTop, scrollHeight, clientHeight } = container;
 
             // Show/hide top fade
-            if (scrollTop > 10) {
-                fadeTop.style.opacity = '1';
-            } else {
-                fadeTop.style.opacity = '0';
-            }
+            fadeTop.style.opacity = scrollTop > threshold ? '1' : '0';
 
             // Show/hide bottom fade
-            if (scrollTop < scrollHeight - clientHeight - 10) {
-                fadeBottom.style.opacity = '1';
-            } else {
-                fadeBottom.style.opacity = '0';
-            }
+            fadeBottom.style.opacity = 
+                scrollTop < scrollHeight - clientHeight - threshold ? '1' : '0';
         });
     }
 
-    setupCertificationsScrollFade() {
-        const container = document.getElementById('certifications-container');
-        const fadeTop = document.getElementById('cert-fade-top');
-        const fadeBottom = document.getElementById('cert-fade-bottom');
-
-        if (!container || !fadeTop || !fadeBottom) return;
-
-        container.addEventListener('scroll', () => {
-            const { scrollTop, scrollHeight, clientHeight } = container;
-
-            // Show/hide top fade
-            if (scrollTop > 5) {
-                fadeTop.style.opacity = '1';
-            } else {
-                fadeTop.style.opacity = '0';
+    /**
+     * Setup all scroll fade containers from configuration
+     */
+    setupScrollFadeContainers() {
+        const containers = [
+            {
+                container: 'skills-container',
+                fadeTop: 'skills-fade-top',
+                fadeBottom: 'skills-fade-bottom',
+                threshold: 10
+            },
+            {
+                container: 'certifications-container',
+                fadeTop: 'cert-fade-top',
+                fadeBottom: 'cert-fade-bottom',
+                threshold: 5
             }
+        ];
 
-            // Show/hide bottom fade
-            if (scrollTop < scrollHeight - clientHeight - 5) {
-                fadeBottom.style.opacity = '1';
-            } else {
-                fadeBottom.style.opacity = '0';
-            }
+        containers.forEach(config => {
+            this.setupScrollFade(
+                config.container,
+                config.fadeTop,
+                config.fadeBottom,
+                config.threshold
+            );
         });
     }
 }
 
 /**
- * Utility Functions Module
+ * Optimized Utility Functions Module
  */
 export class Utils {
     static scrollToTop() {
@@ -119,6 +122,24 @@ export class Utils {
                 inThrottle = true;
                 setTimeout(() => inThrottle = false, limit);
             }
+        }
+    }
+
+    /**
+     * Universal smooth scroll to element
+     * @param {string} targetId - ID of target element
+     * @param {number} offset - Additional offset from top
+     */
+    static smoothScrollTo(targetId, offset = 20) {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+            const targetPosition = targetElement.offsetTop - navHeight - offset;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
         }
     }
 }

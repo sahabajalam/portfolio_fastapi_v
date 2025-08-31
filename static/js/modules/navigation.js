@@ -1,8 +1,9 @@
 /**
- * Navigation Module - Handles all navigation-related functionality
+ * Optimized Navigation Module - Consolidated navigation functionality
  */
 export class NavigationManager {
     constructor() {
+        this.mobileMenuState = false;
         this.init();
     }
 
@@ -14,53 +15,57 @@ export class NavigationManager {
         this.handleHashOnLoad();
     }
 
+    /**
+     * Optimized mobile menu with centralized state management
+     */
     setupMobileMenu() {
         const hamburger = document.querySelector('.navbar-mobile-menu-toggle');
         const mobileMenu = document.querySelector('.mobile-menu');
 
-        if (hamburger && mobileMenu) {
-            const toggleMobileMenu = () => {
-                const isActive = mobileMenu.classList.contains('active');
-                if (isActive) {
-                    mobileMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
-                } else {
-                    mobileMenu.classList.add('active');
-                    hamburger.classList.add('active');
-                    hamburger.setAttribute('aria-expanded', 'true');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
+        if (!hamburger || !mobileMenu) return;
 
-            hamburger.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                toggleMobileMenu();
-            });
+        const toggleMobileMenu = () => {
+            this.mobileMenuState = !this.mobileMenuState;
+            this.updateMobileMenuUI(hamburger, mobileMenu);
+        };
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-                    mobileMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
-                }
-            });
+        const closeMobileMenu = () => {
+            if (this.mobileMenuState) {
+                this.mobileMenuState = false;
+                this.updateMobileMenuUI(hamburger, mobileMenu);
+            }
+        };
 
-            // Close mobile menu when clicking on a link
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
-                });
-            });
-        }
+        // Event listeners
+        hamburger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close on mobile link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    }
+
+    /**
+     * Update mobile menu UI state
+     */
+    updateMobileMenuUI(hamburger, mobileMenu) {
+        const method = this.mobileMenuState ? 'add' : 'remove';
+        
+        mobileMenu.classList[method]('active');
+        hamburger.classList[method]('active');
+        hamburger.setAttribute('aria-expanded', this.mobileMenuState);
+        document.body.style.overflow = this.mobileMenuState ? 'hidden' : '';
     }
 
     setupSmoothScrolling() {
@@ -77,7 +82,7 @@ export class NavigationManager {
                     const targetElement = document.getElementById(targetId);
 
                     if (targetElement) {
-                        // Target element exists on current page - smooth scroll to it
+                        // Use Utils for consistent smooth scrolling
                         const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
                         const targetPosition = targetElement.offsetTop - navHeight - 20;
 
@@ -86,11 +91,10 @@ export class NavigationManager {
                             behavior: 'smooth'
                         });
                     } else {
-                        // Target element doesn't exist - navigate to home page with hash
+                        // Navigate to home page with hash
                         const currentPath = window.location.pathname;
                         if (currentPath !== '/' && currentPath !== '/index.html') {
-                            // We're not on the home page, redirect to home with the section hash
-                            window.location.href = `/#${targetId}`;
+                            window.location.href = `/${href}`;
                         }
                     }
                 }
@@ -102,20 +106,13 @@ export class NavigationManager {
         const navbar = document.querySelector('.navbar');
         if (!navbar) return;
 
-        let lastScrollY = window.scrollY;
-
-        window.addEventListener('scroll', () => {
+        // Use throttled scroll handler for performance
+        const throttledScrollHandler = this.throttle(() => {
             const currentScrollY = window.scrollY;
+            navbar.classList.toggle('scrolled', currentScrollY > 50);
+        }, 16); // ~60fps
 
-            // Add/remove scrolled class
-            if (currentScrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-
-            lastScrollY = currentScrollY;
-        });
+        window.addEventListener('scroll', throttledScrollHandler);
     }
 
     setupActiveLinks() {
@@ -132,18 +129,7 @@ export class NavigationManager {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const sectionId = entry.target.id;
-
-                    // Remove active class from all links
-                    navLinks.forEach(link => {
-                        link.parentElement.classList.remove('active');
-                    });
-
-                    // Add active class to current link
-                    const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
-                    if (activeLink) {
-                        activeLink.parentElement.classList.add('active');
-                    }
+                    this.updateActiveLink(entry.target.id, navLinks);
                 }
             });
         }, observerOptions);
@@ -151,27 +137,54 @@ export class NavigationManager {
         sections.forEach(section => observer.observe(section));
     }
 
+    /**
+     * Update active navigation link
+     */
+    updateActiveLink(sectionId, navLinks) {
+        // Remove active class from all links
+        navLinks.forEach(link => {
+            link.parentElement.classList.remove('active');
+        });
+
+        // Add active class to current link
+        const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
+        if (activeLink) {
+            activeLink.parentElement.classList.add('active');
+        }
+    }
+
     handleHashOnLoad() {
-        // Handle hash navigation when page loads
         window.addEventListener('load', () => {
             const hash = window.location.hash;
             if (hash) {
                 const targetId = hash.substring(1);
-                const targetElement = document.getElementById(targetId);
+                // Use Utils for consistent smooth scrolling
+                setTimeout(() => {
+                    const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+                    const targetPosition = targetElement.offsetTop - navHeight - 20;
 
-                if (targetElement) {
-                    // Wait a bit for the page to fully load, then scroll
-                    setTimeout(() => {
-                        const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
-                        const targetPosition = targetElement.offsetTop - navHeight - 20;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }, 100);
-                }
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 100);
             }
         });
+    }
+
+    /**
+     * Simple throttle implementation
+     */
+    throttle(func, limit) {
+        let inThrottle;
+        return function () {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Chat Interface Module - Handles AI assistant chat functionality
+ * Optimized Chat Interface Module
  */
 export class ChatManager {
     constructor() {
@@ -44,14 +44,21 @@ export class ChatManager {
             });
         }
 
-        // Quick action buttons
-        document.querySelectorAll('.quick-action-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const question = e.target.onclick?.toString().match(/askQuestion\('([^']+)'\)/)?.[1];
-                if (question) {
-                    this.handleQuickQuestion(question);
+        // Optimized quick action buttons setup
+        this.setupQuickActions();
+    }
+
+    /**
+     * Optimized quick action setup with delegation
+     */
+    setupQuickActions() {
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('quick-action-btn')) {
+                const questionType = e.target.dataset.question;
+                if (questionType) {
+                    this.handleQuickQuestion(questionType);
                 }
-            });
+            }
         });
     }
 
@@ -76,20 +83,41 @@ export class ChatManager {
         }
     }
 
+    /**
+     * Optimized message creation with template
+     */
+    createMessageElement(isUser, message, icon) {
+        const messageElement = document.createElement('div');
+        
+        if (isUser) {
+            messageElement.className = 'message flex items-start gap-3 justify-end';
+            messageElement.innerHTML = `
+                <div class="user-message p-3 rounded-lg rounded-tr-none max-w-xs bg-primary-600 text-white">
+                    <p class="text-sm">${message}</p>
+                </div>
+                <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-user text-white text-sm"></i>
+                </div>
+            `;
+        } else {
+            messageElement.className = 'message flex items-start gap-3';
+            messageElement.innerHTML = `
+                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-sm">${icon}</span>
+                </div>
+                <div class="bot-message p-3 rounded-lg rounded-tl-none max-w-xs">
+                    <p class="text-white text-sm">${message}</p>
+                </div>
+            `;
+        }
+        
+        return messageElement;
+    }
+
     addUserMessage(message) {
         if (!this.chatMessages) return;
 
-        const messageElement = document.createElement('div');
-        messageElement.className = 'message flex items-start gap-3 justify-end';
-        messageElement.innerHTML = `
-            <div class="user-message p-3 rounded-lg rounded-tr-none max-w-xs bg-primary-600 text-white">
-                <p class="text-sm">${message}</p>
-            </div>
-            <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-user text-white text-sm"></i>
-            </div>
-        `;
-
+        const messageElement = this.createMessageElement(true, message, null);
         this.chatMessages.appendChild(messageElement);
         this.scrollToBottom();
     }
@@ -103,21 +131,11 @@ export class ChatManager {
         const typingElement = this.addTypingIndicator();
 
         setTimeout(() => {
-            if (typingElement && typingElement.parentNode) {
+            if (typingElement?.parentNode) {
                 typingElement.remove();
             }
 
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message flex items-start gap-3';
-            messageElement.innerHTML = `
-                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span class="text-sm">${icon}</span>
-                </div>
-                <div class="bot-message p-3 rounded-lg rounded-tl-none max-w-xs">
-                    <p class="text-white text-sm">${message}</p>
-                </div>
-            `;
-
+            const messageElement = this.createMessageElement(false, message, icon);
             this.chatMessages.appendChild(messageElement);
             this.scrollToBottom();
             this.isProcessing = false;
@@ -125,19 +143,17 @@ export class ChatManager {
     }
 
     addTypingIndicator() {
-        if (!this.chatMessages) return null;
+        if (!this.chatMessages) return;
 
         const typingElement = document.createElement('div');
         typingElement.className = 'message flex items-start gap-3 typing-indicator';
         typingElement.innerHTML = `
             <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-robot text-green-400 text-sm"></i>
+                <span class="text-sm">🤖</span>
             </div>
             <div class="bot-message p-3 rounded-lg rounded-tl-none">
-                <div class="typing-dots flex gap-1">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
+                <div class="typing-dots">
+                    <span></span><span></span><span></span>
                 </div>
             </div>
         `;
@@ -147,23 +163,36 @@ export class ChatManager {
         return typingElement;
     }
 
+    /**
+     * Optimized message processing with keyword mapping
+     */
     processMessage(message) {
         const lowerMessage = message.toLowerCase();
-        let response = {
-            text: "I'm here to help you learn more about Sahabaj's background and expertise. Try asking about his experience, skills, projects, or contact information!",
-            icon: "💭"
+        
+        // Keyword to response mapping for better maintainability
+        const keywordMap = {
+            experience: ['experience', 'background'],
+            skills: ['skill', 'technology'],
+            projects: ['project', 'work'],
+            contact: ['contact', 'email', 'reach']
         };
 
-        // Simple keyword matching for responses
-        if (lowerMessage.includes('experience') || lowerMessage.includes('background')) {
-            response = this.responses.experience;
-        } else if (lowerMessage.includes('skill') || lowerMessage.includes('technology')) {
-            response = this.responses.skills;
-        } else if (lowerMessage.includes('project') || lowerMessage.includes('work')) {
-            response = this.responses.projects;
-        } else if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('reach')) {
-            response = this.responses.contact;
+        let responseKey = null;
+        
+        // Find matching response
+        for (const [key, keywords] of Object.entries(keywordMap)) {
+            if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+                responseKey = key;
+                break;
+            }
         }
+
+        const response = responseKey 
+            ? this.responses[responseKey]
+            : {
+                text: "I'm here to help you learn more about Sahabaj's background and expertise. Try asking about his experience, skills, projects, or contact information!",
+                icon: "💭"
+            };
 
         this.addBotMessage(response.text, response.icon);
     }

@@ -423,6 +423,61 @@
     flex-shrink: 0;
 }
 
+/* ===== DEDICATED PROJECTS PAGE CONSISTENCY ===== */
+/* Use higher specificity to override Tailwind classes */
+section .project-card .p-6 {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 200px !important;
+    height: auto !important;
+}
+
+/* Fixed description area - first paragraph after h3 */
+section .project-card .p-6>p.text-gray-600 {
+    min-height: 60px !important;
+    max-height: 60px !important;
+    line-height: 1.4 !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4 !important;
+    line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    margin-bottom: 1rem !important;
+    flex-shrink: 0 !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Fixed tech stack area - target the div with flex flex-wrap gap-2 mb-4 */
+section .project-card .p-6>div.flex.flex-wrap.gap-2.mb-4 {
+    min-height: 64px !important;
+    max-height: 64px !important;
+    margin-bottom: 1rem !important;
+    flex-shrink: 0 !important;
+    align-content: flex-start !important;
+    align-items: flex-start !important;
+    overflow: hidden !important;
+}
+
+/* Action buttons area - target the last flex div */
+section .project-card .p-6>div.flex.gap-2:last-child {
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+    padding-top: 0.5rem !important;
+}
+
+/* Ensure project cards maintain consistent height */
+section .project-card {
+    height: auto !important;
+    min-height: 420px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Ensure image area stays fixed */
+section .project-card .h-48 {
+    flex-shrink: 0 !important;
+}
+
 /* Consistent title styling for regular project cards - main page only */
 .project-card .h-64 .absolute.bottom-4 h3 {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
