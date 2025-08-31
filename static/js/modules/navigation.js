@@ -61,7 +61,7 @@ export class NavigationManager {
      */
     updateMobileMenuUI(hamburger, mobileMenu) {
         const method = this.mobileMenuState ? 'add' : 'remove';
-        
+
         mobileMenu.classList[method]('active');
         hamburger.classList[method]('active');
         hamburger.setAttribute('aria-expanded', this.mobileMenuState);

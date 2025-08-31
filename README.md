@@ -1,13 +1,15 @@
 # 🚀 FastAPI Portfolio
 
-A modern, modular FastAPI portfolio application with clean architecture and responsive design.
+A modern, modular FastAPI portfolio application with clean architecture and responsive design. Built with **UV package management** for faster development and optimized performance.
 
 ## 📁 Project Structure
 ```
 📦 fastapiport_v1/
 ├── 📄 main.py                    # Application entry point
 ├── 📄 requirements.txt           # Python dependencies
-├── 📄 .env.example              # Environment configuration template
+├── 📄 requirements.lock          # Locked dependency versions
+├── 📄 pyproject.toml            # Modern Python project configuration
+├── 📄 run_dev.ps1               # Quick development script
 ├── 📁 app/                      # Main application package
 │   ├── 📁 core/                 # Core configuration and utilities
 │   │   ├── config.py            # Application settings
@@ -25,40 +27,75 @@ A modern, modular FastAPI portfolio application with clean architecture and resp
 │       └── 📁 components/       # Reusable components
 ├── 📁 static/                   # Static assets
 │   ├── 📁 css/
-│   │   └── styles.css           # Main stylesheet
+│   │   └── 📁 modules/          # Modular CSS architecture
 │   └── 📁 js/
-│       └── 📁 modules/          # Modular JavaScript
-│           ├── navigation.js    # Navigation functionality
-│           ├── chat.js          # Chat interface
-│           └── animations.js    # UI animations
+│       └── 📁 modules/          # Optimized JavaScript modules
 └── 📁 assets/                   # Media files
-    ├── logo.svg                 # Site logo
-    └── claude-color.svg         # Fallback image
 ```
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.11+
-- pip
+- UV package manager (faster than pip)
 
-### Local Development
+### Setup with UV (Recommended)
+```powershell
+# Install UV (if not already installed)
+pip install uv
+
+# Create virtual environment
+uv venv
+
+# Activate virtual environment
+.\.venv\Scripts\activate
+
+# Install dependencies
+uv pip install -r requirements.txt
+
+# Start development server (using helper script)
+.\run_dev.ps1
+```
+
+### Alternative Setup (Traditional pip)
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd fastapiport_v1
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+# Windows:
+.\.venv\Scripts\activate
+# Linux/Mac:
+source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Create environment file (optional)
-cp .env.example .env
-
-# Start the development server
+# Start server
 python main.py
 ```
 
 Visit: http://localhost:8000
+
+## ⚡ UV Package Management Benefits
+
+This project uses **UV** for faster package management:
+- **5-10x faster** package installation
+- **Better dependency resolution**
+- **Drop-in replacement** for pip
+- **Enhanced caching** and performance
+
+### UV Commands
+```powershell
+# Package management
+uv pip install package_name      # Install package
+uv pip uninstall package_name    # Remove package
+uv pip list                      # List packages
+uv pip freeze > requirements.txt # Update requirements
+
+# Lock dependencies for reproducible builds
+uv pip compile requirements.txt --output-file requirements.lock
+```
 
 ## 🌐 API Endpoints
 

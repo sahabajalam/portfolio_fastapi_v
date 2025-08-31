@@ -88,7 +88,7 @@ export class ChatManager {
      */
     createMessageElement(isUser, message, icon) {
         const messageElement = document.createElement('div');
-        
+
         if (isUser) {
             messageElement.className = 'message flex items-start gap-3 justify-end';
             messageElement.innerHTML = `
@@ -110,7 +110,7 @@ export class ChatManager {
                 </div>
             `;
         }
-        
+
         return messageElement;
     }
 
@@ -168,7 +168,7 @@ export class ChatManager {
      */
     processMessage(message) {
         const lowerMessage = message.toLowerCase();
-        
+
         // Keyword to response mapping for better maintainability
         const keywordMap = {
             experience: ['experience', 'background'],
@@ -178,7 +178,7 @@ export class ChatManager {
         };
 
         let responseKey = null;
-        
+
         // Find matching response
         for (const [key, keywords] of Object.entries(keywordMap)) {
             if (keywords.some(keyword => lowerMessage.includes(keyword))) {
@@ -187,7 +187,7 @@ export class ChatManager {
             }
         }
 
-        const response = responseKey 
+        const response = responseKey
             ? this.responses[responseKey]
             : {
                 text: "I'm here to help you learn more about Sahabaj's background and expertise. Try asking about his experience, skills, projects, or contact information!",

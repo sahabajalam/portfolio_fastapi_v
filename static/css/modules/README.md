@@ -1,19 +1,51 @@
 # 🎨 Modular CSS Architecture
 
-This directory contains a well-organized, modular CSS architecture that separates concerns for better maintainability and scalability.
+This directory contains an optimized, modular CSS architecture for the FastAPI Portfolio application.
 
 ## 📁 Module Structure
 
 ### Core Foundation
 - **`variables.css`** - CSS custom properties and design tokens
-- **`utilities.css`** - Tailwind-style utility classes
+- **`utilities.css`** - Optimized utility classes (similar to Tailwind)
 - **`animations.css`** - Keyframes and animation definitions
 
 ### Layout Components
 - **`navbar.css`** - Navigation bar and mobile menu styles
-- **`hero.css`** - Hero section and responsive grid layouts
-- **`components.css`** - Reusable UI components (buttons, badges, etc.)
-- **`chat.css`** - Chat interface and related components
+- **`hero.css`** - Hero section and responsive layouts
+- **`components.css`** - Reusable UI components
+- **`chat.css`** - Chat interface components
+- **`sections.css`** - Page section layouts
+- **`footer.css`** - Footer styling
+- **`responsive.css`** - Mobile-first responsive design
+
+## 🏗️ Import Order (styles-modular.css)
+
+```css
+/* Core Variables and Utilities */
+@import 'modules/variables.css';
+@import 'modules/utilities.css';
+
+/* Animations and Components */
+@import 'modules/animations.css';
+@import 'modules/navbar.css';
+@import 'modules/hero.css';
+@import 'modules/components.css';
+@import 'modules/chat.css';
+@import 'modules/sections.css';
+@import 'modules/footer.css';
+
+/* Responsive Design */
+@import 'modules/responsive.css';
+```
+
+## ✨ Optimization Features
+
+- **Consolidated utilities** - Reduced redundancy in utility classes
+- **Performance optimized** - Efficient selectors and minimal reflow
+- **Maintainable** - Clear separation of concerns
+- **Scalable** - Easy to extend and modify
+
+This architecture supports fast development while maintaining clean, organized CSS.
 - **`sections.css`** - About section and page-specific content
 - **`footer.css`** - Footer styling and layout
 
