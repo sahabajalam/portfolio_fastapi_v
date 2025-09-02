@@ -5,6 +5,20 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     position: relative;
+    overflow: visible;
+    padding: 0 0 0.15em 0;
+    margin: 0;
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: baseline;
+    height: auto;
+    min-height: calc(1em + 0.3em);
+    box-sizing: content-box;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .gradient-text::after {

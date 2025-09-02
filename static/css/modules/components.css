@@ -21,8 +21,13 @@
 
 .hero-title {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    line-height: 1.1;
+    line-height: 1.4;
     letter-spacing: -0.02em;
+    padding-bottom: 0.4em;
+    margin-bottom: 0.4em;
+    overflow: visible;
+    display: block;
+    min-height: 1.8em;
 }
 
 .feature-item {

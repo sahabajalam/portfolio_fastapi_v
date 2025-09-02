@@ -1,10 +1,10 @@
 <!-- Work & Insights Section -->
 <section id="work-insights" class="py-12 bg-white">
+    <h2
+        class="text-4xl md:text-5xl font-light tracking-tight bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-14 text-center leading-[1.2] pb-2">
+        Work & Insights
+    </h2>
     <div class="container mx-auto px-4">
-        <h2
-            class="text-4xl md:text-5xl font-light tracking-tight bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-10 text-center leading-[1.2] pb-2">
-            Work & Insights
-        </h2>
 
         <div class="grid lg:grid-cols-12 gap-6 items-end">
             <!-- Projects Column -->
@@ -18,7 +18,7 @@
                             </div>
                     </div>
 
-                    <div class="flex items-center justify-center mt-6">
+                    <div class="flex justify-center mt-16">
                         <a href="/projects"
                             class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium rounded-full shadow-md hover:shadow-lg hover:from-primary-700 hover:to-secondary-700 transition-all duration-300 transform hover:scale-105">
                             <span>Explore All Projects</span>
@@ -42,11 +42,13 @@
                                             alt="{{ article.title }}"
                                             class="blog-image w-full h-full object-cover transition-transform duration-300 hover:scale-105">
                                     </div>
-                                    <!-- Read time badge below image (outside image) -->
-                                    <span
-                                        class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        {{ article.read_time }} min read
-                                    </span>
+                                    <!-- Read time badge below image (centered) -->
+                                    <div class="flex justify-center mt-2">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            {{ article.read_time }} min read
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <!-- Content -->
@@ -82,7 +84,7 @@
                         {% endfor %}
                     </div>
 
-                    <div class="flex items-center justify-center mt-6">
+                    <div class="flex justify-center mt-16">
                         <a href="/articles"
                             class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium rounded-full shadow-md hover:shadow-lg hover:from-primary-700 hover:to-secondary-700 transition-all duration-300 transform hover:scale-105">
                             <span>Read All Articles</span>

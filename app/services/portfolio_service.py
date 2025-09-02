@@ -80,7 +80,7 @@ class OptimizedPortfolioService:
         """Create personal information."""
         return PersonalInfo(
             name="Sahabaj Alam",
-            title="Junior Data Scientist & ML Engineer",
+            title="Junior Data Engineer & ML Engineer",
             intro="Hi am Sahabaj Alam",
             bio="Passionate about leveraging data science and machine learning to drive innovation and improve decision-making.",
             location="UK",
@@ -190,27 +190,27 @@ class OptimizedPortfolioService:
                 "title": "Automated Data Science Pipeline with LangGraph",
                 "description": "End-to-end automated data science pipeline leveraging LangGraph for orchestrating complex ML workflows, from data ingestion to model deployment.",
                 "tech_stack": ["LangGraph", "Python", "Apache Airflow", "MLflow", "Docker", "Kubernetes", "Pandas"],
-                "image_url": "https://source.unsplash.com/hJ5uMIRNg5k/1600x900",
+                "image_url": "assets/project_card/automated-data-science-pipeline.png",
                 "category": "ai",
                 "featured": True,
                 "date": datetime(2024, 10, 15)
             },
             {
-                "id": "enterprise-bi-autogen-dashboard",
-                "title": "Enterprise BI + AutoGen Agent Dashboard",
-                "description": "Comprehensive business intelligence dashboard powered by AutoGen agents for automated report generation, insights discovery, and interactive data visualization.",
-                "tech_stack": ["AutoGen", "Power BI", "React", "FastAPI", "Python", "PostgreSQL", "DAX"],
-                "image_url": "https://images.unsplash.com/photo-1653564142048-d5af2cf9b50f?q=80&w=1630&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                "category": "bi",
-                "featured": True,
-                "date": datetime(2024, 9, 20)
+                "id": "healthcare-diagnosis-assistant",
+                "title": "Intelligent Healthcare Diagnosis Assistant",
+                "description": "AI-powered diagnostic assistant for healthcare professionals, combining medical imaging analysis, symptom checking, and treatment recommendations.",
+                "tech_stack": ["PyTorch", "Computer Vision", "NLP", "FastAPI", "MongoDB", "Docker", "OpenCV"],
+                "image_url": "assets/project_card/healthcare-diagnosis-assistant.png",
+                "category": "healthcare",
+                "featured": False,
+                "date": datetime(2024, 5, 18)
             },
             {
                 "id": "multi-agent-customer-analytics",
                 "title": "Multi-Agent Customer Analytics Platform",
                 "description": "Intelligent customer analytics platform using multiple AI agents for customer segmentation, behavior analysis, and personalized recommendations.",
                 "tech_stack": ["AutoGen", "LangChain", "Python", "Redis", "MongoDB", "Streamlit", "Scikit-learn"],
-                "image_url": "https://images.unsplash.com/photo-1517148815978-75f6acaaff0c?q=80&w=1600&auto=format&fit=crop",
+                "image_url": "assets/project_card/multi-agent-customer-analytics.png",
                 "category": "analytics",
                 "featured": True,
                 "date": datetime(2024, 8, 10)
@@ -220,7 +220,7 @@ class OptimizedPortfolioService:
                 "title": "Autonomous A/B Testing Framework",
                 "description": "Self-optimizing A/B testing framework that automatically designs, executes, and analyzes experiments using statistical methods and machine learning.",
                 "tech_stack": ["Python", "Scikit-learn", "CausalML", "PostgreSQL", "FastAPI", "Docker", "Grafana"],
-                "image_url": "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1600&auto=format&fit=crop",
+                "image_url": "assets/project_card/autonomous-ab-testing.png",
                 "category": "mlops",
                 "featured": False,
                 "date": datetime(2024, 7, 5)
@@ -230,20 +230,20 @@ class OptimizedPortfolioService:
                 "title": "AI-Powered Financial Analysis System",
                 "description": "Advanced financial analysis system using AI for market prediction, risk assessment, portfolio optimization, and automated trading signals.",
                 "tech_stack": ["TensorFlow", "Pandas", "NumPy", "Python", "FastAPI", "Alpha Vantage API", "Scikit-learn"],
-                "image_url": "https://images.unsplash.com/photo-1542223616-30a0f3a6d3d0?q=80&w=1600&auto=format&fit=crop",
+                "image_url": "assets/project_card/ai-financial-analysis.png",
                 "category": "finance",
                 "featured": False,
                 "date": datetime(2024, 6, 12)
             },
             {
-                "id": "healthcare-diagnosis-assistant",
-                "title": "Intelligent Healthcare Diagnosis Assistant",
-                "description": "AI-powered diagnostic assistant for healthcare professionals, combining medical imaging analysis, symptom checking, and treatment recommendations.",
-                "tech_stack": ["PyTorch", "Computer Vision", "NLP", "FastAPI", "MongoDB", "Docker", "OpenCV"],
-                "image_url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1600&auto=format&fit=crop",
-                "category": "healthcare",
-                "featured": False,
-                "date": datetime(2024, 5, 18)
+                "id": "enterprise-bi-autogen-dashboard",
+                "title": "Enterprise BI + AutoGen Agent Dashboard",
+                "description": "Comprehensive business intelligence dashboard powered by AutoGen agents for automated report generation, insights discovery, and interactive data visualization.",
+                "tech_stack": ["AutoGen", "Power BI", "React", "FastAPI", "Python", "PostgreSQL", "DAX"],
+                "image_url": "assets/project_card/enterprise-bi-autogen-dashboard.png",
+                "category": "bi",
+                "featured": True,
+                "date": datetime(2024, 9, 20)
             }
         ]
         
