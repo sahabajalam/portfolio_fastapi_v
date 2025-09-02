@@ -1,22 +1,68 @@
 /* ===== CSS VARIABLES ===== */
 :root {
-    /* darkened primary for stronger button appearance */
-    --color-primary: #008f4f;
-    --color-secondary: #0088cc;
-    /* Hero background used across portfolio files */
+    /* Blog-inspired color scheme */
+    --color-primary: #59e3a0;
+    --color-secondary: #00bcd4;
+    /* Light theme backgrounds matching blog */
+    --bg-primary: #ffffff;
+    --bg-secondary: rgba(250, 250, 250, 0.98);
+    --bg-card: rgba(245, 245, 245, 0.8);
+    --bg-card-alt: rgba(240, 240, 240, 0.9);
+    /* Hero background with blog-inspired gradient */
     --hero-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%, #ffffff 100%);
-    --gradient-primary: linear-gradient(135deg, #008f4f 0%, #0088cc 100%);
+    --gradient-primary: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
+    --primary-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
+    --text-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
     --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
     --z-max: 9999;
-    --footer-gradient: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
-    --primary: #008f4f;
-    --secondary: #0088cc;
-    --text-primary: #1a1a1a;
-    --text-secondary: #4a4a4a;
+    --footer-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
+    --primary: #59e3a0;
+    --secondary: #00bcd4;
+    /* Text colors matching blog theme */
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-tertiary: #666666;
+    --text-accent: #1e40af;
+    --text-black: #000000;
     --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     --glass-bg: rgba(255, 255, 255, 0.85);
     --glass-border: rgba(255, 255, 255, 0.2);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --hover-bg: rgba(30, 64, 175, 0.1);
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Social media colors */
+    --social-linkedin: #0077b5;
+    --social-rss: #ff6600;
+    --social-youtube: #ff0000;
+    --social-x: #000000;
+
+    /* Featured post styling */
+    --featured-badge-bg: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+    --featured-badge-color: #ffffff;
+    --featured-badge-border: rgba(255, 255, 255, 0.3);
+    --featured-badge-shadow: rgba(0, 0, 0, 0.3);
+
+    /* Additional RGBA utilities */
+    --text-shadow-light: rgba(0, 0, 0, 0.5);
+    --text-shadow-strong: rgba(0, 0, 0, 0.7);
+    --text-shadow-subtle: rgba(0, 0, 0, 0.6);
+    --overlay-light: rgba(255, 255, 255, 0.95);
+    --overlay-medium: rgba(255, 255, 255, 0.85);
+
+    /* Dark theme variables for navbar/footer */
+    --navbar-bg: linear-gradient(180deg, #071320 0%, #0b1220 100%);
+    --navbar-text: #e6eef6;
+    --navbar-link-text: rgba(230, 238, 246, 0.95);
+    --navbar-cta-bg: var(--primary-gradient);
+    --navbar-cta-text: #07101a;
+    --mobile-menu-bg: rgba(8, 12, 18, 0.96);
+    --mobile-menu-text: #e6eef6;
+
+    --footer-bg: linear-gradient(180deg, #06101a 0%, #071320 100%);
+    --footer-text: #cbd5e1;
+    --footer-social-bg: rgba(255, 255, 255, 0.04);
+    --footer-border: rgba(255, 255, 255, 0.06);
 }

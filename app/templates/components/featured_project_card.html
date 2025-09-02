@@ -1,10 +1,16 @@
 <!-- Featured Project Card -->
-<div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden card-hover">
+<div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden card-hover flex flex-col h-full">
     <div class="relative h-64 bg-gradient-to-br from-purple-600/20 to-blue-600/20">
+        {% if project.image_url %}
+        <img src="{{ project.image_url }}" alt="{{ project.title }}" loading="lazy" decoding="async"
+            onerror="this.onerror=null;this.src='/assets/claude-color.svg';"
+            class="absolute inset-0 w-full h-full object-cover" />
+        {% else %}
         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80"
             alt="{{ project.title }}" loading="lazy" decoding="async"
             onerror="this.onerror=null;this.src='/assets/claude-color.svg';"
             class="absolute inset-0 w-full h-full object-cover" />
+        {% endif %}
         <div class="absolute inset-0 bg-black/30"></div>
         <div class="absolute top-6 left-6">
             <span class="bg-green-400 text-green-900 px-3 py-1 rounded-full text-xs font-bold">FEATURED</span>
@@ -14,14 +20,16 @@
             <p class="text-gray-300 text-sm">{{ project.description }}</p>
         </div>
     </div>
-    <div class="p-6">
-        <div class="flex flex-wrap gap-2 mb-4">
+    <div class="p-6 flex-1 flex flex-col">
+        <div class="flex flex-wrap md:flex-nowrap gap-2 mb-4 overflow-hidden md:overflow-x-auto">
             {% for tech in project.tech_stack %}
-            <span class="tech-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">{{ tech
+            <span
+                class="tech-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap">{{
+                tech
                 }}</span>
             {% endfor %}
         </div>
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between mt-auto">
             <div class="flex gap-3">
                 {% if project.demo_url %}
                 <a href="{{ project.demo_url }}" target="_blank" class="btn-primary py-3 px-4 rounded-lg font-semibold">

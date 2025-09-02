@@ -1,6 +1,6 @@
 /* ===== HERO SECTION STYLES ===== */
 .gradient-text {
-    background: var(--gradient-primary);
+    background: var(--text-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -14,7 +14,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--gradient-primary);
+    background: var(--text-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     animation: shimmer 3s ease-in-out infinite;
@@ -37,8 +37,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at top left, rgba(0, 143, 79, 0.05) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom right, rgba(0, 136, 204, 0.05) 0%, transparent 50%);
+    background: radial-gradient(ellipse at top left, rgba(89, 227, 160, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(0, 188, 212, 0.05) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -75,7 +75,7 @@
 .intro-name {
     font-weight: 700;
     color: var(--text-primary);
-    background: linear-gradient(90deg, rgba(0, 185, 107, 0.09), rgba(37, 99, 235, 0.08));
+    background: linear-gradient(90deg, rgba(89, 227, 160, 0.09), rgba(0, 188, 212, 0.08));
     padding: 6px 12px;
     border-radius: 999px;
     border: 1px solid rgba(0, 0, 0, 0.06);

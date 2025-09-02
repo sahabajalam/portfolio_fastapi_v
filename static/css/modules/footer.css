@@ -5,6 +5,12 @@
     padding: 2rem 0;
 }
 
+.footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 2rem 0;
+}
+
 .footer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -36,8 +42,29 @@
     font-weight: bold;
 }
 
+.footer-logo-icon {
+    width: 2rem;
+    height: 2rem;
+    background: var(--gradient);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
 .footer-description {
     color: #e5e7eb;
+    margin-bottom: 1rem;
+    max-width: 350px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.footer-description {
+    color: rgba(203, 213, 225, 0.9);
     margin-bottom: 1rem;
     max-width: 350px;
     font-size: 0.875rem;
@@ -63,6 +90,25 @@
     font-size: 0.875rem;
 }
 
+.footer-social-link {
+    width: 2rem;
+    height: 2rem;
+    background: var(--footer-social-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(203, 213, 225, 0.95);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+}
+
+.footer-social-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
 .footer-social-link:hover {
     background: rgba(255, 255, 255, 0.12);
     color: white;
@@ -70,6 +116,14 @@
 
 .footer-section h3 {
     font-weight: 600;
+
+    .footer-section h3 {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #e6eef6;
+        font-size: 1rem;
+    }
+
     margin-bottom: 0.75rem;
     color: #ffffff;
     font-size: 1rem;
@@ -104,6 +158,18 @@
 
 .footer-links a {
     color: #e5e7eb;
+
+    .footer-links a {
+        color: rgba(203, 213, 225, 0.95);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 0.875rem;
+    }
+
+    .footer-links a:hover {
+        color: #ffffff;
+    }
+
     text-decoration: none;
     transition: color 0.3s ease;
     font-size: 0.875rem;
@@ -114,6 +180,16 @@
 }
 
 .footer-bottom {
+    .footer-bottom {
+        border-top: 1px solid var(--footer-border);
+        padding-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        text-align: center;
+    }
+
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding-top: 1.5rem;
     display: flex;
@@ -130,6 +206,18 @@
 /* Elegant footer credit */
 .footer-credit {
     font-family: 'Playfair Display', serif;
+
+    .footer-credit {
+        font-family: 'Playfair Display', serif;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        color: rgba(209, 213, 219, 0.95);
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+        margin: 0;
+        line-height: 1.4;
+    }
+
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.3px;

@@ -20,9 +20,17 @@ class ContextBuilder:
         include_portfolio: bool = True
     ) -> Dict[str, Any]:
         """Build base context that's common to all pages."""
+        from app.core.config import settings
+        
         context = {
             "request": request,
-            "page_title": page_title
+            "page_title": page_title,
+            "app_name": settings.app_name,
+            "contact_email": settings.contact_email,
+            "linkedin_url": settings.linkedin_url,
+            "github_url": settings.github_url,
+            "twitter_url": settings.twitter_url,
+            "medium_url": settings.medium_url
         }
         
         if include_portfolio:
@@ -34,7 +42,7 @@ class ContextBuilder:
     def add_featured_content(
         context: Dict[str, Any], 
         projects_limit: int = 3, 
-        articles_limit: int = 2
+        articles_limit: int = 4
     ) -> Dict[str, Any]:
         """Add featured projects and articles to context."""
         context.update({

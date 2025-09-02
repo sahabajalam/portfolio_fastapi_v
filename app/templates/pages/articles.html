@@ -2,401 +2,883 @@
 
 {% block title %}{{ page_title }} - {{ app_name }}{% endblock %}
 
+{% block extra_head %}
+<link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+<script src="/static/js/modules/articles.js" defer></script>
+<style>
+    /* Blog-inspired light theme variables */
+    :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: rgba(250, 250, 250, 0.98);
+        --bg-card: rgba(245, 245, 245, 0.8);
+        --bg-card-alt: rgba(240, 240, 240, 0.9);
+        --text-primary: #000000;
+        --text-secondary: #333333;
+        --text-tertiary: #666666;
+        --text-accent: #1e40af;
+        --primary: #59e3a0;
+        --secondary: #00bcd4;
+        --primary-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
+        --text-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
+        --border-color: rgba(0, 0, 0, 0.1);
+        --hover-bg: rgba(30, 64, 175, 0.1);
+    }
+
+    body {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    }
+
+    .blog-item {
+        transition: all 0.3s ease;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    .blog-item:hover {
+        transform: translateY(-2px);
+        border-color: var(--text-accent);
+        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.2);
+    }
+
+    .blog-image {
+        transition: transform 0.3s ease;
+    }
+
+    .blog-item:hover .blog-image {
+        transform: scale(1.05);
+    }
+
+    .category-filter.active {
+        background: var(--primary-gradient);
+        color: var(--text-primary);
+        border-color: var(--text-accent);
+    }
+
+    .featured-post {
+        background: var(--primary-gradient);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .featured-post:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(30, 64, 175, 0.3);
+    }
+
+    .page-number.active {
+        background: var(--primary-gradient);
+        color: var(--text-primary);
+        border-color: var(--text-accent);
+    }
+
+    .sidebar-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    .pagination-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+    }
+
+    .blog-title:hover {
+        color: var(--text-accent) !important;
+    }
+
+    .pagination-button:hover {
+        background: var(--hover-bg) !important;
+    }
+
+    .page-number:hover {
+        background: var(--hover-bg) !important;
+        color: var(--text-primary) !important;
+    }
+
+    /* Tag filter styles for better contrast */
+    .tag-filter {
+        background: #f3f4f6;
+        color: #000000;
+        border: 1px solid #d1d5db;
+        transition: all 0.3s ease;
+    }
+
+    .tag-filter:hover {
+        background: #e5e7eb;
+        color: #000000;
+        border-color: #9ca3af;
+        transform: translateY(-1px);
+    }
+
+    .tag-filter.active {
+        background: var(--text-accent);
+        color: white;
+        border-color: var(--text-accent);
+    }
+
+    /* Gradient text class for title */
+    .gradient-text {
+        background: var(--text-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+    }
+
+    /* ===== MOBILE RESPONSIVE DESIGN ===== */
+    @media (max-width: 1024px) {
+        .main-container {
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            width: 100%;
+            order: 2;
+        }
+
+        .blog-content {
+            order: 1;
+        }
+
+        .sidebar-card {
+            padding: 1rem;
+        }
+
+        .featured-post {
+            padding: 1.5rem;
+        }
+
+        .featured-post .featured-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .featured-post .featured-image {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .main-wrapper {
+            padding: 1rem !important;
+            padding-top: 100px !important;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+        }
+
+        .main-container {
+            gap: 1.5rem;
+        }
+
+        .featured-post {
+            padding: 1rem;
+        }
+
+        .featured-post h2 {
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .featured-post p {
+            font-size: 0.9rem;
+        }
+
+        .blog-item {
+            padding: 1rem;
+        }
+
+        .blog-item-content {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .blog-item-image {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 1rem;
+        }
+
+        .blog-item h2 {
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .blog-item p {
+            font-size: 0.9rem;
+        }
+
+        .sidebar-card {
+            padding: 1rem;
+        }
+
+        .sidebar-card h3 {
+            font-size: 1rem;
+        }
+
+        .category-filter,
+        .tag-filter {
+            font-size: 0.8rem;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .pagination-controls {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .pagination-info {
+            order: 2;
+        }
+
+        .pagination-buttons {
+            order: 1;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pagination-button,
+        .page-number {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .main-wrapper {
+            padding: 0.75rem !important;
+            padding-top: 90px !important;
+        }
+
+        .page-header h1 {
+            font-size: 1.75rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-post {
+            padding: 1rem;
+        }
+
+        .featured-post h2 {
+            font-size: 1.25rem;
+        }
+
+        .featured-post .featured-meta {
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .blog-item {
+            padding: 0.75rem;
+        }
+
+        .blog-item-image {
+            height: 150px;
+        }
+
+        .blog-item h2 {
+            font-size: 1rem;
+        }
+
+        .sidebar-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .sidebar-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag-filter {
+            flex: 0 0 auto;
+        }
+
+        .pagination-buttons {
+            gap: 0.25rem;
+        }
+
+        .page-number {
+            min-width: 2rem;
+            padding: 0.5rem;
+        }
+
+        .pagination-button {
+            padding: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .recent-posts {
+            display: none;
+        }
+    }
+
+    /* Touch-friendly interactive elements */
+    @media (max-width: 768px) {
+
+        .category-filter,
+        .tag-filter,
+        .pagination-button,
+        .page-number,
+        .blog-item,
+        .featured-post {
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .blog-item:active,
+        .featured-post:active {
+            transform: scale(0.98);
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<!-- Hero Section with Page Header -->
-<section class="bg-white relative overflow-hidden min-h-[30vh] pt-20 flex items-center">
-    <div class="absolute inset-0" style="background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);"></div>
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="text-center">
-            <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                Note on <span
-                    class="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">Artificial
-                    Intelligence</span>
-            </h1>
-            <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
-                Deep insights into machine learning, AI research, and the technologies shaping tomorrow's world
-            </p>
-        </div>
+<!-- Main Content -->
+<main class="main-wrapper max-w-7xl mx-auto px-6 py-12" style="padding-top: 120px;">
+    <!-- Page Header -->
+    <div class="page-header mb-12">
+        <h1 class="text-4xl font-bold mb-4" style="color: var(--text-primary);">Note on <span
+                class="gradient-text">Artificial Intelligence</span></h1>
+        <p class="text-xl leading-relaxed font-serif tracking-wide"
+            style="color: var(--text-secondary); font-family: 'IBM Plex Serif', serif; letter-spacing: 0.025em;">
+            <strong class="font-bold" style="color: var(--text-primary);">Deep insights</strong> into <strong
+                class="font-bold" style="color: var(--text-primary);">machine learning</strong>, <strong
+                class="font-bold" style="color: var(--text-primary);">AI research</strong>, and the <strong
+                class="font-bold" style="color: var(--text-primary);">technologies</strong> shaping tomorrow's world
+        </p>
     </div>
-</section>
 
-<!-- Featured Article -->
-<section class="py-8 bg-white">
-    <div class="container mx-auto px-6">
-        <div class="flex items-center gap-3 mb-8">
-            <div class="w-1 h-8 bg-gradient-to-b from-primary-600 to-secondary-600 rounded-full"></div>
-            <h2 class="text-2xl font-bold text-gray-900">Featured Article</h2>
-        </div>
+    <div class="main-container flex gap-8">
+        <!-- Sidebar with Categories -->
+        <aside class="sidebar w-64 flex-shrink-0">
+            <div class="sidebar-card rounded-lg shadow-sm p-6 sticky top-6">
+                <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Categories</h3>
+                <ul class="sidebar-categories space-y-2">
+                    <li>
+                        <button
+                            class="category-filter active w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+                            data-category="all">
+                            All Posts <span class="float-right text-current">(8)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
+                            data-category="machine-learning" style="color: var(--text-secondary);">
+                            Machine Learning <span class="float-right" style="color: var(--text-tertiary);">(2)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
+                            data-category="deep-learning" style="color: var(--text-secondary);">
+                            Deep Learning <span class="float-right" style="color: var(--text-tertiary);">(1)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
+                            data-category="nlp" style="color: var(--text-secondary);">
+                            NLP <span class="float-right" style="color: var(--text-tertiary);">(1)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
+                            data-category="computer-vision" style="color: var(--text-secondary);">
+                            Computer Vision <span class="float-right" style="color: var(--text-tertiary);">(2)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
+                            data-category="ai-research" style="color: var(--text-secondary);">
+                            AI Research <span class="float-right" style="color: var(--text-tertiary);">(2)</span>
+                        </button>
+                    </li>
+                </ul>
 
-        {% set featured_article = articles | selectattr('featured') | first %}
-        {% if featured_article %}
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="order-2 lg:order-1">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
-                    <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold">{{
-                        featured_article.category }}</span>
+                <hr class="my-6" style="border-color: var(--border-color);">
+
+                <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Popular Tags</h3>
+                <div class="sidebar-tags flex flex-wrap gap-2">
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="python">
+                        Python
+                    </button>
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="tensorflow">
+                        TensorFlow
+                    </button>
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="pytorch">
+                        PyTorch
+                    </button>
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="neural-networks">
+                        Neural Networks
+                    </button>
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="transformers">
+                        Transformers
+                    </button>
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="opencv">
+                        OpenCV
+                    </button>
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="scikit-learn">
+                        Scikit-Learn
+                    </button>
+                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
+                        data-tag="llm">
+                        LLM
+                    </button>
                 </div>
-                <h3 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                    {% if featured_article.external_url %}
-                    <a href="{{ featured_article.external_url }}" target="_blank"
-                        class="hover:text-primary-600 transition-colors duration-300 hover:underline">
-                        {{ featured_article.title }}
-                    </a>
-                    {% else %}
-                    {{ featured_article.title }}
-                    {% endif %}
-                </h3>
-                <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-                    {{ featured_article.excerpt }}
-                </p>
-                <div class="flex items-center gap-4 mb-6 text-sm text-gray-500">
-                    <div class="flex items-center gap-2">
-                        <img src="assets/claude-color.svg" alt="Profile" class="w-6 h-6 rounded-full">
-                        <span>Sahabaj Alam</span>
-                    </div>
-                    <span>•</span>
-                    <span>{{ featured_article.published_date.strftime('%B %d, %Y') }}</span>
-                    <span>•</span>
-                    <span>{{ featured_article.read_time }} min read</span>
-                </div>
-                {% if featured_article.external_url %}
-                <a href="{{ featured_article.external_url }}" target="_blank"
-                    class="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold inline-block">
-                    Read Full Article
-                </a>
-                {% else %}
-                <button
-                    class="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold">
-                    Read Full Article
-                </button>
-                {% endif %}
-            </div>
 
-            <div class="order-1 lg:order-2">
-                <div class="relative group cursor-pointer">
-                    {% if featured_article.image_url %}
-                    <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}"
-                        class="w-full h-96 object-cover rounded-2xl shadow-2xl group-hover:scale-105 transition-transform duration-500">
-                    {% else %}
-                    <div
-                        class="w-full h-96 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl shadow-2xl group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
-                        <i class="fas fa-brain text-white text-6xl opacity-50"></i>
-                    </div>
-                    {% endif %}
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl group-hover:from-black/30 transition-all duration-500">
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-    </div>
-</section>
+                <hr class="my-6" style="border-color: var(--border-color);">
 
-<!-- All Posts Section -->
-<section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <!-- Section Title -->
-        <div class="flex items-center gap-3 mb-8">
-            <div class="w-1 h-8 bg-gradient-to-b from-primary-600 to-secondary-600 rounded-full"></div>
-            <h2 class="text-2xl font-bold text-gray-900">All Posts</h2>
-        </div>
-
-        <!-- Filter Tags -->
-        <div class="mb-12">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Filter by Category:</h3>
-            <div class="flex flex-wrap gap-3">
-                <!-- All filter button -->
-                <button class="filter-tag active" data-category="all">
-                    <span
-                        class="bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-gray-700">
-                        All Posts
-                    </span>
-                </button>
-
-                <!-- Dynamic category filters -->
-                {% set categories = articles | map(attribute='category') | list | unique %}
-                {% for category in categories %}
-                <button class="filter-tag" data-category="{{ category | lower | replace(' ', '-') }}">
-                    {% if category == "Tutorial" %}
-                    <span
-                        class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-green-200">
-                        {{ category }}
-                    </span>
-                    {% elif category == "Analysis" %}
-                    <span
-                        class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-purple-200">
-                        {{ category }}
-                    </span>
-                    {% elif category == "Best Practices" %}
-                    <span
-                        class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-yellow-200">
-                        {{ category }}
-                    </span>
-                    {% elif category == "Technical Deep Dive" %}
-                    <span
-                        class="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-indigo-200">
-                        Deep Dive
-                    </span>
-                    {% elif category == "Research" %}
-                    <span
-                        class="bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-red-200">
-                        {{ category }}
-                    </span>
-                    {% else %}
-                    <span
-                        class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-blue-200">
-                        {{ category }}
-                    </span>
-                    {% endif %}
-                </button>
-                {% endfor %}
-            </div>
-        </div>
-
-        <!-- Articles Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
-            {% set non_featured_articles = articles | rejectattr('featured') | list %}
-            {% for article in non_featured_articles %}
-            <article
-                class="article-card bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:transform hover:translateY(-8px) hover:shadow-2xl"
-                data-category="{{ article.category | lower | replace(' ', '-') }}">
-                {% if article.image_url %}
-                <img src="{{ article.image_url }}" alt="{{ article.title }}" class="w-full h-48 object-cover">
-                {% else %}
-                <div class="w-full h-48 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
-                    <i class="fas fa-brain text-white text-3xl opacity-50"></i>
-                </div>
-                {% endif %}
-
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        {% if article.category == "Tutorial" %}
-                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">{{
-                            article.category }}</span>
-                        {% elif article.category == "Analysis" %}
-                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-semibold">{{
-                            article.category }}</span>
-                        {% elif article.category == "Best Practices" %}
-                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">{{
-                            article.category }}</span>
-                        {% elif article.category == "Technical Deep Dive" %}
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs font-semibold">Deep
-                            Dive</span>
-                        {% elif article.category == "Research" %}
-                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold">{{
-                            article.category }}</span>
-                        {% else %}
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">{{
-                            article.category }}</span>
-                        {% endif %}
-                        <span class="text-gray-400 text-xs">{{ article.published_date.strftime('%b %d, %Y') }}</span>
-                    </div>
-
-                    <h3 class="font-serif text-xl font-bold text-gray-900 mb-3 leading-tight">
-                        {% if article.external_url %}
-                        <a href="{{ article.external_url }}" target="_blank"
-                            class="hover:text-primary-600 transition-colors duration-300 hover:underline">
-                            {{ article.title }}
-                        </a>
-                        {% else %}
-                        {{ article.title }}
-                        {% endif %}
-                    </h3>
-
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">
-                        {{ article.excerpt | truncate(120) }}
-                    </p>
-
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs text-gray-500">{{ article.read_time }} min read</span>
-                        <div class="flex gap-2">
-                            {% if article.external_url %}
-                            <a href="{{ article.external_url }}" target="_blank"
-                                class="text-gray-400 hover:text-primary-500 transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
+                <div class="recent-posts">
+                    <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Recent Posts</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="#"
+                                class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
+                                style="color: var(--text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--text-primary);">Building
+                                    Production-Ready AI Systems with MLOps</div>
+                                <div class="text-xs" style="color: var(--text-tertiary);">March 20, 2024</div>
                             </a>
-                            {% endif %}
-                            <button class="text-gray-400 hover:text-red-500 transition-colors">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                            <button class="text-gray-400 hover:text-blue-500 transition-colors">
-                                <i class="fas fa-bookmark"></i>
-                            </button>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
+                                style="color: var(--text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--text-primary);">Understanding Ensemble
+                                    Methods in Machine Learning</div>
+                                <div class="text-xs" style="color: var(--text-tertiary);">March 15, 2024</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
+                                style="color: var(--text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--text-primary);">Optimizing Neural
+                                    Networks for Production</div>
+                                <div class="text-xs" style="color: var(--text-tertiary);">March 8, 2024</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
+                                style="color: var(--text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--text-primary);">Fine-tuning Large
+                                    Language Models: A Practical Guide</div>
+                                <div class="text-xs" style="color: var(--text-tertiary);">February 28, 2024</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Blog List -->
+        <div class="blog-content flex-1">
+            <!-- Featured Post -->
+            <div class="featured-post rounded-xl p-8 text-white mb-12 relative overflow-hidden"
+                style="background: var(--primary-gradient);">
+                <div class="absolute inset-0 bg-white opacity-10"></div>
+                <div class="relative z-10">
+                    <div class="featured-content flex flex-col lg:flex-row gap-8 items-center">
+                        <div class="flex-1">
+                            <div class="featured-meta flex items-center gap-3 mb-4">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                                    style="background: rgba(255, 255, 255, 0.2); color: white;">Featured</span>
+                                <time class="text-sm" style="color: #000000;">March 20, 2024</time>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4 leading-tight">
+                                Building Production-Ready AI Systems with MLOps
+                            </h2>
+                            <p class="text-lg leading-relaxed mb-6" style="color: #000000;">
+                                Learn how to deploy, monitor, and maintain machine learning models in production.
+                                This comprehensive guide covers MLOps best practices, CI/CD for ML, model
+                                versioning, and automated retraining pipelines.
+                            </p>
+                            <div class="flex items-center gap-6">
+                                <span style="color: #000000;">18 min read</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(255, 165, 0, 0.2); color: #000000;">MLOps</span>
+                            </div>
+                        </div>
+                        <div class="featured-image flex-shrink-0 lg:w-80">
+                            <div class="aspect-video rounded-lg overflow-hidden shadow-2xl">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
+                                    alt="AI MLOps pipeline" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center"
+                            style="background: rgba(255, 255, 255, 0.1);">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 3l14 9-14 9V3z"></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
-            </article>
-            {% endfor %}
-        </div>
-
-        <!-- Pagination -->
-        <div class="flex justify-center items-center mt-16 gap-2" id="pagination">
-            <!-- Previous button -->
-            <button
-                class="pagination-btn prev-btn px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled>
-                <i class="fas fa-chevron-left mr-2"></i>Previous
-            </button>
-
-            <!-- Page numbers (will be populated by JavaScript) -->
-            <div class="flex gap-1" id="page-numbers">
-                <!-- Page numbers will be inserted here by JavaScript -->
             </div>
 
-            <!-- Next button -->
-            <button
-                class="pagination-btn next-btn px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors">
-                Next<i class="fas fa-chevron-right ml-2"></i>
-            </button>
+            <div class="space-y-8" id="blog-container">
+                <!-- Blog Post 1 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="machine-learning"
+                    data-tags="python,scikit-learn,neural-networks">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1527474305487-b87b222841cc?w=400&h=300&fit=crop"
+                                alt="Machine learning algorithms" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">March 15, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine
+                                    Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                Understanding Ensemble Methods in Machine Learning
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Dive deep into ensemble learning techniques including Random Forest, Gradient
+                                Boosting, and Stacking. Learn how to combine multiple models to achieve better
+                                predictive performance.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">8 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="deep-learning"
+                    data-tags="tensorflow,pytorch,neural-networks">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?w=400&h=300&fit=crop"
+                                alt="Neural network visualization" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">March 8, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(34, 197, 94, 0.2); color: #000000;">Deep
+                                    Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                Optimizing Neural Networks for Production
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Best practices for deploying deep learning models in production environments. Learn
+                                about model optimization, quantization, pruning, and efficient inference techniques.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">12 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="nlp"
+                    data-tags="transformers,python,llm">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop"
+                                alt="Natural language processing" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">February 28, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(147, 51, 234, 0.2); color: #000000;">NLP</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                Fine-tuning Large Language Models: A Practical Guide
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Step-by-step tutorial on fine-tuning pre-trained language models for specific tasks.
+                                Covers parameter-efficient methods like LoRA and adapters.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">15 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 4 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="computer-vision"
+                    data-tags="opencv,pytorch,python">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
+                                alt="Computer vision and AI" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">February 20, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer
+                                    Vision</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                Building Real-time Object Detection Systems
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Create efficient object detection pipelines using YOLO and other state-of-the-art
+                                architectures. Learn about real-time optimization and edge deployment.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">10 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 5 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="transformers,neural-networks,python">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop"
+                                alt="AI research and development" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">February 12, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI
+                                    Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                The Future of Multimodal AI: Vision-Language Models
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Explore the latest advances in multimodal AI systems that can understand and
+                                generate both text and images. From CLIP to GPT-4V and beyond.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">14 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 6 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="python,transformers,neural-networks">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+                                alt="Data visualization" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">February 28, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(147, 51, 234, 0.2); color: #000000;">AI
+                                    Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                Visualizing Data: From Raw Numbers to Insights
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Learn how to transform complex datasets into compelling visual stories. We'll
+                                explore
+                                various charting libraries and best practices for data presentation.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">10 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 7 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="machine-learning"
+                    data-tags="python,scikit-learn">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop"
+                                alt="Team collaboration" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">February 20, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine
+                                    Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                Building Effective ML Pipelines with Scikit-Learn
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Learn how to create robust machine learning pipelines using Scikit-Learn. From data
+                                preprocessing to model evaluation and deployment.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">8 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Post 8 -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="computer-vision"
+                    data-tags="opencv,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <!-- Image -->
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop"
+                                alt="Computer vision applications" class="blog-image w-full h-full object-cover">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--text-tertiary);">February 12, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer
+                                    Vision</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--text-primary);">
+                                Advanced Image Processing Techniques
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                                Discover advanced image processing techniques using OpenCV and PyTorch. Learn about
+                                image segmentation, feature extraction, and real-time processing.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--text-tertiary);">12 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-controls flex flex-col items-center mt-12 p-6 pagination-card rounded-lg shadow-sm">
+                <div class="pagination-info flex items-center space-x-2 mb-4">
+                    <span class="text-sm" style="color: var(--text-secondary);">Showing</span>
+                    <span class="text-sm font-medium" style="color: var(--text-primary);" id="posts-range">1-5</span>
+                    <span class="text-sm" style="color: var(--text-secondary);">of</span>
+                    <span class="text-sm font-medium" style="color: var(--text-primary);" id="total-posts">8</span>
+                    <span class="text-sm" style="color: var(--text-secondary);">posts</span>
+                </div>
+
+                <div class="pagination-buttons flex items-center space-x-2">
+                    <!-- Previous Button -->
+                    <button id="prev-btn"
+                        class="inline-flex items-center pagination-btn px-3 py-2 text-sm font-medium rounded-lg transition-colors pagination-button"
+                        style="color: var(--text-tertiary); background: var(--bg-card); border: 1px solid var(--border-color);"
+                        disabled>
+                        <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                            </path>
+                        </svg>
+                        <span class="hidden sm:inline">Previous</span>
+                        <span class="sm:hidden">Prev</span>
+                    </button>
+
+                    <!-- Page Numbers -->
+                    <div class="flex items-center space-x-1" id="page-numbers">
+                        <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+                            data-page="1">1</button>
+                        <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+                            data-page="2">2</button>
+                        <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+                            data-page="3">3</button>
+                        <span class="px-2" style="color: var(--text-tertiary);">...</span>
+                        <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+                            data-page="5">5</button>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button id="next-btn"
+                        class="inline-flex items-center pagination-btn px-3 py-2 text-sm font-medium rounded-lg transition-colors pagination-button"
+                        style="color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-color);">
+                        <span class="hidden sm:inline">Next</span>
+                        <span class="sm:hidden">Next</span>
+                        <svg class="w-4 h-4 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+</main>
 
-<!-- JavaScript for filtering and pagination -->
 <script>
+    // Initialize Articles Manager when DOM is loaded
     document.addEventListener('DOMContentLoaded', function () {
-        const articlesGrid = document.getElementById('articles-grid');
-        const filterTags = document.querySelectorAll('.filter-tag');
-        const paginationContainer = document.getElementById('pagination');
-        const pageNumbersContainer = document.getElementById('page-numbers');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-
-        let currentPage = 1;
-        const articlesPerPage = 6;
-        let filteredArticles = [];
-        let allArticles = [];
-
-        // Initialize
-        function init() {
-            allArticles = Array.from(document.querySelectorAll('.article-card'));
-            filteredArticles = [...allArticles];
-            showPage(1);
-            updatePagination();
+        if (typeof ArticlesManager !== 'undefined') {
+            new ArticlesManager();
         }
-
-        // Filter functionality
-        filterTags.forEach(tag => {
-            tag.addEventListener('click', function () {
-                // Remove active class from all tags
-                filterTags.forEach(t => t.classList.remove('active'));
-                // Add active class to clicked tag
-                this.classList.add('active');
-
-                const category = this.dataset.category;
-
-                if (category === 'all') {
-                    filteredArticles = [...allArticles];
-                } else {
-                    filteredArticles = allArticles.filter(article =>
-                        article.dataset.category === category
-                    );
-                }
-
-                currentPage = 1;
-                showPage(1);
-                updatePagination();
-            });
-        });
-
-        // Show specific page
-        function showPage(page) {
-            const startIndex = (page - 1) * articlesPerPage;
-            const endIndex = startIndex + articlesPerPage;
-
-            // Hide all articles
-            allArticles.forEach(article => {
-                article.style.display = 'none';
-            });
-
-            // Show articles for current page
-            filteredArticles.slice(startIndex, endIndex).forEach(article => {
-                article.style.display = 'block';
-            });
-
-            currentPage = page;
-            updateNavigationButtons();
-        }
-
-        // Update pagination
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-
-            // Clear existing page numbers
-            pageNumbersContainer.innerHTML = '';
-
-            // Create page number buttons
-            for (let i = 1; i <= totalPages; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.className = `page-number px-3 py-2 rounded-lg text-sm font-medium transition-colors ${i === currentPage
-                    ? 'bg-primary-600 text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
-                    }`;
-                pageBtn.textContent = i;
-                pageBtn.addEventListener('click', () => showPage(i));
-                pageNumbersContainer.appendChild(pageBtn);
-            }
-
-            updateNavigationButtons();
-        }
-
-        // Update navigation buttons
-        function updateNavigationButtons() {
-            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-
-            // Update active page number styling
-            document.querySelectorAll('.page-number').forEach((btn, index) => {
-                if (index + 1 === currentPage) {
-                    btn.className = 'page-number px-3 py-2 rounded-lg text-sm font-medium transition-colors bg-primary-600 text-white';
-                } else {
-                    btn.className = 'page-number px-3 py-2 rounded-lg text-sm font-medium transition-colors text-gray-600 hover:bg-gray-100';
-                }
-            });
-        }
-
-        // Navigation button handlers
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                showPage(currentPage - 1);
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-            if (currentPage < totalPages) {
-                showPage(currentPage + 1);
-            }
-        });
-
-        // Initialize the page
-        init();
     });
 </script>
-
-<!-- CSS for active filter styling -->
-<style>
-    .filter-tag.active span {
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .filter-tag {
-        cursor: pointer;
-    }
-
-    .pagination-btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    .page-number {
-        min-width: 40px;
-        cursor: pointer;
-    }
-</style>
 {% endblock %}
