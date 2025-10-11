@@ -25,15 +25,15 @@
             <div id="certifications-container" class="h-full overflow-y-auto custom-scrollbar space-y-3 pr-2">
                 {% for cert in portfolio.certifications %}
                 <div
-                    class="certification-card shimmer-effect bg-gradient-to-r from-white to-gray-50 rounded-xl border border-gray-200 p-4 hover:border-primary-300 hover:shadow-lg transition-all duration-300">
+                    class="certification-card shimmer-effect bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 rounded-xl border border-teal-200 p-4 hover:border-teal-400 hover:shadow-lg hover:from-teal-100 hover:via-cyan-100 transition-all duration-300">
                     <div class="flex items-start gap-4">
                         <div class="relative flex-shrink-0">
                             <div
-                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center border border-primary-200">
-                                <i class="fas fa-award text-xl text-primary-600"></i>
+                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-100 via-cyan-100 to-blue-100 flex items-center justify-center border border-teal-300 shadow-sm">
+                                <i class="fas fa-award text-xl text-teal-600"></i>
                             </div>
                             <div
-                                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500">
+                                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 shadow-sm">
                             </div>
                         </div>
                         <div class="flex-1 min-w-0">
@@ -41,17 +41,17 @@
                                 {{ cert.title }}
                             </h4>
                             <div class="flex items-center gap-2 mb-3">
-                                <i class="fas fa-building text-xs text-gray-500"></i>
+                                <i class="fas fa-building text-xs text-teal-500"></i>
                                 <span class="text-xs text-gray-600 font-medium">{{ cert.issuer }}</span>
                             </div>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-1">
-                                    <i class="fas fa-calendar-alt text-xs text-primary-600"></i>
-                                    <span class="text-xs font-medium text-primary-600">{{ cert.year }}</span>
+                                    <i class="fas fa-calendar-alt text-xs text-teal-600"></i>
+                                    <span class="text-xs font-medium text-teal-600">{{ cert.year }}</span>
                                 </div>
                                 {% if cert.credential_url %}
                                 <a href="{{ cert.credential_url }}" target="_blank"
-                                    class="px-3 py-1 text-xs font-medium bg-secondary-100 text-secondary-700 border border-secondary-200 rounded-lg hover:bg-secondary-600 hover:text-white transition-all duration-200">
+                                    class="px-3 py-1 text-xs font-medium bg-teal-100 text-teal-700 border border-teal-200 rounded-lg hover:bg-teal-600 hover:text-white transition-all duration-200">
                                     <span>View</span>
                                     <i class="fas fa-external-link-alt ml-1"></i>
                                 </a>

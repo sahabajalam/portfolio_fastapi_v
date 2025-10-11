@@ -9,12 +9,14 @@
     --blog-bg-secondary: rgba(250, 250, 250, 0.98);
     --blog-bg-card: rgba(245, 245, 245, 0.8);
     --blog-bg-card-alt: rgba(240, 240, 240, 0.9);
-    --blog-primary: #59e3a0;
-    --blog-secondary: #00bcd4;
-    --blog-primary-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
-    --blog-text-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
+    --blog-primary: #14b8a6;
+    --blog-secondary: #06b6d4;
+    --blog-primary-gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);
+    --blog-text-gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);
     --blog-border-color: rgba(0, 0, 0, 0.1);
-    --blog-hover-bg: rgba(30, 64, 175, 0.1);
+    --blog-hover-bg: rgba(20, 184, 166, 0.1);
+    --page-primary-gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);
+    --page-text-accent: #14b8a6;
 }
 
 /* Gradient Text */
@@ -40,56 +42,163 @@
     backdrop-filter: blur(10px);
 }
 
-/* Category Filters */
+/* Category Filters - Modern Design with Slide Effect - COMPLETELY STABLE */
 .category-filter {
-    transition: all 0.3s ease;
+    position: relative;
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
     cursor: pointer;
     border: 1px solid transparent;
+    background: transparent;
+    overflow: hidden;
+    color: var(--text-secondary);
+    padding-left: 0.75rem;
+    font-weight: 500;
+    outline: none;
+}
+
+.category-filter:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.category-filter:focus-visible {
+    outline: 2px solid rgba(20, 184, 166, 0.3);
+    outline-offset: 2px;
+}
+
+.category-filter::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--page-primary-gradient);
+    transform: scaleY(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom;
 }
 
 .category-filter:hover {
-    background: var(--blog-hover-bg);
-    transform: translateX(4px);
+    background: linear-gradient(90deg, rgba(20, 184, 166, 0.08) 0%, transparent 100%);
+    color: var(--text-primary);
+}
+
+.category-filter:hover::before {
+    transform: scaleY(1);
+    transform-origin: top;
 }
 
 .category-filter.active {
-    background: var(--blog-primary-gradient);
-    color: var(--text-primary);
-    border-color: var(--color-primary);
-    font-weight: 600;
+    background: linear-gradient(90deg, rgba(20, 184, 166, 0.12) 0%, rgba(6, 182, 212, 0.08) 50%, transparent 100%);
+    color: var(--page-text-accent);
+    border-color: transparent;
+    font-weight: 500;
+    text-shadow: 0.5px 0 0 currentColor;
 }
 
-/* Tag Filters */
-.tag-filter {
-    background: #f3f4f6;
-    color: #000000;
-    border: 1px solid #d1d5db;
-    cursor: pointer;
+.category-filter.active::before {
+    transform: scaleY(1);
+    width: 4px;
+}
+
+.category-filter .float-right {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
     transition: all 0.3s ease;
+    background: transparent;
+    color: var(--text-tertiary);
+}
+
+.category-filter:hover .float-right {
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--page-text-accent);
+    transform: scale(1.05);
+}
+
+.category-filter.active .float-right {
+    background: var(--page-primary-gradient);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
+}
+
+/* Tag Filters - Modern Pill Design */
+.tag-filter {
+    position: relative;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    color: #4b5563;
+    border: 2px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    outline: none;
+}
+
+.tag-filter:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.tag-filter:focus-visible {
+    outline: 2px solid rgba(20, 184, 166, 0.3);
+    outline-offset: 2px;
+}
+
+.tag-filter::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: var(--page-primary-gradient);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .tag-filter:hover {
-    background: #e5e7eb;
-    color: #000000;
-    border-color: #9ca3af;
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    color: var(--page-text-accent);
+    border-color: rgba(20, 184, 166, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tag-filter:hover::after {
+    opacity: 1;
 }
 
 .tag-filter.active {
-    background: var(--color-primary);
+    background: var(--page-primary-gradient);
     color: white;
-    border-color: var(--color-primary);
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(20, 184, 166, 0.35), 0 2px 8px rgba(20, 184, 166, 0.2);
+    font-weight: 600;
+    transform: translateY(-2px) scale(1.02);
 }
 
-.tag-filter.active:hover {
-    background: #1e3a8a;
-    border-color: #1e3a8a;
+.tag-filter.active::after {
+    opacity: 0;
+}
+
+.tag-filter:active {
+    transform: translateY(0) scale(0.98);
 }
 
 /* Featured Post */
 .featured-post {
-    background: var(--blog-primary-gradient);
+    background: var(--page-primary-gradient);
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 12px;
@@ -97,8 +206,8 @@
 }
 
 .featured-post:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px rgba(30, 64, 175, 0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(20, 184, 166, 0.25);
 }
 
 .featured-post .play-button {
@@ -124,8 +233,9 @@
 
 .blog-item:hover {
     transform: translateY(-4px);
-    border-color: var(--color-primary);
-    box-shadow: 0 12px 30px rgba(30, 64, 175, 0.15);
+    border-color: var(--page-text-accent);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.15);
+    background: #ffffff;
 }
 
 .blog-image {
@@ -181,10 +291,11 @@
 }
 
 .page-number.active {
-    background: var(--blog-primary-gradient) !important;
-    color: var(--text-primary) !important;
-    border-color: var(--color-primary) !important;
+    background: var(--page-primary-gradient) !important;
+    color: #ffffff !important;
+    border-color: var(--page-text-accent) !important;
     font-weight: 600;
+    box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
 }
 
 /* Recent Posts Links */
@@ -322,12 +433,20 @@
     }
 }
 
-/* Focus States for Accessibility */
+/* Focus States for Accessibility - Only show on keyboard navigation */
 .category-filter:focus,
 .tag-filter:focus,
 .pagination-button:focus,
 .page-number:focus {
-    outline: 2px solid var(--color-primary);
+    outline: none;
+    box-shadow: none;
+}
+
+.category-filter:focus-visible,
+.tag-filter:focus-visible,
+.pagination-button:focus-visible,
+.page-number:focus-visible {
+    outline: 2px solid rgba(20, 184, 166, 0.5);
     outline-offset: 2px;
 }
 

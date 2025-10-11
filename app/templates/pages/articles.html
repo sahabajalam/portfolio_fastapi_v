@@ -6,42 +6,45 @@
 <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet">
-<script src="/static/js/modules/articles.js" defer></script>
+<script src="/static/js/modules/articles.js?v=4" defer></script>
 <style>
-    /* Blog-inspired light theme variables */
+    /* Blog-inspired light theme variables - scoped to avoid navbar conflicts */
     :root {
-        --bg-primary: #ffffff;
-        --bg-secondary: rgba(250, 250, 250, 0.98);
-        --bg-card: rgba(245, 245, 245, 0.8);
-        --bg-card-alt: rgba(240, 240, 240, 0.9);
-        --text-primary: #000000;
-        --text-secondary: #333333;
-        --text-tertiary: #666666;
-        --text-accent: #1e40af;
-        --primary: #59e3a0;
-        --secondary: #00bcd4;
-        --primary-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
-        --text-gradient: linear-gradient(135deg, #59e3a0 0%, #00bcd4 100%);
-        --border-color: rgba(0, 0, 0, 0.1);
-        --hover-bg: rgba(30, 64, 175, 0.1);
+        /* Keep navbar dark theme variables unchanged */
+        /* Override only page content variables */
+        --page-bg-primary: #ffffff;
+        --page-bg-secondary: rgba(250, 250, 250, 0.98);
+        --page-bg-card: rgba(245, 245, 245, 0.8);
+        --page-bg-card-alt: rgba(240, 240, 240, 0.9);
+        --page-text-primary: #000000;
+        --page-text-secondary: #333333;
+        --page-text-tertiary: #666666;
+        --page-text-accent: #14b8a6;
+        --page-primary: #14b8a6;
+        --page-secondary: #06b6d4;
+        --page-primary-gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);
+        --page-text-gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);
+        --page-border-color: rgba(0, 0, 0, 0.1);
+        --page-hover-bg: rgba(20, 184, 166, 0.1);
     }
 
     body {
-        background: var(--bg-primary);
-        color: var(--text-primary);
+        background: var(--page-bg-primary);
+        color: var(--page-text-primary);
         font-family: 'IBM Plex Sans', system-ui, sans-serif;
     }
 
     .blog-item {
         transition: all 0.3s ease;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
+        background: var(--page-bg-card);
+        border: 1px solid var(--page-border-color);
     }
 
     .blog-item:hover {
-        transform: translateY(-2px);
-        border-color: var(--text-accent);
-        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.2);
+        transform: translateY(-4px);
+        border-color: var(--page-text-accent);
+        box-shadow: 0 8px 24px rgba(20, 184, 166, 0.15);
+        background: #ffffff;
     }
 
     .blog-image {
@@ -52,76 +55,205 @@
         transform: scale(1.05);
     }
 
+    /* Category Filter Styles - Modern Design with Slide Effect - COMPLETELY STABLE */
+    .category-filter {
+        position: relative;
+        transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+        cursor: pointer;
+        border: 1px solid transparent;
+        background: transparent;
+        overflow: hidden;
+        color: var(--page-text-secondary);
+        padding-left: 0.75rem;
+        font-weight: 500;
+        outline: none;
+    }
+
+    .category-filter:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .category-filter:focus-visible {
+        outline: 2px solid rgba(20, 184, 166, 0.3);
+        outline-offset: 2px;
+    }
+
+    .category-filter::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: var(--page-primary-gradient);
+        transform: scaleY(0);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: bottom;
+    }
+
+    .category-filter:hover {
+        background: linear-gradient(90deg, rgba(20, 184, 166, 0.08) 0%, transparent 100%);
+        color: var(--page-text-primary);
+    }
+
+    .category-filter:hover::before {
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+
     .category-filter.active {
-        background: var(--primary-gradient);
-        color: var(--text-primary);
-        border-color: var(--text-accent);
+        background: linear-gradient(90deg, rgba(20, 184, 166, 0.12) 0%, rgba(6, 182, 212, 0.08) 50%, transparent 100%);
+        color: var(--page-text-accent);
+        border-color: transparent;
+        font-weight: 500;
+        text-shadow: 0.5px 0 0 currentColor;
+    }
+
+    .category-filter.active::before {
+        transform: scaleY(1);
+        width: 4px;
+    }
+
+    .category-filter .float-right {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 28px;
+        height: 22px;
+        padding: 0 6px;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        background: transparent;
+        color: var(--page-text-tertiary);
+    }
+
+    .category-filter:hover .float-right {
+        background: rgba(20, 184, 166, 0.15);
+        color: var(--page-text-accent);
+        transform: scale(1.05);
+    }
+
+    .category-filter.active .float-right {
+        background: var(--page-primary-gradient);
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
     }
 
     .featured-post {
-        background: var(--primary-gradient);
+        background: var(--page-primary-gradient);
         cursor: pointer;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .featured-post:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(30, 64, 175, 0.3);
+        transform: translateY(-6px);
+        box-shadow: 0 16px 32px rgba(20, 184, 166, 0.25);
     }
 
     .page-number.active {
-        background: var(--primary-gradient);
-        color: var(--text-primary);
-        border-color: var(--text-accent);
+        background: var(--page-primary-gradient);
+        color: #ffffff;
+        border-color: var(--page-text-accent);
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
     }
 
     .sidebar-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
+        background: var(--page-bg-card);
+        border: 1px solid var(--page-border-color);
     }
 
     .pagination-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
+        background: var(--page-bg-card);
+        border: 1px solid var(--page-border-color);
     }
 
     .blog-title:hover {
-        color: var(--text-accent) !important;
+        color: var(--page-text-accent) !important;
     }
 
     .pagination-button:hover {
-        background: var(--hover-bg) !important;
+        background: var(--page-hover-bg) !important;
     }
 
     .page-number:hover {
-        background: var(--hover-bg) !important;
-        color: var(--text-primary) !important;
+        background: var(--page-hover-bg) !important;
+        color: var(--page-text-primary) !important;
     }
 
-    /* Tag filter styles for better contrast */
+    /* Tag filter styles - Modern Pill Design */
     .tag-filter {
-        background: #f3f4f6;
-        color: #000000;
-        border: 1px solid #d1d5db;
-        transition: all 0.3s ease;
+        position: relative;
+        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        color: #4b5563;
+        border: 2px solid #e5e7eb;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        outline: none;
+    }
+
+    .tag-filter:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .tag-filter:focus-visible {
+        outline: 2px solid rgba(20, 184, 166, 0.3);
+        outline-offset: 2px;
+    }
+
+    .tag-filter::after {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border-radius: inherit;
+        padding: 2px;
+        background: var(--page-primary-gradient);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
     .tag-filter:hover {
-        background: #e5e7eb;
-        color: #000000;
-        border-color: #9ca3af;
-        transform: translateY(-1px);
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+        color: var(--page-text-accent);
+        border-color: rgba(20, 184, 166, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .tag-filter:hover::after {
+        opacity: 1;
     }
 
     .tag-filter.active {
-        background: var(--text-accent);
+        background: var(--page-primary-gradient);
         color: white;
-        border-color: var(--text-accent);
+        border-color: transparent;
+        box-shadow: 0 4px 16px rgba(20, 184, 166, 0.35), 0 2px 8px rgba(20, 184, 166, 0.2);
+        font-weight: 600;
+        transform: translateY(-2px) scale(1.02);
+    }
+
+    .tag-filter.active::after {
+        opacity: 0;
+    }
+
+    .tag-filter:active {
+        transform: translateY(0) scale(0.98);
     }
 
     /* Gradient text class for title */
     .gradient-text {
-        background: var(--text-gradient);
+        background: var(--page-text-gradient);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -357,14 +489,15 @@
 <main class="main-wrapper max-w-7xl mx-auto px-6 py-12" style="padding-top: 120px;">
     <!-- Page Header -->
     <div class="page-header mb-12">
-        <h1 class="text-4xl font-bold mb-4" style="color: var(--text-primary);">Note on <span
+        <h1 class="text-4xl font-bold mb-4" style="color: var(--page-text-primary);">Note on <span
                 class="gradient-text">Artificial Intelligence</span></h1>
         <p class="text-xl leading-relaxed font-serif tracking-wide"
-            style="color: var(--text-secondary); font-family: 'IBM Plex Serif', serif; letter-spacing: 0.025em;">
-            <strong class="font-bold" style="color: var(--text-primary);">Deep insights</strong> into <strong
-                class="font-bold" style="color: var(--text-primary);">machine learning</strong>, <strong
-                class="font-bold" style="color: var(--text-primary);">AI research</strong>, and the <strong
-                class="font-bold" style="color: var(--text-primary);">technologies</strong> shaping tomorrow's world
+            style="color: var(--page-text-secondary); font-family: 'IBM Plex Serif', serif; letter-spacing: 0.025em;">
+            <strong class="font-bold" style="color: var(--page-text-primary);">Deep insights</strong> into <strong
+                class="font-bold" style="color: var(--page-text-primary);">machine learning</strong>, <strong
+                class="font-bold" style="color: var(--page-text-primary);">AI research</strong>, and the <strong
+                class="font-bold" style="color: var(--page-text-primary);">technologies</strong> shaping tomorrow's
+            world
         </p>
     </div>
 
@@ -372,7 +505,7 @@
         <!-- Sidebar with Categories -->
         <aside class="sidebar w-64 flex-shrink-0">
             <div class="sidebar-card rounded-lg shadow-sm p-6 sticky top-6">
-                <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Categories</h3>
+                <h3 class="text-lg font-semibold mb-4" style="color: var(--page-text-primary);">Categories</h3>
                 <ul class="sidebar-categories space-y-2">
                     <li>
                         <button
@@ -383,39 +516,41 @@
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
-                            data-category="machine-learning" style="color: var(--text-secondary);">
-                            Machine Learning <span class="float-right" style="color: var(--text-tertiary);">(2)</span>
+                            data-category="machine-learning" style="color: var(--page-text-secondary);">
+                            Machine Learning <span class="float-right"
+                                style="color: var(--page-text-tertiary);">(2)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
-                            data-category="deep-learning" style="color: var(--text-secondary);">
-                            Deep Learning <span class="float-right" style="color: var(--text-tertiary);">(1)</span>
+                            data-category="deep-learning" style="color: var(--page-text-secondary);">
+                            Deep Learning <span class="float-right" style="color: var(--page-text-tertiary);">(1)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
-                            data-category="nlp" style="color: var(--text-secondary);">
-                            NLP <span class="float-right" style="color: var(--text-tertiary);">(1)</span>
+                            data-category="nlp" style="color: var(--page-text-secondary);">
+                            NLP <span class="float-right" style="color: var(--page-text-tertiary);">(1)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
-                            data-category="computer-vision" style="color: var(--text-secondary);">
-                            Computer Vision <span class="float-right" style="color: var(--text-tertiary);">(2)</span>
+                            data-category="computer-vision" style="color: var(--page-text-secondary);">
+                            Computer Vision <span class="float-right"
+                                style="color: var(--page-text-tertiary);">(2)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
-                            data-category="ai-research" style="color: var(--text-secondary);">
-                            AI Research <span class="float-right" style="color: var(--text-tertiary);">(2)</span>
+                            data-category="ai-research" style="color: var(--page-text-secondary);">
+                            AI Research <span class="float-right" style="color: var(--page-text-tertiary);">(2)</span>
                         </button>
                     </li>
                 </ul>
 
-                <hr class="my-6" style="border-color: var(--border-color);">
+                <hr class="my-6" style="border-color: var(--page-border-color);">
 
-                <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Popular Tags</h3>
+                <h3 class="text-lg font-semibold mb-4" style="color: var(--page-text-primary);">Popular Tags</h3>
                 <div class="sidebar-tags flex flex-wrap gap-2">
                     <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
                         data-tag="python">
@@ -451,45 +586,46 @@
                     </button>
                 </div>
 
-                <hr class="my-6" style="border-color: var(--border-color);">
+                <hr class="my-6" style="border-color: var(--page-border-color);">
 
                 <div class="recent-posts">
-                    <h3 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">Recent Posts</h3>
+                    <h3 class="text-lg font-semibold mb-4" style="color: var(--page-text-primary);">Recent Posts</h3>
                     <ul class="space-y-3 text-sm">
                         <li>
                             <a href="#"
                                 class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
-                                style="color: var(--text-secondary);">
-                                <div class="font-medium mb-1" style="color: var(--text-primary);">Building
+                                style="color: var(--page-text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--page-text-primary);">Building
                                     Production-Ready AI Systems with MLOps</div>
-                                <div class="text-xs" style="color: var(--text-tertiary);">March 20, 2024</div>
+                                <div class="text-xs" style="color: var(--page-text-tertiary);">March 20, 2024</div>
                             </a>
                         </li>
                         <li>
                             <a href="#"
                                 class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
-                                style="color: var(--text-secondary);">
-                                <div class="font-medium mb-1" style="color: var(--text-primary);">Understanding Ensemble
+                                style="color: var(--page-text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--page-text-primary);">Understanding
+                                    Ensemble
                                     Methods in Machine Learning</div>
-                                <div class="text-xs" style="color: var(--text-tertiary);">March 15, 2024</div>
+                                <div class="text-xs" style="color: var(--page-text-tertiary);">March 15, 2024</div>
                             </a>
                         </li>
                         <li>
                             <a href="#"
                                 class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
-                                style="color: var(--text-secondary);">
-                                <div class="font-medium mb-1" style="color: var(--text-primary);">Optimizing Neural
+                                style="color: var(--page-text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--page-text-primary);">Optimizing Neural
                                     Networks for Production</div>
-                                <div class="text-xs" style="color: var(--text-tertiary);">March 8, 2024</div>
+                                <div class="text-xs" style="color: var(--page-text-tertiary);">March 8, 2024</div>
                             </a>
                         </li>
                         <li>
                             <a href="#"
                                 class="recent-post-link transition-colors block hover:bg-opacity-50 rounded p-2 -m-2"
-                                style="color: var(--text-secondary);">
-                                <div class="font-medium mb-1" style="color: var(--text-primary);">Fine-tuning Large
+                                style="color: var(--page-text-secondary);">
+                                <div class="font-medium mb-1" style="color: var(--page-text-primary);">Fine-tuning Large
                                     Language Models: A Practical Guide</div>
-                                <div class="text-xs" style="color: var(--text-tertiary);">February 28, 2024</div>
+                                <div class="text-xs" style="color: var(--page-text-tertiary);">February 28, 2024</div>
                             </a>
                         </li>
                     </ul>
@@ -500,29 +636,29 @@
         <!-- Blog List -->
         <div class="blog-content flex-1">
             <!-- Featured Post -->
-            <div class="featured-post rounded-xl p-8 text-white mb-12 relative overflow-hidden"
-                style="background: var(--primary-gradient);">
+            <div class="featured-post rounded-xl p-8 mb-12 relative overflow-hidden"
+                style="background: var(--page-primary-gradient);">
                 <div class="absolute inset-0 bg-white opacity-10"></div>
                 <div class="relative z-10">
                     <div class="featured-content flex flex-col lg:flex-row gap-8 items-center">
                         <div class="flex-1">
                             <div class="featured-meta flex items-center gap-3 mb-4">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-                                    style="background: rgba(255, 255, 255, 0.2); color: white;">Featured</span>
-                                <time class="text-sm" style="color: #000000;">March 20, 2024</time>
+                                    style="background: rgba(255, 255, 255, 0.9); color: #000000; font-weight: 600;">Featured</span>
+                                <time class="text-sm font-medium" style="color: #1f2937;">March 20, 2024</time>
                             </div>
-                            <h2 class="text-3xl font-bold mb-4 leading-tight">
+                            <h2 class="text-3xl font-bold mb-4 leading-tight" style="color: #111827;">
                                 Building Production-Ready AI Systems with MLOps
                             </h2>
-                            <p class="text-lg leading-relaxed mb-6" style="color: #000000;">
+                            <p class="text-lg leading-relaxed mb-6" style="color: #374151;">
                                 Learn how to deploy, monitor, and maintain machine learning models in production.
                                 This comprehensive guide covers MLOps best practices, CI/CD for ML, model
                                 versioning, and automated retraining pipelines.
                             </p>
                             <div class="flex items-center gap-6">
-                                <span style="color: #000000;">18 min read</span>
+                                <span style="color: #4b5563; font-weight: 500;">18 min read</span>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                    style="background: rgba(255, 165, 0, 0.2); color: #000000;">MLOps</span>
+                                    style="background: rgba(255, 255, 255, 0.9); color: #000000; font-weight: 600;">MLOps</span>
                             </div>
                         </div>
                         <div class="featured-image flex-shrink-0 lg:w-80">
@@ -534,10 +670,9 @@
                     </div>
                     <div class="absolute top-4 right-4">
                         <div class="w-16 h-16 rounded-full flex items-center justify-center"
-                            style="background: rgba(255, 255, 255, 0.1);">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 3l14 9-14 9V3z"></path>
+                            style="background: rgba(255, 255, 255, 0.9);">
+                            <svg class="w-6 h-6" fill="none" stroke="#111827" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3l14 9-14 9V3z"></path>
                             </svg>
                         </div>
                     </div>
@@ -551,7 +686,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1527474305487-b87b222841cc?w=400&h=300&fit=crop"
                                 alt="Machine learning algorithms" class="blog-image w-full h-full object-cover">
                         </div>
@@ -559,22 +694,22 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">March 15, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">March 15, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine
                                     Learning</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 Understanding Ensemble Methods in Machine Learning
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Dive deep into ensemble learning techniques including Random Forest, Gradient
                                 Boosting, and Stacking. Learn how to combine multiple models to achieve better
                                 predictive performance.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">8 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">8 min read</span>
                             </div>
                         </div>
                     </div>
@@ -586,7 +721,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?w=400&h=300&fit=crop"
                                 alt="Neural network visualization" class="blog-image w-full h-full object-cover">
                         </div>
@@ -594,21 +729,21 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">March 8, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">March 8, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(34, 197, 94, 0.2); color: #000000;">Deep
                                     Learning</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 Optimizing Neural Networks for Production
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Best practices for deploying deep learning models in production environments. Learn
                                 about model optimization, quantization, pruning, and efficient inference techniques.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">12 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">12 min read</span>
                             </div>
                         </div>
                     </div>
@@ -620,7 +755,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop"
                                 alt="Natural language processing" class="blog-image w-full h-full object-cover">
                         </div>
@@ -628,20 +763,20 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">February 28, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">February 28, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(147, 51, 234, 0.2); color: #000000;">NLP</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 Fine-tuning Large Language Models: A Practical Guide
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Step-by-step tutorial on fine-tuning pre-trained language models for specific tasks.
                                 Covers parameter-efficient methods like LoRA and adapters.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">15 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">15 min read</span>
                             </div>
                         </div>
                     </div>
@@ -653,7 +788,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
                                 alt="Computer vision and AI" class="blog-image w-full h-full object-cover">
                         </div>
@@ -661,21 +796,21 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">February 20, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">February 20, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer
                                     Vision</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 Building Real-time Object Detection Systems
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Create efficient object detection pipelines using YOLO and other state-of-the-art
                                 architectures. Learn about real-time optimization and edge deployment.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">10 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">10 min read</span>
                             </div>
                         </div>
                     </div>
@@ -687,7 +822,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop"
                                 alt="AI research and development" class="blog-image w-full h-full object-cover">
                         </div>
@@ -695,21 +830,21 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">February 12, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">February 12, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI
                                     Research</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 The Future of Multimodal AI: Vision-Language Models
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Explore the latest advances in multimodal AI systems that can understand and
                                 generate both text and images. From CLIP to GPT-4V and beyond.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">14 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">14 min read</span>
                             </div>
                         </div>
                     </div>
@@ -721,7 +856,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
                                 alt="Data visualization" class="blog-image w-full h-full object-cover">
                         </div>
@@ -729,22 +864,22 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">February 28, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">February 28, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(147, 51, 234, 0.2); color: #000000;">AI
                                     Research</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 Visualizing Data: From Raw Numbers to Insights
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Learn how to transform complex datasets into compelling visual stories. We'll
                                 explore
                                 various charting libraries and best practices for data presentation.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">10 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">10 min read</span>
                             </div>
                         </div>
                     </div>
@@ -756,7 +891,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop"
                                 alt="Team collaboration" class="blog-image w-full h-full object-cover">
                         </div>
@@ -764,21 +899,21 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">February 20, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">February 20, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine
                                     Learning</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 Building Effective ML Pipelines with Scikit-Learn
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Learn how to create robust machine learning pipelines using Scikit-Learn. From data
                                 preprocessing to model evaluation and deployment.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">8 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">8 min read</span>
                             </div>
                         </div>
                     </div>
@@ -790,7 +925,7 @@
                     <div class="blog-item-content flex gap-6">
                         <!-- Image -->
                         <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
-                            style="background: var(--bg-secondary);">
+                            style="background: var(--page-bg-secondary);">
                             <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop"
                                 alt="Computer vision applications" class="blog-image w-full h-full object-cover">
                         </div>
@@ -798,21 +933,21 @@
                         <!-- Content -->
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                <time class="text-sm" style="color: var(--text-tertiary);">February 12, 2024</time>
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">February 12, 2024</time>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer
                                     Vision</span>
                             </div>
                             <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
-                                style="color: var(--text-primary);">
+                                style="color: var(--page-text-primary);">
                                 Advanced Image Processing Techniques
                             </h2>
-                            <p class="text-sm leading-relaxed mb-3" style="color: var(--text-secondary);">
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
                                 Discover advanced image processing techniques using OpenCV and PyTorch. Learn about
                                 image segmentation, feature extraction, and real-time processing.
                             </p>
                             <div class="flex items-center justify-between">
-                                <span class="text-sm" style="color: var(--text-tertiary);">12 min read</span>
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">12 min read</span>
                             </div>
                         </div>
                     </div>
@@ -822,18 +957,19 @@
             <!-- Pagination -->
             <div class="pagination-controls flex flex-col items-center mt-12 p-6 pagination-card rounded-lg shadow-sm">
                 <div class="pagination-info flex items-center space-x-2 mb-4">
-                    <span class="text-sm" style="color: var(--text-secondary);">Showing</span>
-                    <span class="text-sm font-medium" style="color: var(--text-primary);" id="posts-range">1-5</span>
-                    <span class="text-sm" style="color: var(--text-secondary);">of</span>
-                    <span class="text-sm font-medium" style="color: var(--text-primary);" id="total-posts">8</span>
-                    <span class="text-sm" style="color: var(--text-secondary);">posts</span>
+                    <span class="text-sm" style="color: var(--page-text-secondary);">Showing</span>
+                    <span class="text-sm font-medium" style="color: var(--page-text-primary);"
+                        id="posts-range">1-5</span>
+                    <span class="text-sm" style="color: var(--page-text-secondary);">of</span>
+                    <span class="text-sm font-medium" style="color: var(--page-text-primary);" id="total-posts">8</span>
+                    <span class="text-sm" style="color: var(--page-text-secondary);">posts</span>
                 </div>
 
                 <div class="pagination-buttons flex items-center space-x-2">
                     <!-- Previous Button -->
                     <button id="prev-btn"
                         class="inline-flex items-center pagination-btn px-3 py-2 text-sm font-medium rounded-lg transition-colors pagination-button"
-                        style="color: var(--text-tertiary); background: var(--bg-card); border: 1px solid var(--border-color);"
+                        style="color: var(--page-text-tertiary); background: var(--page-bg-card); border: 1px solid var(--page-border-color);"
                         disabled>
                         <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
@@ -851,7 +987,7 @@
                             data-page="2">2</button>
                         <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"
                             data-page="3">3</button>
-                        <span class="px-2" style="color: var(--text-tertiary);">...</span>
+                        <span class="px-2" style="color: var(--page-text-tertiary);">...</span>
                         <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"
                             data-page="5">5</button>
                     </div>
@@ -859,7 +995,7 @@
                     <!-- Next Button -->
                     <button id="next-btn"
                         class="inline-flex items-center pagination-btn px-3 py-2 text-sm font-medium rounded-lg transition-colors pagination-button"
-                        style="color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-color);">
+                        style="color: var(--page-text-secondary); background: var(--page-bg-card); border: 1px solid var(--page-border-color);">
                         <span class="hidden sm:inline">Next</span>
                         <span class="sm:hidden">Next</span>
                         <svg class="w-4 h-4 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

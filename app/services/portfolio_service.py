@@ -80,7 +80,7 @@ class OptimizedPortfolioService:
         """Create personal information."""
         return PersonalInfo(
             name="Sahabaj Alam",
-            title="Junior Data Engineer & ML Engineer",
+            title="Junior AIML Engineer",
             intro="Hi am Sahabaj Alam",
             bio="Passionate about leveraging data science and machine learning to drive innovation and improve decision-making.",
             location="UK",

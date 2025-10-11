@@ -116,6 +116,18 @@
     .footer-bottom-links {
         justify-content: center;
     }
+
+    /* Hide Quick Links on mobile */
+    .footer-quick-links {
+        display: none !important;
+    }
+}
+
+/* Show Quick Links only on tablet and desktop */
+@media (min-width: 768px) {
+    .footer-quick-links {
+        display: block !important;
+    }
 }
 
 /* ===== ARTICLES PAGE RESPONSIVE ===== */

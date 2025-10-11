@@ -7,26 +7,55 @@
                 <div class="hero-content-wrapper">
                     <p class="hero-intro">{{ portfolio.personal_info.intro }} <span class="intro-name">{{
                             portfolio.personal_info.name }}</span></p>
+                    <div class="text-lg md:text-xl text-gray-600 mb-2 flex items-center gap-2">
+                        <div class="w-10 h-10 flex-shrink-0">
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                <defs>
+                                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Three overlapping circles - simple and elegant -->
+                                <circle cx="35" cy="50" r="22" fill="url(#logoGradient)" opacity="0.3" />
+                                <circle cx="50" cy="35" r="22" fill="url(#logoGradient)" opacity="0.5" />
+                                <circle cx="65" cy="50" r="22" fill="url(#logoGradient)" opacity="0.7" />
+                            </svg>
+                        </div>
+                        <div class="flex flex-col leading-tight">
+                            <span>Hi,</span>
+                            <span class="text-gray-600">I am <span
+                                    class="font-bold text-2xl md:text-3xl bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">Sahabaj
+                                    Alam</span></span>
+                        </div>
+                    </div>
                     <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                         <span class="gradient-text">{{ portfolio.personal_info.title }}</span>
                     </h1>
 
                     <div class="space-y-4">
-                        <div class="feature-item flex items-center gap-4">
-                            <div class="feature-icon w-6 h-6 rounded-full flex items-center justify-center">
+                        <div
+                            class="feature-item border-l-4 border-teal-500 pl-4 py-3 bg-gradient-to-r from-teal-50 via-cyan-50 to-transparent hover:from-teal-100 hover:via-cyan-100 transition-all duration-300 rounded-r-lg flex items-center gap-3">
+                            <div
+                                class="feature-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-check text-white text-sm"></i>
                             </div>
                             <span class="text-gray-700 font-medium">End-to-end ML Pipeline Development</span>
                         </div>
-                        <div class="feature-item flex items-center gap-4">
-                            <div class="feature-icon w-6 h-6 rounded-full flex items-center justify-center">
+                        <div
+                            class="feature-item border-l-4 border-teal-500 pl-4 py-3 bg-gradient-to-r from-teal-50 via-cyan-50 to-transparent hover:from-teal-100 hover:via-cyan-100 transition-all duration-300 rounded-r-lg flex items-center gap-3">
+                            <div
+                                class="feature-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-check text-white text-sm"></i>
                             </div>
                             <span class="text-gray-700 font-medium">Agentic Retrieval‑Augmented Generation (RAG)
                                 systems</span>
                         </div>
-                        <div class="feature-item flex items-center gap-4">
-                            <div class="feature-icon w-6 h-6 rounded-full flex items-center justify-center">
+                        <div
+                            class="feature-item border-l-4 border-teal-500 pl-4 py-3 bg-gradient-to-r from-teal-50 via-cyan-50 to-transparent hover:from-teal-100 hover:via-cyan-100 transition-all duration-300 rounded-r-lg flex items-center gap-3">
+                            <div
+                                class="feature-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-check text-white text-sm"></i>
                             </div>
                             <span class="text-gray-700 font-medium">Cloud Deployment & MLOps</span>

@@ -100,31 +100,39 @@ document.addEventListener('DOMContentLoaded', function () {
         const startIndex = (currentPage - 1) * postsPerPage;
         const endIndex = startIndex + postsPerPage;
 
-        // Hide all posts first
+        // Fade out all posts
         blogItems.forEach(item => {
-            item.style.display = 'none';
-            item.style.opacity = '0';
+            if (item.style.opacity === '1') {
+                item.style.opacity = '0';
+            }
         });
 
-        // Show posts for current page
-        filteredPosts.slice(startIndex, endIndex).forEach((item, index) => {
-            item.style.display = 'block';
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
+        // Wait briefly, then show relevant posts
+        setTimeout(() => {
+            blogItems.forEach(item => {
+                item.style.display = 'none';
+            });
 
-        // Update posts range display
-        const totalPosts = filteredPosts.length;
-        const displayStart = totalPosts > 0 ? startIndex + 1 : 0;
-        const displayEnd = Math.min(endIndex, totalPosts);
+            // Show posts for current page with subtle stagger
+            filteredPosts.slice(startIndex, endIndex).forEach((item, index) => {
+                item.style.display = 'block';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
 
-        const postsRange = document.getElementById('posts-range');
-        const totalPostsEl = document.getElementById('total-posts');
+            // Update posts range display
+            const totalPosts = filteredPosts.length;
+            const displayStart = totalPosts > 0 ? startIndex + 1 : 0;
+            const displayEnd = Math.min(endIndex, totalPosts);
 
-        if (postsRange) postsRange.textContent = `${displayStart}-${displayEnd}`;
-        if (totalPostsEl) totalPostsEl.textContent = totalPosts;
+            const postsRange = document.getElementById('posts-range');
+            const totalPostsEl = document.getElementById('total-posts');
+
+            if (postsRange) postsRange.textContent = `${displayStart}-${displayEnd}`;
+            if (totalPostsEl) totalPostsEl.textContent = totalPosts;
+        }, 200);
     }
 
     // Update pagination controls
@@ -189,22 +197,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Create page button
     function createPageButton(pageNum) {
         const button = document.createElement('button');
-        button.className = `page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors ${pageNum === currentPage
-            ? 'text-black'
-            : 'text-gray-700'
-            }`;
+        button.className = `page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors`;
         button.textContent = pageNum;
         button.dataset.page = pageNum;
 
         // Apply theme styles
         if (pageNum === currentPage) {
-            button.style.background = 'var(--primary-gradient)';
-            button.style.color = 'var(--text-black)';
-            button.style.border = '1px solid var(--text-accent)';
+            button.style.background = 'var(--page-primary-gradient)';
+            button.style.color = '#ffffff';
+            button.style.border = '1px solid var(--page-text-accent)';
+            button.style.fontWeight = '600';
+            button.style.boxShadow = '0 2px 8px rgba(20, 184, 166, 0.3)';
+            button.classList.add('active');
         } else {
-            button.style.background = 'var(--bg-card)';
-            button.style.color = 'var(--text-secondary)';
-            button.style.border = '1px solid var(--border-color)';
+            button.style.background = 'var(--page-bg-card)';
+            button.style.color = 'var(--page-text-secondary)';
+            button.style.border = '1px solid var(--page-border-color)';
         }
 
         button.addEventListener('click', function () {
