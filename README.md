@@ -1,74 +1,145 @@
-# 🚀 FastAPI Portfolio
+# FastAPI Portfolio# 🚀 FastAPI Portfolio
 
-A modern, modular FastAPI portfolio application with clean architecture and responsive design. Built with **UV package management** for faster development and optimized performance.
 
-## 📁 Project Structure
+
+A modern, responsive portfolio application built with FastAPI and modular architecture.A modern, modular FastAPI portfolio application with clean architecture and responsive design. Built with **UV package management** for faster development and optimized performance.
+
+
+
+## Quick Start## 📁 Project Structure
+
 ```
-📦 fastapiport_v1/
+
+**Prerequisites:** Python 3.11+📦 fastapiport_v1/
+
 ├── 📄 main.py                    # Application entry point
-├── 📄 requirements.txt           # Python dependencies
-├── 📄 requirements.lock          # Locked dependency versions
-├── 📄 pyproject.toml            # Modern Python project configuration
+
+```powershell├── 📄 requirements.txt           # Python dependencies
+
+# Clone and navigate to project├── 📄 requirements.lock          # Locked dependency versions
+
+cd fastapiport_v1├── 📄 pyproject.toml            # Modern Python project configuration
+
 ├── 📄 run_dev.ps1               # Quick development script
-├── 📁 app/                      # Main application package
-│   ├── 📁 core/                 # Core configuration and utilities
+
+# Install dependencies├── 📁 app/                      # Main application package
+
+pip install -r requirements.txt│   ├── 📁 core/                 # Core configuration and utilities
+
 │   │   ├── config.py            # Application settings
-│   │   └── templates.py         # Template configuration
-│   ├── 📁 models/               # Data models
-│   │   └── portfolio.py         # Portfolio data models
+
+# Run development server│   │   └── templates.py         # Template configuration
+
+uvicorn main:app --reload --host 0.0.0.0 --port 8000│   ├── 📁 models/               # Data models
+
+```│   │   └── portfolio.py         # Portfolio data models
+
 │   ├── 📁 routes/               # API routes
-│   │   ├── api.py               # API endpoints
+
+**Visit:** http://localhost:8000│   │   ├── api.py               # API endpoints
+
 │   │   └── pages.py             # Page routes
-│   ├── 📁 services/             # Business logic
+
+## Project Structure│   ├── 📁 services/             # Business logic
+
 │   │   └── portfolio_service.py # Portfolio data service
-│   └── 📁 templates/            # Jinja2 templates
-│       ├── base.html            # Base template
-│       ├── 📁 pages/            # Page templates
-│       └── 📁 components/       # Reusable components
-├── 📁 static/                   # Static assets
-│   ├── 📁 css/
-│   │   └── 📁 modules/          # Modular CSS architecture
-│   └── 📁 js/
-│       └── 📁 modules/          # Optimized JavaScript modules
-└── 📁 assets/                   # Media files
-```
 
-## 🚀 Quick Start
+```│   └── 📁 templates/            # Jinja2 templates
 
-### Prerequisites
-- Python 3.11+
-- UV package manager (faster than pip)
+app/│       ├── base.html            # Base template
 
-### Setup with UV (Recommended)
+├── core/          # Configuration and settings│       ├── 📁 pages/            # Page templates
+
+├── models/        # Data models│       └── 📁 components/       # Reusable components
+
+├── routes/        # API and page routes├── 📁 static/                   # Static assets
+
+├── services/      # Business logic│   ├── 📁 css/
+
+└── templates/     # Jinja2 templates│   │   └── 📁 modules/          # Modular CSS architecture
+
+static/│   └── 📁 js/
+
+├── css/modules/   # Modular CSS│       └── 📁 modules/          # Optimized JavaScript modules
+
+└── js/modules/    # JavaScript modules└── 📁 assets/                   # Media files
+
+``````
+
+
+
+## Pages## 🚀 Quick Start
+
+
+
+- `/` - Home page### Prerequisites
+
+- `/projects` - Projects showcase- Python 3.11+
+
+- `/articles` - Blog and articles with mobile-optimized filters- UV package manager (faster than pip)
+
+
+
+## API### Setup with UV (Recommended)
+
 ```powershell
-# Install UV (if not already installed)
-pip install uv
 
-# Create virtual environment
+- `/api/health` - Health check# Install UV (if not already installed)
+
+- `/api/projects` - Projects datapip install uv
+
+- `/api/articles` - Articles data
+
+- `/docs` - Swagger API documentation# Create virtual environment
+
 uv venv
 
-# Activate virtual environment
-.\.venv\Scripts\activate
+## Features
 
-# Install dependencies
-uv pip install -r requirements.txt
+# Activate virtual environment
+
+- ✅ Mobile-first responsive design.\.venv\Scripts\activate
+
+- ✅ Interactive chat interface
+
+- ✅ Modular CSS and JavaScript# Install dependencies
+
+- ✅ Clean architectureuv pip install -r requirements.txt
+
+- ✅ Fast performance
 
 # Start development server (using helper script)
-.\run_dev.ps1
+
+## Deploy.\run_dev.ps1
+
 ```
 
-### Alternative Setup (Traditional pip)
-```bash
-# Create virtual environment
+**Render:**
+
+```bash### Alternative Setup (Traditional pip)
+
+# Uses render-build.sh and render-start.sh```bash
+
+```# Create virtual environment
+
 python -m venv .venv
 
-# Activate virtual environment
-# Windows:
-.\.venv\Scripts\activate
-# Linux/Mac:
-source .venv/bin/activate
+**Manual:**
 
-# Install dependencies
+```bash# Activate virtual environment
+
+uvicorn main:app --host 0.0.0.0 --port 8000# Windows:
+
+```.\.venv\Scripts\activate
+
+# Linux/Mac:
+
+---source .venv/bin/activate
+
+
+
+Built with FastAPI • Jinja2 • Modern CSS# Install dependencies
+
 pip install -r requirements.txt
 
 # Start server

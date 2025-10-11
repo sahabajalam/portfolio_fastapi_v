@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const tagFilters = document.querySelectorAll('.tag-filter');
     const featuredPost = document.querySelector('.featured-post');
 
+    // Mobile filters
+    const mobileCategoryChips = document.querySelectorAll('.mobile-category-chip');
+    const mobileTagChips = document.querySelectorAll('.mobile-tag-chip');
+
     // Pagination variables
     let currentPage = 1;
     const postsPerPage = 5;
@@ -50,6 +54,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Mobile Category filtering
+    mobileCategoryChips.forEach(chip => {
+        chip.addEventListener('click', function () {
+            const category = this.dataset.category;
+
+            // Update active state for mobile
+            mobileCategoryChips.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+
+            // Update desktop category active state (if exists)
+            categoryFilters.forEach(f => {
+                f.classList.remove('active');
+                if (f.dataset.category === category) {
+                    f.classList.add('active');
+                }
+            });
+
+            // Reset tag filters
+            tagFilters.forEach(f => f.classList.remove('active'));
+            mobileTagChips.forEach(c => c.classList.remove('active'));
+
+            // Filter blog posts
+            filterPosts(category, []);
+        });
+    });
+
     // Tag filtering
     tagFilters.forEach(filter => {
         filter.addEventListener('click', function () {
@@ -64,6 +94,40 @@ document.addEventListener('DOMContentLoaded', function () {
             const activeTags = Array.from(tagFilters)
                 .filter(f => f.classList.contains('active'))
                 .map(f => f.dataset.tag);
+
+            // Filter blog posts by tags
+            filterPosts('all', activeTags);
+        });
+    });
+
+    // Mobile Tag filtering
+    mobileTagChips.forEach(chip => {
+        chip.addEventListener('click', function () {
+            // Toggle tag active state
+            this.classList.toggle('active');
+
+            // Sync with desktop tags
+            const tag = this.dataset.tag;
+            tagFilters.forEach(f => {
+                if (f.dataset.tag === tag) {
+                    if (this.classList.contains('active')) {
+                        f.classList.add('active');
+                    } else {
+                        f.classList.remove('active');
+                    }
+                }
+            });
+
+            // Reset category to "All Posts"
+            categoryFilters.forEach(f => f.classList.remove('active'));
+            categoryFilters[0].classList.add('active');
+            mobileCategoryChips.forEach(c => c.classList.remove('active'));
+            mobileCategoryChips[0].classList.add('active');
+
+            // Get active tags (from mobile)
+            const activeTags = Array.from(mobileTagChips)
+                .filter(c => c.classList.contains('active'))
+                .map(c => c.dataset.tag);
 
             // Filter blog posts by tags
             filterPosts('all', activeTags);

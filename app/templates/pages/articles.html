@@ -260,6 +260,246 @@
         display: inline-block;
     }
 
+    /* Mobile Filters Bar - Hidden on Desktop */
+    .mobile-filters-bar {
+        display: none;
+    }
+
+    /* Mobile Tags Section (Bottom) - Hidden on Desktop */
+    .mobile-tags-section {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+
+        /* Mobile Categories Bar (Top) */
+        .mobile-filters-bar {
+            display: block;
+            position: sticky;
+            top: 85px;
+            z-index: 15;
+            background: var(--page-bg-primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-bottom: 2px solid var(--page-border-color);
+            margin-bottom: 0;
+        }
+
+        .mobile-filters-container {
+            padding: 1rem 1.25rem;
+        }
+
+        .mobile-filter-section {
+            margin-bottom: 0;
+        }
+
+        .mobile-filter-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--page-text-primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .mobile-filter-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--page-text-accent);
+        }
+
+        /* Category Chips - Enhanced Design */
+        .mobile-categories-scroll {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.25rem 0 0.75rem 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(20, 184, 166, 0.3) transparent;
+        }
+
+        .mobile-categories-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .mobile-categories-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .mobile-categories-scroll::-webkit-scrollbar-thumb {
+            background: rgba(20, 184, 166, 0.3);
+            border-radius: 2px;
+        }
+
+        .mobile-categories-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(20, 184, 166, 0.5);
+        }
+
+        .mobile-category-chip {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--page-border-color);
+            background: var(--page-bg-card);
+            color: var(--page-text-secondary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .mobile-category-chip:hover {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-color: rgba(20, 184, 166, 0.4);
+            color: var(--page-text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(20, 184, 166, 0.15);
+        }
+
+        .mobile-category-chip.active {
+            background: var(--page-primary-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+            font-weight: 600;
+        }
+
+        .chip-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 0.375rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.15);
+            color: currentColor;
+        }
+
+        .mobile-category-chip.active .chip-count {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .mobile-category-chip:hover .chip-count {
+            background: rgba(20, 184, 166, 0.2);
+        }
+
+        /* Mobile Tags Section (Bottom) */
+        .mobile-tags-section {
+            display: block;
+            background: var(--page-bg-secondary);
+            border-top: 1px solid var(--page-border-color);
+            border-bottom: 1px solid var(--page-border-color);
+            margin-top: 2rem;
+            margin-bottom: 0;
+        }
+
+        .mobile-tags-container {
+            padding: 1.25rem 1.25rem;
+        }
+
+        .mobile-tags-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--page-text-primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Tags Grid - Wrapping Layout */
+        .mobile-tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.625rem;
+            justify-content: flex-start;
+        }
+
+        .mobile-tag-chip {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--page-border-color);
+            background: white;
+            color: var(--page-text-secondary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .mobile-tag-chip:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-color: rgba(102, 126, 234, 0.4);
+            color: var(--page-text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.15);
+        }
+
+        .mobile-tag-chip.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            font-weight: 600;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .mobile-filters-bar {
+            top: 75px;
+        }
+
+        .mobile-filters-container {
+            padding: 0.875rem 1rem;
+        }
+
+        .mobile-filter-title,
+        .mobile-tags-title {
+            font-size: 0.8rem;
+            margin-bottom: 0.625rem;
+        }
+
+        .mobile-category-chip,
+        .mobile-tag-chip {
+            padding: 0.425rem 0.875rem;
+            font-size: 0.75rem;
+        }
+
+        .chip-count {
+            min-width: 18px;
+            height: 18px;
+            font-size: 0.65rem;
+        }
+
+        .mobile-tags-container {
+            padding: 1rem;
+        }
+
+        .mobile-tags-grid {
+            gap: 0.5rem;
+        }
+    }
+
     /* ===== MOBILE RESPONSIVE DESIGN ===== */
     @media (max-width: 1024px) {
         .main-container {
@@ -277,7 +517,8 @@
         }
 
         .sidebar-card {
-            padding: 1rem;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .featured-post {
@@ -296,170 +537,420 @@
     }
 
     @media (max-width: 768px) {
+        /* ========== PROFESSIONAL MOBILE BLOG DESIGN ========== */
+
+        /* Main Layout */
         .main-wrapper {
-            padding: 1rem !important;
-            padding-top: 100px !important;
+            padding: 0 !important;
+            padding-top: 85px !important;
         }
 
-        .page-header h1 {
-            font-size: 2rem;
-            line-height: 1.2;
-        }
-
-        .page-header p {
-            font-size: 1rem;
-        }
-
-        .main-container {
-            gap: 1.5rem;
-        }
-
-        .featured-post {
-            padding: 1rem;
-        }
-
-        .featured-post h2 {
-            font-size: 1.5rem;
-            line-height: 1.3;
-        }
-
-        .featured-post p {
-            font-size: 0.9rem;
-        }
-
-        .blog-item {
-            padding: 1rem;
-        }
-
-        .blog-item-content {
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .blog-item-image {
-            width: 100%;
-            height: 200px;
-            margin-bottom: 1rem;
-        }
-
-        .blog-item h2 {
-            font-size: 1.1rem;
-            line-height: 1.4;
-        }
-
-        .blog-item p {
-            font-size: 0.9rem;
-        }
-
-        .sidebar-card {
-            padding: 1rem;
-        }
-
-        .sidebar-card h3 {
-            font-size: 1rem;
-        }
-
-        .category-filter,
-        .tag-filter {
-            font-size: 0.8rem;
-            padding: 0.5rem 0.75rem;
-        }
-
-        .pagination-controls {
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .pagination-info {
-            order: 2;
-        }
-
-        .pagination-buttons {
-            order: 1;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .pagination-button,
-        .page-number {
-            padding: 0.5rem 0.75rem;
-            font-size: 0.8rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .main-wrapper {
-            padding: 0.75rem !important;
-            padding-top: 90px !important;
+        /* Mobile Header - Magazine Style */
+        .page-header {
+            padding: 1.5rem 1.25rem;
+            margin-bottom: 0;
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.03) 0%, rgba(6, 182, 212, 0.03) 100%);
+            border-bottom: 1px solid var(--page-border-color);
         }
 
         .page-header h1 {
             font-size: 1.75rem;
+            line-height: 1.25;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
         }
 
-        .page-header {
-            margin-bottom: 1.5rem;
+        .page-header p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.9;
         }
 
+        .main-container {
+            gap: 0;
+        }
+
+        /* Featured Post - Card Style */
         .featured-post {
-            padding: 1rem;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            background: var(--page-primary-gradient);
+        }
+
+        .featured-post .relative {
+            padding: 1.5rem 1.25rem;
+        }
+
+        .featured-post .featured-content {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .featured-post h2 {
-            font-size: 1.25rem;
+            font-size: 1.4rem;
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+        }
+
+        .featured-post p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
         .featured-post .featured-meta {
-            flex-direction: column;
-            gap: 0.5rem;
-            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-post .featured-image {
+            width: 100%;
+            margin-top: 1rem;
+            margin-bottom: 0;
+        }
+
+        .featured-post .aspect-video {
+            border-radius: 8px;
+        }
+
+        /* Blog Items - Modern Card Design */
+        #blog-container {
+            padding: 0;
+            background: var(--page-bg-primary);
         }
 
         .blog-item {
-            padding: 0.75rem;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            border: none;
+            border-bottom: 1px solid var(--page-border-color);
+            background: var(--page-bg-primary);
+            box-shadow: none;
         }
 
+        .blog-item:hover {
+            transform: none;
+            box-shadow: none;
+            background: var(--page-bg-secondary);
+        }
+
+        .blog-item-content {
+            flex-direction: row;
+            gap: 1rem;
+            padding: 1.25rem;
+        }
+
+        /* Image on Right - Thumbnail Style */
         .blog-item-image {
-            height: 150px;
+            order: 2;
+            width: 100px;
+            min-width: 100px;
+            height: 100px;
+            margin: 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .blog-item .flex-1 {
+            order: 1;
         }
 
         .blog-item h2 {
-            font-size: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
-        .sidebar-categories {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
+        .blog-item p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .sidebar-tags {
-            display: flex;
+        .blog-item .flex.items-center.gap-3 {
             flex-wrap: wrap;
             gap: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .tag-filter {
-            flex: 0 0 auto;
+        .blog-item time {
+            font-size: 0.75rem;
+        }
+
+        .blog-item .inline-flex.items-center {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .blog-item .flex.items-center.justify-between {
+            margin-top: 0.25rem;
+        }
+
+        .blog-item .flex.items-center.justify-between span {
+            font-size: 0.75rem;
+        }
+
+        /* Sidebar - Sticky Filters - HIDDEN ON MOBILE */
+        .sidebar {
+            display: none !important;
+        }
+
+        /* Pagination - Bottom Bar Style */
+        .pagination-card {
+            margin-top: 0;
+            padding: 1rem 1.25rem;
+            border-radius: 0;
+            border: none;
+            border-top: 1px solid var(--page-border-color);
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .pagination-controls {
+            flex-direction: row !important;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .pagination-info {
+            order: 1;
+            text-align: center;
+            font-size: 0.8rem;
+            flex: 0 0 100%;
+            margin-bottom: 0.75rem;
         }
 
         .pagination-buttons {
-            gap: 0.25rem;
+            order: 2;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 0.375rem;
+            width: 100%;
+            align-items: center;
+        }
+
+        .pagination-button {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .pagination-button svg {
+            width: 0.875rem;
+            height: 0.875rem;
+        }
+
+        .pagination-button .hidden {
+            display: none;
         }
 
         .page-number {
             min-width: 2rem;
-            padding: 0.5rem;
+            height: 2rem;
+            padding: 0 0.5rem;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .pagination-button {
-            padding: 0.5rem;
+        #page-numbers {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        #page-numbers span {
+            font-size: 0.8rem;
+            padding: 0 0.125rem;
+            flex-shrink: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        /* ========== EXTRA SMALL MOBILE OPTIMIZATION ========== */
+
+        .main-wrapper {
+            padding: 0 !important;
+            padding-top: 75px !important;
+        }
+
+        /* Compact Header */
+        .page-header {
+            padding: 1.25rem 1rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .page-header p {
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+
+        /* Featured Post Compact */
+        .featured-post .relative {
+            padding: 1.25rem 1rem;
+        }
+
+        .featured-post h2 {
+            font-size: 1.25rem;
+            line-height: 1.35;
+        }
+
+        .featured-post p {
+            font-size: 0.825rem;
+            line-height: 1.5;
+            -webkit-line-clamp: 3;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .featured-post .featured-meta {
+            gap: 0.5rem;
+        }
+
+        .featured-post .featured-meta span,
+        .featured-post .featured-meta time {
             font-size: 0.75rem;
         }
 
-        .recent-posts {
-            display: none;
+        /* Blog Items - More Compact */
+        .blog-item-content {
+            padding: 1rem;
+            gap: 0.875rem;
+        }
+
+        .blog-item-image {
+            width: 90px;
+            min-width: 90px;
+            height: 90px;
+        }
+
+        .blog-item h2 {
+            font-size: 0.95rem;
+            line-height: 1.35;
+            margin-bottom: 0.375rem;
+        }
+
+        .blog-item p {
+            font-size: 0.8rem;
+            line-height: 1.45;
+            margin-bottom: 0.375rem;
+        }
+
+        .blog-item time {
+            font-size: 0.7rem;
+        }
+
+        .blog-item .inline-flex.items-center {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.4rem;
+        }
+
+        .blog-item .flex.items-center.justify-between span {
+            font-size: 0.7rem;
+        }
+
+        /* Sidebar Compact */
+        .sidebar {
+            top: 75px;
+        }
+
+        .sidebar-card {
+            padding: 0.875rem 1rem;
+        }
+
+        .sidebar-card h3 {
+            font-size: 0.875rem;
+            margin-bottom: 0.625rem;
+        }
+
+        .sidebar-card hr {
+            margin: 0.625rem 0;
+        }
+
+        /* Categories Smaller Pills */
+        .category-filter {
+            font-size: 0.75rem;
+            padding: 0.425rem 0.875rem;
+        }
+
+        .category-filter .float-right {
+            font-size: 0.65rem;
+            min-width: 18px;
+            height: 16px;
+        }
+
+        /* Tags Smaller */
+        .tag-filter {
+            font-size: 0.7rem;
+            padding: 0.375rem 0.625rem;
+        }
+
+        /* Pagination Compact */
+        .pagination-card {
+            padding: 0.875rem 1rem;
+        }
+
+        .pagination-controls {
+            gap: 0.5rem;
+        }
+
+        .pagination-info {
+            font-size: 0.75rem;
+            width: 100%;
+        }
+
+        .pagination-buttons {
+            gap: 0.375rem;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .pagination-button {
+            padding: 0.5rem 0.625rem;
+            font-size: 0.7rem;
+            height: 2rem;
+            min-width: 2rem;
+        }
+
+        .pagination-button svg {
+            width: 0.75rem;
+            height: 0.75rem;
+        }
+
+        .page-number {
+            min-width: 2rem;
+            height: 2rem;
+            font-size: 0.75rem;
+        }
+
+        #page-numbers {
+            gap: 0.25rem;
         }
     }
 
@@ -499,6 +990,44 @@
                 class="font-bold" style="color: var(--page-text-primary);">technologies</strong> shaping tomorrow's
             world
         </p>
+    </div>
+
+    <!-- Mobile Categories Bar (Visible only on mobile) -->
+    <div class="mobile-filters-bar">
+        <div class="mobile-filters-container">
+            <!-- Categories Section -->
+            <div class="mobile-filter-section">
+                <h3 class="mobile-filter-title">
+                    <svg class="mobile-filter-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16"
+                        height="16">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                        </path>
+                    </svg>
+                    Categories
+                </h3>
+                <div class="mobile-categories-scroll">
+                    <button class="mobile-category-chip active" data-category="all">
+                        All <span class="chip-count">8</span>
+                    </button>
+                    <button class="mobile-category-chip" data-category="machine-learning">
+                        Machine Learning <span class="chip-count">2</span>
+                    </button>
+                    <button class="mobile-category-chip" data-category="deep-learning">
+                        Deep Learning <span class="chip-count">1</span>
+                    </button>
+                    <button class="mobile-category-chip" data-category="nlp">
+                        NLP <span class="chip-count">1</span>
+                    </button>
+                    <button class="mobile-category-chip" data-category="computer-vision">
+                        Computer Vision <span class="chip-count">2</span>
+                    </button>
+                    <button class="mobile-category-chip" data-category="ai-research">
+                        AI Research <span class="chip-count">2</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="main-container flex gap-8">
@@ -954,9 +1483,33 @@
                 </article>
             </div>
 
+            <!-- Mobile Tags Section (Bottom) -->
+            <div class="mobile-tags-section">
+                <div class="mobile-tags-container">
+                    <h3 class="mobile-tags-title">
+                        <svg class="mobile-filter-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16"
+                            height="16">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
+                        </svg>
+                        Filter by Tags
+                    </h3>
+                    <div class="mobile-tags-grid">
+                        <button class="mobile-tag-chip" data-tag="python">Python</button>
+                        <button class="mobile-tag-chip" data-tag="tensorflow">TensorFlow</button>
+                        <button class="mobile-tag-chip" data-tag="pytorch">PyTorch</button>
+                        <button class="mobile-tag-chip" data-tag="neural-networks">Neural Networks</button>
+                        <button class="mobile-tag-chip" data-tag="transformers">Transformers</button>
+                        <button class="mobile-tag-chip" data-tag="opencv">OpenCV</button>
+                        <button class="mobile-tag-chip" data-tag="scikit-learn">Scikit-Learn</button>
+                        <button class="mobile-tag-chip" data-tag="llm">LLM</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Pagination -->
-            <div class="pagination-controls flex flex-col items-center mt-12 p-6 pagination-card rounded-lg shadow-sm">
-                <div class="pagination-info flex items-center space-x-2 mb-4">
+            <div class="pagination-controls mt-12 p-6 pagination-card rounded-lg shadow-sm">
+                <div class="pagination-info space-x-2 mb-4">
                     <span class="text-sm" style="color: var(--page-text-secondary);">Showing</span>
                     <span class="text-sm font-medium" style="color: var(--page-text-primary);"
                         id="posts-range">1-5</span>
@@ -965,7 +1518,7 @@
                     <span class="text-sm" style="color: var(--page-text-secondary);">posts</span>
                 </div>
 
-                <div class="pagination-buttons flex items-center space-x-2">
+                <div class="pagination-buttons space-x-2">
                     <!-- Previous Button -->
                     <button id="prev-btn"
                         class="inline-flex items-center pagination-btn px-3 py-2 text-sm font-medium rounded-lg transition-colors pagination-button"
@@ -980,7 +1533,7 @@
                     </button>
 
                     <!-- Page Numbers -->
-                    <div class="flex items-center space-x-1" id="page-numbers">
+                    <div class="space-x-1" id="page-numbers">
                         <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"
                             data-page="1">1</button>
                         <button class="page-number px-3 py-2 text-sm font-medium rounded-lg transition-colors"

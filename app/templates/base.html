@@ -13,7 +13,33 @@
         rel="stylesheet">
 
     <!-- Custom CSS - Modular Architecture -->
-    <link rel="stylesheet" href="/static/css/styles-modular.css?v=4.6">
+    <link rel="stylesheet" href="/static/css/styles-modular.css?v=4.7">
+
+    <!-- Critical CSS for mobile footer -->
+    <style>
+        /* Force hide Quick Links on mobile - inline critical CSS */
+        @media (max-width: 767px) {
+            .footer-quick-links {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                max-height: 0 !important;
+            }
+        }
+
+        /* Show on desktop */
+        @media (min-width: 768px) {
+            .footer-quick-links {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                height: auto !important;
+            }
+        }
+    </style>
+
     {% block extra_css %}{% endblock %}
 
     <!-- Favicon -->
