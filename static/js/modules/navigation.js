@@ -1,6 +1,9 @@
 /**
  * Optimized Navigation Module - Consolidated navigation functionality
+ * Uses centralized Utils module for common functions
  */
+import Utils from './utils.js';
+
 export class NavigationManager {
     constructor() {
         this.mobileMenuState = false;
@@ -82,14 +85,8 @@ export class NavigationManager {
                     const targetElement = document.getElementById(targetId);
 
                     if (targetElement) {
-                        // Use Utils for consistent smooth scrolling
-                        const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
-                        const targetPosition = targetElement.offsetTop - navHeight - 20;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
+                        // Use centralized Utils method for smooth scrolling
+                        Utils.smoothScrollTo(targetId, 20);
                     } else {
                         // Navigate to home page with hash if we're not on home page
                         const currentPath = window.location.pathname;
@@ -106,8 +103,8 @@ export class NavigationManager {
         const navbar = document.querySelector('.navbar');
         if (!navbar) return;
 
-        // Use throttled scroll handler for performance
-        const throttledScrollHandler = this.throttle(() => {
+        // Use centralized throttled scroll handler for performance
+        const throttledScrollHandler = Utils.throttle(() => {
             const currentScrollY = window.scrollY;
             navbar.classList.toggle('scrolled', currentScrollY > 50);
         }, 16); // ~60fps
@@ -116,41 +113,11 @@ export class NavigationManager {
     }
 
     setupActiveLinks() {
-        const navLinks = document.querySelectorAll('.nav-link[data-section]');
-        const sections = document.querySelectorAll('section[id]');
-
-        if (sections.length === 0) return;
-
-        const observerOptions = {
+        // Use centralized Utils method
+        Utils.setupActiveLinks('.nav-link[data-section]', 'section[id]', {
             threshold: 0.3,
             rootMargin: '-100px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.updateActiveLink(entry.target.id, navLinks);
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => observer.observe(section));
-    }
-
-    /**
-     * Update active navigation link
-     */
-    updateActiveLink(sectionId, navLinks) {
-        // Remove active class from all links
-        navLinks.forEach(link => {
-            link.parentElement.classList.remove('active');
         });
-
-        // Add active class to current link
-        const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
-        if (activeLink) {
-            activeLink.parentElement.classList.add('active');
-        }
     }
 
     handleHashOnLoad() {
@@ -158,33 +125,11 @@ export class NavigationManager {
             const hash = window.location.hash;
             if (hash) {
                 const targetId = hash.substring(1);
-                // Use Utils for consistent smooth scrolling
+                // Use centralized Utils method for smooth scrolling
                 setTimeout(() => {
-                    const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
-                    const targetPosition = targetElement.offsetTop - navHeight - 20;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    Utils.smoothScrollTo(targetId, 20);
                 }, 100);
             }
         });
-    }
-
-    /**
-     * Simple throttle implementation
-     */
-    throttle(func, limit) {
-        let inThrottle;
-        return function () {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        }
     }
 }

@@ -6,12 +6,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const blogItems = document.querySelectorAll('.blog-item');
     const categoryFilters = document.querySelectorAll('.category-filter');
-    const tagFilters = document.querySelectorAll('.tag-filter');
     const featuredPost = document.querySelector('.featured-post');
 
     // Mobile filters
     const mobileCategoryChips = document.querySelectorAll('.mobile-category-chip');
-    const mobileTagChips = document.querySelectorAll('.mobile-tag-chip');
 
     // Pagination variables
     let currentPage = 1;
@@ -46,11 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
             categoryFilters.forEach(f => f.classList.remove('active'));
             this.classList.add('active');
 
-            // Reset tag filters
-            tagFilters.forEach(f => f.classList.remove('active'));
-
             // Filter blog posts
-            filterPosts(category, []);
+            filterPosts(category);
         });
     });
 
@@ -71,83 +66,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            // Reset tag filters
-            tagFilters.forEach(f => f.classList.remove('active'));
-            mobileTagChips.forEach(c => c.classList.remove('active'));
-
             // Filter blog posts
-            filterPosts(category, []);
-        });
-    });
-
-    // Tag filtering
-    tagFilters.forEach(filter => {
-        filter.addEventListener('click', function () {
-            // Toggle tag active state
-            this.classList.toggle('active');
-
-            // Reset category to "All Posts"
-            categoryFilters.forEach(f => f.classList.remove('active'));
-            categoryFilters[0].classList.add('active');
-
-            // Get active tags
-            const activeTags = Array.from(tagFilters)
-                .filter(f => f.classList.contains('active'))
-                .map(f => f.dataset.tag);
-
-            // Filter blog posts by tags
-            filterPosts('all', activeTags);
-        });
-    });
-
-    // Mobile Tag filtering
-    mobileTagChips.forEach(chip => {
-        chip.addEventListener('click', function () {
-            // Toggle tag active state
-            this.classList.toggle('active');
-
-            // Sync with desktop tags
-            const tag = this.dataset.tag;
-            tagFilters.forEach(f => {
-                if (f.dataset.tag === tag) {
-                    if (this.classList.contains('active')) {
-                        f.classList.add('active');
-                    } else {
-                        f.classList.remove('active');
-                    }
-                }
-            });
-
-            // Reset category to "All Posts"
-            categoryFilters.forEach(f => f.classList.remove('active'));
-            categoryFilters[0].classList.add('active');
-            mobileCategoryChips.forEach(c => c.classList.remove('active'));
-            mobileCategoryChips[0].classList.add('active');
-
-            // Get active tags (from mobile)
-            const activeTags = Array.from(mobileTagChips)
-                .filter(c => c.classList.contains('active'))
-                .map(c => c.dataset.tag);
-
-            // Filter blog posts by tags
-            filterPosts('all', activeTags);
+            filterPosts(category);
         });
     });
 
     // Filter function
-    function filterPosts(category, tags) {
+    function filterPosts(category) {
+        // Show/hide featured post based on category
+        if (featuredPost) {
+            if (category === 'all') {
+                featuredPost.style.display = 'block';
+            } else {
+                featuredPost.style.display = 'none';
+            }
+        }
+
         filteredPosts = Array.from(blogItems).filter(item => {
             let show = true;
 
             // Category filter
             if (category !== 'all') {
                 show = item.dataset.category === category;
-            }
-
-            // Tag filter
-            if (show && tags.length > 0) {
-                const itemTags = item.dataset.tags ? item.dataset.tags.split(',') : [];
-                show = tags.some(tag => itemTags.includes(tag));
             }
 
             return show;
@@ -157,6 +97,64 @@ document.addEventListener('DOMContentLoaded', function () {
         displayPosts();
         updateCategoryCounts();
         updatePagination();
+
+        // Scroll to the top of blog container AFTER display animation completes
+        // Display takes 200ms + (5 posts * 50ms) = 450ms total
+        setTimeout(() => {
+            scrollToBlogTop(category);
+        }, 500);
+    }
+
+    // Scroll to blog container top
+    function scrollToBlogTop(category) {
+        const blogContainer = document.getElementById('blog-container');
+        const mainContainer = document.querySelector('.main-container');
+
+        if (!blogContainer || !mainContainer) return;
+
+        // Get viewport and scroll position
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // If filtering by specific category (not "all"), scroll to align blog container with sidebar
+        if (category !== 'all') {
+            const blogRect = blogContainer.getBoundingClientRect();
+            const blogTop = blogRect.top + scrollTop;
+
+            // Scroll to position blog container at 120px from top (aligned with sidebar)
+            window.scrollTo({
+                top: blogTop - 120, // 120px = navbar height + spacing to match sidebar sticky position
+                behavior: 'smooth'
+            });
+        } else {
+            // For "All Posts", use the original minimal scroll behavior
+            const mainRect = mainContainer.getBoundingClientRect();
+
+            // Only scroll if the main container is above viewport
+            if (mainRect.top < 0) {
+                const targetPosition = scrollTop + mainRect.top - 120;
+
+                window.scrollTo({
+                    top: Math.max(0, targetPosition),
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    // Scroll to blog container for pagination
+    function scrollToBlogContainer() {
+        const blogContainer = document.getElementById('blog-container');
+        if (!blogContainer) return;
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const blogRect = blogContainer.getBoundingClientRect();
+        const blogTop = blogRect.top + scrollTop;
+
+        // Scroll to position blog container at 120px from top (aligned with sidebar)
+        window.scrollTo({
+            top: blogTop - 120, // 120px = navbar height + spacing to match sidebar sticky position
+            behavior: 'smooth'
+        });
     }
 
     // Display posts for current page
@@ -284,14 +282,10 @@ document.addEventListener('DOMContentLoaded', function () {
             displayPosts();
             updatePagination();
 
-            // Scroll to top of blog section
-            const blogContainer = document.getElementById('blog-container');
-            if (blogContainer) {
-                blogContainer.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+            // Scroll to align blog container with sidebar AFTER display animation
+            setTimeout(() => {
+                scrollToBlogContainer();
+            }, 500);
         });
 
         return button;
@@ -307,13 +301,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentPage--;
                 displayPosts();
                 updatePagination();
-                const blogContainer = document.getElementById('blog-container');
-                if (blogContainer) {
-                    blogContainer.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                // Delay scroll until display animation completes
+                setTimeout(() => {
+                    scrollToBlogContainer();
+                }, 500);
             }
         });
     }
@@ -325,13 +316,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentPage++;
                 displayPosts();
                 updatePagination();
-                const blogContainer = document.getElementById('blog-container');
-                if (blogContainer) {
-                    blogContainer.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                // Delay scroll until display animation completes
+                setTimeout(() => {
+                    scrollToBlogContainer();
+                }, 500);
             }
         });
     }

@@ -6,8 +6,9 @@
 <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet">
-<script src="/static/js/modules/articles.js?v=4" defer></script>
+<script src="/static/js/modules/articles.js?v=9" defer></script>
 <style>
+    /* Updated pagination layout v1.1 - Sticky sidebar v1.0 */
     /* Blog-inspired light theme variables - scoped to avoid navbar conflicts */
     :root {
         /* Keep navbar dark theme variables unchanged */
@@ -715,19 +716,15 @@
         }
 
         .pagination-controls {
-            flex-direction: row !important;
-            gap: 1rem;
+            flex-direction: column !important;
+            gap: 0.75rem;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
         }
 
         .pagination-info {
             order: 1;
             text-align: center;
             font-size: 0.8rem;
-            flex: 0 0 100%;
-            margin-bottom: 0.75rem;
         }
 
         .pagination-buttons {
@@ -735,8 +732,9 @@
             display: flex;
             flex-wrap: nowrap;
             justify-content: center;
-            gap: 0.375rem;
+            gap: 0.5rem;
             width: 100%;
+            max-width: 400px;
             align-items: center;
         }
 
@@ -1008,22 +1006,25 @@
                 </h3>
                 <div class="mobile-categories-scroll">
                     <button class="mobile-category-chip active" data-category="all">
-                        All <span class="chip-count">8</span>
+                        All <span class="chip-count">40</span>
                     </button>
                     <button class="mobile-category-chip" data-category="machine-learning">
-                        Machine Learning <span class="chip-count">2</span>
+                        Machine Learning <span class="chip-count">6</span>
                     </button>
                     <button class="mobile-category-chip" data-category="deep-learning">
-                        Deep Learning <span class="chip-count">1</span>
+                        Deep Learning <span class="chip-count">5</span>
                     </button>
                     <button class="mobile-category-chip" data-category="nlp">
-                        NLP <span class="chip-count">1</span>
+                        NLP <span class="chip-count">5</span>
                     </button>
                     <button class="mobile-category-chip" data-category="computer-vision">
-                        Computer Vision <span class="chip-count">2</span>
+                        Computer Vision <span class="chip-count">6</span>
                     </button>
                     <button class="mobile-category-chip" data-category="ai-research">
-                        AI Research <span class="chip-count">2</span>
+                        AI Research <span class="chip-count">9</span>
+                    </button>
+                    <button class="mobile-category-chip" data-category="mlops">
+                        MLOps <span class="chip-count">5</span>
                     </button>
                 </div>
             </div>
@@ -1033,87 +1034,55 @@
     <div class="main-container flex gap-8">
         <!-- Sidebar with Categories -->
         <aside class="sidebar w-64 flex-shrink-0">
-            <div class="sidebar-card rounded-lg shadow-sm p-6 sticky top-6">
+            <div class="sidebar-card rounded-lg shadow-sm p-6">
                 <h3 class="text-lg font-semibold mb-4" style="color: var(--page-text-primary);">Categories</h3>
                 <ul class="sidebar-categories space-y-2">
                     <li>
                         <button
                             class="category-filter active w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                             data-category="all">
-                            All Posts <span class="float-right text-current">(8)</span>
+                            All Posts <span class="float-right text-current">(40)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
                             data-category="machine-learning" style="color: var(--page-text-secondary);">
                             Machine Learning <span class="float-right"
-                                style="color: var(--page-text-tertiary);">(2)</span>
+                                style="color: var(--page-text-tertiary);">(6)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
                             data-category="deep-learning" style="color: var(--page-text-secondary);">
-                            Deep Learning <span class="float-right" style="color: var(--page-text-tertiary);">(1)</span>
+                            Deep Learning <span class="float-right" style="color: var(--page-text-tertiary);">(5)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
                             data-category="nlp" style="color: var(--page-text-secondary);">
-                            NLP <span class="float-right" style="color: var(--page-text-tertiary);">(1)</span>
+                            NLP <span class="float-right" style="color: var(--page-text-tertiary);">(5)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
                             data-category="computer-vision" style="color: var(--page-text-secondary);">
                             Computer Vision <span class="float-right"
-                                style="color: var(--page-text-tertiary);">(2)</span>
+                                style="color: var(--page-text-tertiary);">(6)</span>
                         </button>
                     </li>
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
                             data-category="ai-research" style="color: var(--page-text-secondary);">
-                            AI Research <span class="float-right" style="color: var(--page-text-tertiary);">(2)</span>
+                            AI Research <span class="float-right" style="color: var(--page-text-tertiary);">(9)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
+                            data-category="mlops" style="color: var(--page-text-secondary);">
+                            MLOps <span class="float-right" style="color: var(--page-text-tertiary);">(5)</span>
                         </button>
                     </li>
                 </ul>
-
-                <hr class="my-6" style="border-color: var(--page-border-color);">
-
-                <h3 class="text-lg font-semibold mb-4" style="color: var(--page-text-primary);">Popular Tags</h3>
-                <div class="sidebar-tags flex flex-wrap gap-2">
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="python">
-                        Python
-                    </button>
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="tensorflow">
-                        TensorFlow
-                    </button>
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="pytorch">
-                        PyTorch
-                    </button>
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="neural-networks">
-                        Neural Networks
-                    </button>
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="transformers">
-                        Transformers
-                    </button>
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="opencv">
-                        OpenCV
-                    </button>
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="scikit-learn">
-                        Scikit-Learn
-                    </button>
-                    <button class="tag-filter px-3 py-1 text-xs font-medium rounded-full transition-colors"
-                        data-tag="llm">
-                        LLM
-                    </button>
-                </div>
 
                 <hr class="my-6" style="border-color: var(--page-border-color);">
 
@@ -1195,14 +1164,6 @@
                                 <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
                                     alt="AI MLOps pipeline" class="w-full h-full object-cover">
                             </div>
-                        </div>
-                    </div>
-                    <div class="absolute top-4 right-4">
-                        <div class="w-16 h-16 rounded-full flex items-center justify-center"
-                            style="background: rgba(255, 255, 255, 0.9);">
-                            <svg class="w-6 h-6" fill="none" stroke="#111827" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3l14 9-14 9V3z"></path>
-                            </svg>
                         </div>
                     </div>
                 </div>
@@ -1481,30 +1442,829 @@
                         </div>
                     </div>
                 </article>
-            </div>
 
-            <!-- Mobile Tags Section (Bottom) -->
-            <div class="mobile-tags-section">
-                <div class="mobile-tags-container">
-                    <h3 class="mobile-tags-title">
-                        <svg class="mobile-filter-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16"
-                            height="16">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
-                        </svg>
-                        Filter by Tags
-                    </h3>
-                    <div class="mobile-tags-grid">
-                        <button class="mobile-tag-chip" data-tag="python">Python</button>
-                        <button class="mobile-tag-chip" data-tag="tensorflow">TensorFlow</button>
-                        <button class="mobile-tag-chip" data-tag="pytorch">PyTorch</button>
-                        <button class="mobile-tag-chip" data-tag="neural-networks">Neural Networks</button>
-                        <button class="mobile-tag-chip" data-tag="transformers">Transformers</button>
-                        <button class="mobile-tag-chip" data-tag="opencv">OpenCV</button>
-                        <button class="mobile-tag-chip" data-tag="scikit-learn">Scikit-Learn</button>
-                        <button class="mobile-tag-chip" data-tag="llm">LLM</button>
+                <!-- Machine Learning Posts (4 more) -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="machine-learning"
+                    data-tags="python,scikit-learn">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=400&h=300&fit=crop"
+                                alt="Feature engineering" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">January 25, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Feature Engineering Techniques for Better Models
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Master the art of feature engineering to improve your machine learning models. Learn
+                                about feature selection, transformation, and creation strategies.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">10 min read</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="machine-learning"
+                    data-tags="python,scikit-learn">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+                                alt="Model evaluation" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">January 18, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Cross-Validation and Model Evaluation Strategies
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Comprehensive guide to model evaluation techniques including k-fold cross-validation,
+                                stratified sampling, and performance metrics selection.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">9 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="machine-learning"
+                    data-tags="python,scikit-learn">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
+                                alt="Time series analysis" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">January 10, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Time Series Forecasting with Machine Learning
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Learn how to build accurate time series forecasting models using ARIMA, SARIMA, and
+                                modern ML approaches like LSTM and Prophet.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">14 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="machine-learning"
+                    data-tags="python,scikit-learn">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&h=300&fit=crop"
+                                alt="Hyperparameter tuning" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">January 3, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(59, 130, 246, 0.2); color: #000000;">Machine Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Hyperparameter Tuning: Grid Search vs Random Search
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Compare different hyperparameter optimization techniques and learn when to use grid
+                                search, random search, or Bayesian optimization.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">11 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Deep Learning Posts (4 more) -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="deep-learning"
+                    data-tags="tensorflow,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop"
+                                alt="CNN architecture" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">December 28, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(34, 197, 94, 0.2); color: #000000;">Deep Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Understanding Convolutional Neural Networks
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Deep dive into CNN architectures, from basic convolutions to modern approaches like
+                                ResNet and EfficientNet for image classification.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">13 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="deep-learning"
+                    data-tags="tensorflow,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop"
+                                alt="Transfer learning" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">December 20, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(34, 197, 94, 0.2); color: #000000;">Deep Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Transfer Learning: Leveraging Pre-trained Models
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Learn how to use transfer learning to build powerful models with limited data. Explore
+                                fine-tuning strategies and domain adaptation techniques.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">10 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="deep-learning"
+                    data-tags="tensorflow,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=300&fit=crop"
+                                alt="RNN and LSTM" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">December 12, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(34, 197, 94, 0.2); color: #000000;">Deep Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Recurrent Neural Networks and LSTMs Explained
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Understand the architecture and applications of RNNs and LSTMs for sequence modeling,
+                                from text generation to speech recognition.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">15 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="deep-learning"
+                    data-tags="tensorflow,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=400&h=300&fit=crop"
+                                alt="Attention mechanism" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">December 5, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(34, 197, 94, 0.2); color: #000000;">Deep Learning</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Attention Mechanisms in Deep Learning
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Explore attention mechanisms and their role in modern deep learning, from self-attention
+                                to multi-head attention in transformers.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">12 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- NLP Posts (4 more) -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="nlp"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=300&fit=crop"
+                                alt="Sentiment analysis" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">November 28, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(147, 51, 234, 0.2); color: #000000;">NLP</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Building Sentiment Analysis Systems with BERT
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Step-by-step guide to building a sentiment analysis system using BERT and fine-tuning
+                                techniques for text classification tasks.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">11 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="nlp"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop"
+                                alt="Named entity recognition" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">November 20, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(147, 51, 234, 0.2); color: #000000;">NLP</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Named Entity Recognition with Transformers
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Learn how to build NER systems using transformer models to extract entities like people,
+                                organizations, and locations from text.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">13 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="nlp"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop"
+                                alt="Question answering" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">November 12, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(147, 51, 234, 0.2); color: #000000;">NLP</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Question Answering Systems with T5 and BERT
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Build intelligent question answering systems using state-of-the-art transformer models
+                                for extractive and abstractive QA tasks.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">14 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="nlp"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop"
+                                alt="Text summarization" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">November 5, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(147, 51, 234, 0.2); color: #000000;">NLP</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Automatic Text Summarization with Transformers
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Master text summarization techniques using modern NLP models to generate concise
+                                summaries of long documents automatically.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">10 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Computer Vision Posts (4 more) -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="computer-vision"
+                    data-tags="opencv,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
+                                alt="Object tracking" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">October 28, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer Vision</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Object Tracking Algorithms for Video Analysis
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Explore modern object tracking algorithms including SORT, DeepSORT, and their
+                                applications in surveillance and autonomous systems.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">11 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="computer-vision"
+                    data-tags="opencv,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop"
+                                alt="Image segmentation" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">October 20, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer Vision</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Semantic Segmentation with U-Net and Mask R-CNN
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Learn about semantic and instance segmentation techniques using U-Net and Mask R-CNN for
+                                pixel-level image understanding.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">13 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="computer-vision"
+                    data-tags="opencv,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=300&fit=crop"
+                                alt="Facial recognition" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">October 12, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer Vision</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Face Recognition and Verification Systems
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Build robust face recognition systems using deep learning techniques, from face
+                                detection to verification and identification.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">12 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="computer-vision"
+                    data-tags="opencv,pytorch">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop"
+                                alt="Pose estimation" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">October 5, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(249, 115, 22, 0.2); color: #000000;">Computer Vision</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Human Pose Estimation for Action Recognition
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Explore human pose estimation techniques using OpenPose and MediaPipe for applications
+                                in sports analytics and human-computer interaction.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">10 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- AI Research Posts (4 more) -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=300&fit=crop"
+                                alt="Reinforcement learning" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">September 28,
+                                    2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Deep Reinforcement Learning: From Theory to Practice
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Comprehensive guide to reinforcement learning algorithms including Q-learning, DQN, and
+                                PPO for training intelligent agents.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">16 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1655393001768-d946c97d6fd1?w=400&h=300&fit=crop"
+                                alt="Generative AI" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">September 20,
+                                    2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Generative AI: GANs, VAEs, and Diffusion Models
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Explore the latest advances in generative AI including GANs, VAEs, and diffusion models
+                                for image synthesis and creative applications.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">15 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=400&h=300&fit=crop"
+                                alt="Explainable AI" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">September 12,
+                                    2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Explainable AI: Making Models Interpretable
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Learn about XAI techniques like LIME, SHAP, and attention visualization to understand
+                                and trust machine learning model decisions.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">13 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="transformers,python">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop"
+                                alt="Neural architecture search" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">September 5, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Neural Architecture Search: Automating Model Design
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Discover how Neural Architecture Search (NAS) automates the design of optimal neural
+                                network architectures for specific tasks.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">14 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="reinforcement-learning,robotics">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=300&fit=crop"
+                                alt="Meta-learning" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">August 18, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Meta-Learning: Teaching AI to Learn How to Learn
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Explore meta-learning approaches that enable AI systems to quickly adapt to new tasks
+                                with minimal training data, mimicking human learning capabilities.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">16 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="quantum,optimization">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop"
+                                alt="Quantum machine learning" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">July 30, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Quantum Machine Learning: The Next Frontier
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Investigate how quantum computing principles are being applied to machine learning
+                                algorithms, potentially revolutionizing optimization and pattern recognition.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">18 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="ai-research"
+                    data-tags="neuromorphic,hardware">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop"
+                                alt="Neuromorphic computing" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">July 12, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(239, 68, 68, 0.2); color: #000000;">AI Research</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Neuromorphic Computing: Brain-Inspired AI Hardware
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Discover how neuromorphic chips mimic biological neural networks to achieve
+                                energy-efficient, parallel processing for next-generation AI applications.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">15 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- MLOps Posts (5 total - including featured) -->
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="mlops"
+                    data-tags="python,kubernetes,docker">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+                                alt="MLOps pipeline" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">March 20, 2024</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(16, 185, 129, 0.2); color: #000000;">MLOps</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Building Production-Ready AI Systems with MLOps
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Learn how to deploy, monitor, and maintain machine learning models in production. This
+                                comprehensive guide covers MLOps best practices, CI/CD for ML, model versioning, and
+                                automated retraining pipelines.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">18 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="mlops"
+                    data-tags="python,kubernetes,docker">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?w=400&h=300&fit=crop"
+                                alt="CI/CD pipeline" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">August 28, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(16, 185, 129, 0.2); color: #000000;">MLOps</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                CI/CD Pipelines for Machine Learning Models
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Implement continuous integration and deployment pipelines specifically designed for ML
+                                models. Learn about automated testing, model validation, and seamless deployment
+                                strategies.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">15 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="mlops"
+                    data-tags="python,kubernetes,docker">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=300&fit=crop"
+                                alt="Model monitoring" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">August 20, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(16, 185, 129, 0.2); color: #000000;">MLOps</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Model Monitoring and Drift Detection in Production
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Monitor ML models in production to detect data drift, concept drift, and performance
+                                degradation. Implement alerting systems and automated retraining triggers.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">13 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="mlops"
+                    data-tags="python,kubernetes,docker">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=300&fit=crop"
+                                alt="Feature store" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">August 12, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(16, 185, 129, 0.2); color: #000000;">MLOps</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Feature Stores: Managing ML Features at Scale
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Build and manage feature stores to ensure consistency between training and serving.
+                                Learn about feature versioning, sharing, and real-time feature computation.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">14 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-item rounded-lg shadow-sm p-6 hover:shadow-md" data-category="mlops"
+                    data-tags="python,kubernetes,docker">
+                    <div class="blog-item-content flex gap-6">
+                        <div class="blog-item-image flex-shrink-0 w-32 h-24 overflow-hidden rounded-lg"
+                            style="background: var(--page-bg-secondary);">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop"
+                                alt="Model versioning" class="blog-image w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <time class="text-sm" style="color: var(--page-text-tertiary);">August 5, 2023</time>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    style="background: rgba(16, 185, 129, 0.2); color: #000000;">MLOps</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mb-3 transition-colors cursor-pointer blog-title"
+                                style="color: var(--page-text-primary);">
+                                Model Versioning and Experiment Tracking with MLflow
+                            </h2>
+                            <p class="text-sm leading-relaxed mb-3" style="color: var(--page-text-secondary);">
+                                Master model versioning and experiment tracking using MLflow. Track parameters, metrics,
+                                and artifacts to ensure reproducibility and model governance.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm" style="color: var(--page-text-tertiary);">12 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
 
             <!-- Pagination -->
@@ -1514,7 +2274,8 @@
                     <span class="text-sm font-medium" style="color: var(--page-text-primary);"
                         id="posts-range">1-5</span>
                     <span class="text-sm" style="color: var(--page-text-secondary);">of</span>
-                    <span class="text-sm font-medium" style="color: var(--page-text-primary);" id="total-posts">8</span>
+                    <span class="text-sm font-medium" style="color: var(--page-text-primary);"
+                        id="total-posts">37</span>
                     <span class="text-sm" style="color: var(--page-text-secondary);">posts</span>
                 </div>
 

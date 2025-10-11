@@ -219,49 +219,9 @@
         display: none !important;
     }
 
-    /* Featured Post - Card Style */
+    /* Featured Post - Hide on Mobile (will be shown as regular article) */
     .featured-post {
-        padding: 0 !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
-    }
-
-    .featured-post .relative {
-        padding: 1.5rem 1.25rem !important;
-    }
-
-    .featured-content {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        text-align: left !important;
-    }
-
-    .featured-post h2 {
-        font-size: 1.4rem !important;
-        line-height: 1.3;
-        margin-bottom: 0.75rem;
-    }
-
-    .featured-post p {
-        font-size: 0.875rem !important;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-    }
-
-    .featured-post .featured-meta {
-        flex-wrap: wrap !important;
-        gap: 0.75rem !important;
-        margin-bottom: 1rem !important;
-    }
-
-    .featured-image {
-        width: 100% !important;
-        margin-top: 1rem !important;
-        margin-bottom: 0 !important;
-    }
-
-    .featured-post .aspect-video {
-        border-radius: 8px !important;
+        display: none !important;
     }
 
     /* Blog Items - Modern Card Design */
@@ -502,23 +462,9 @@
         line-height: 1.45;
     }
 
-    /* Featured Post Compact */
-    .featured-post .relative {
-        padding: 1.25rem 1rem !important;
-    }
-
-    .featured-post h2 {
-        font-size: 1.25rem !important;
-        line-height: 1.35;
-    }
-
-    .featured-post p {
-        font-size: 0.825rem !important;
-        line-height: 1.5;
-    }
-
-    .featured-post .featured-meta {
-        gap: 0.5rem !important;
+    /* Featured Post - Hidden on Extra Small Mobile */
+    .featured-post {
+        display: none !important;
     }
 
     /* Blog Items - More Compact */
