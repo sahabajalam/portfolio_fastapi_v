@@ -1,4 +1,78 @@
-/* ===== OPTIMIZED UTILITY CLASSES ===== */
+/* ===== UTILITY CLASSES ===== */
+
+/* === TYPOGRAPHY BASE === */
+body {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings use Space Grotesk */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-title,
+.section-title,
+.project-title,
+.article-title,
+.card-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+h5 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+h6 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Body text optimization */
+p,
+li,
+span,
+div {
+    font-family: var(--font-primary);
+}
+
+/* Code and monospace */
+code,
+pre,
+.code-block {
+    font-family: var(--font-mono);
+}
+
+/* === EXISTING UTILITIES === */
 /* Consolidated and organized utility classes to reduce duplication */
 
 /* === LAYOUT UTILITIES === */

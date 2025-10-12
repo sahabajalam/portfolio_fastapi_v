@@ -150,31 +150,23 @@ class OptimizedPortfolioService:
     def _create_tech_stack_data(self) -> List[TechStack]:
         """Create technology stack data."""
         tech_data = [
-            ("Python", "fab fa-python", "Programming", 5),
-            ("SQL", "fas fa-database", "Database", 4),
-            ("Docker", "fab fa-docker", "DevOps", 4),
-            ("AWS", "fab fa-aws", "Cloud", 4),
-            ("PyTorch", "fas fa-brain", "ML Framework", 4),
-            ("TensorFlow", "fas fa-robot", "ML Framework", 4),
-            ("Kubernetes", "fas fa-dharmachakra", "DevOps", 3),
-            ("PostgreSQL", "fas fa-server", "Database", 4),
-            ("MongoDB", "fas fa-leaf", "Database", 3),
-            ("FastAPI", "fas fa-rocket", "Framework", 4),
-            ("Git", "fab fa-git-alt", "Tools", 5),
-            ("MLOps", "fas fa-cogs", "Operations", 3),
-            ("LangGraph", "fas fa-share-alt", "AI", 4),
-            ("AutoGen", "fas fa-users", "AI", 4),
-            ("LangChain", "fas fa-link", "AI", 4),
-            ("Apache Airflow", "fas fa-project-diagram", "Data Pipeline", 4),
-            ("Power BI", "fas fa-chart-bar", "BI", 3),
-            ("React", "fab fa-react", "Frontend", 4),
-            ("Streamlit", "fas fa-stream", "Frontend", 3),
-            ("Redis", "fas fa-memory", "Database", 3),
-            ("Scikit-learn", "fas fa-calculator", "ML Framework", 4),
-            ("Grafana", "fas fa-chart-line", "Monitoring", 3),
-            ("Pandas", "fas fa-table", "Data Science", 5),
-            ("Computer Vision", "fas fa-eye", "AI", 4),
-            ("NLP", "fas fa-language", "AI", 4),
+            ("Python", "devicon-python-plain colored", "Programming", 5),  # Official Python icon
+            ("FastAPI", "devicon-fastapi-plain colored", "Framework", 4),  # Official FastAPI icon
+            ("PyTorch", "devicon-pytorch-original colored", "ML Framework", 4),  # Official PyTorch icon
+            ("LangChain", "fas fa-link", "AI", 4),  # No official icon - chain links
+            ("LangGraph", "fas fa-project-diagram", "AI", 4),  # No official icon - graph/diagram
+            ("AutoGen", "fas fa-robot", "AI", 4),  # No official icon - robot
+            ("Neo4j", "devicon-neo4j-plain colored", "Database", 4),  # Official Neo4j icon
+            ("GraphRAG", "fas fa-diagram-project", "AI", 4),  # No official icon - diagram
+            ("FAISS", "fas fa-vector-square", "AI", 4),  # No official icon - vector
+            ("Docker", "devicon-docker-plain colored", "DevOps", 4),  # Official Docker icon
+            ("Kubernetes", "devicon-kubernetes-plain colored", "DevOps", 4),  # Official Kubernetes icon
+            ("AWS", "devicon-amazonwebservices-plain colored", "Cloud", 4),  # Official AWS icon
+            ("PostgreSQL", "devicon-postgresql-plain colored", "Database", 4),  # Official PostgreSQL icon
+            ("MLOps", "fas fa-gears", "Operations", 4),  # Concept - gears
+            ("Apache Airflow", "devicon-apacheairflow-plain colored", "Data Pipeline", 4),  # Official Airflow icon
+            # Devicon doesn't provide MLflow yet; use Simple Icons SVG for official logo
+            ("MLflow", "https://cdn.simpleicons.org/mlflow/0194E2", "MLOps", 4),
         ]
         
         return [
