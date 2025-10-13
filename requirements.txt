@@ -1,3 +1,6 @@
+# NOTE: Keep in sync with pyproject.toml dependencies
+# This file is required for deployment platforms like Render and Heroku
+
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 jinja2==3.1.2

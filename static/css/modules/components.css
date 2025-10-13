@@ -73,6 +73,8 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 /* Shimmer effect for buttons */

@@ -43,6 +43,19 @@
     padding: 1.5rem 0;
 }
 
+/* Specific styling for About section to reduce spacing */
+#about .section-heading-wrapper {
+    margin-bottom: 0.5rem;
+}
+
+#about .section-heading {
+    padding-bottom: 0.25rem;
+}
+
+#about .bio-text {
+    padding: 0.5rem 0;
+}
+
 .bio-text::before {
     content: '"';
     position: absolute;
