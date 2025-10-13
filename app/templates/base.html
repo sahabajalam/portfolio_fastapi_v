@@ -20,7 +20,7 @@
         rel="stylesheet">
 
     <!-- Custom CSS - Modular Architecture -->
-    <link rel="stylesheet" href="/static/css/styles-modular.css?v=7.2">
+    <link rel="stylesheet" href="/static/css/styles-modular.css?v=10.0">
 
     <!-- Critical CSS for mobile footer -->
     <style>
@@ -106,12 +106,51 @@
     <!-- Footer -->
     {% include 'components/footer.html' %}
 
+    <!-- Floating Chat Button -->
+    <button id="chatToggleBtn"
+        class="fixed bottom-6 right-6 z-50 btn-primary text-white px-4 py-3 md:px-5 md:py-3 rounded-full shadow-xl transition-transform duration-200 flex items-center gap-2"
+        type="button" aria-label="Open Chat" aria-expanded="false">
+        <i class="fas fa-comment-dots text-xl"></i>
+        <span class="font-semibold text-sm hidden md:inline">Ask Alam</span>
+    </button>
+
+    <!-- Chat Interface (Hidden by default) -->
+    <div id="chatInterface" class="fixed bottom-16 right-6 z-50 hidden">
+        {% include 'components/chat_interface.html' %}
+    </div>
+
     <!-- JavaScript -->
     <script type="module">
         // Import modular components
         import { NavigationManager } from '/static/js/modules/navigation.js';
         import { ChatManager } from '/static/js/modules/chat.js';
         import { AnimationManager } from '/static/js/modules/animations.js';
+
+        // Define toggleChat function early to ensure it's available
+        let isChatOpen = false;
+        const chatToggleBtn = document.getElementById('chatToggleBtn');
+        const chatInterface = document.getElementById('chatInterface');
+
+        window.toggleChat = function () {
+            console.log('🖱️ toggleChat called! Current state:', isChatOpen);
+            isChatOpen = !isChatOpen;
+
+            if (isChatOpen) {
+                chatInterface.classList.remove('hidden');
+                chatInterface.classList.add('animate-fade-in-up');
+                chatToggleBtn.classList.add('hidden');
+                chatToggleBtn.setAttribute('aria-expanded', 'true');
+                console.log('✅ Chat opened');
+            } else {
+                chatInterface.classList.add('hidden');
+                chatInterface.classList.remove('animate-fade-in-up');
+                chatToggleBtn.classList.remove('hidden');
+                chatToggleBtn.innerHTML = '<i class="fas fa-comment-dots text-xl"></i><span class="font-semibold text-sm hidden md:inline">Ask Alam</span>';
+                chatToggleBtn.setAttribute('aria-label', 'Open Chat');
+                chatToggleBtn.setAttribute('aria-expanded', 'false');
+                console.log('✅ Chat closed');
+            }
+        };
 
         // Initialize application
         document.addEventListener('DOMContentLoaded', () => {
@@ -121,6 +160,30 @@
             new NavigationManager();
             window.chatManager = new ChatManager(); // Store globally for compatibility
             new AnimationManager();
+
+            // Chat Toggle Functionality (already defined above)
+            if (!chatToggleBtn || !chatInterface) {
+                console.error('❌ Chat elements not found!', { chatToggleBtn, chatInterface });
+                return;
+            }
+
+            console.log('✅ Chat elements found successfully');
+
+            chatToggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log('🖱️ Chat button clicked via event listener!');
+                window.toggleChat();
+            });
+
+            // Close chat when clicking outside
+            document.addEventListener('click', (e) => {
+                if (isChatOpen &&
+                    !chatInterface.contains(e.target) &&
+                    !chatToggleBtn.contains(e.target)) {
+                    console.log('🖱️ Clicked outside, closing chat');
+                    window.toggleChat();
+                }
+            });
 
             console.log('✅ Modular Portfolio App initialized successfully');
         });

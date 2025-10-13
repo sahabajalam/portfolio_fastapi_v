@@ -17,20 +17,16 @@ export class ChatManager {
     initResponses() {
         return {
             experience: {
-                text: "I'm currently pursuing an MSc in Data Science & AI at Bournemouth University and have a strong foundation in machine learning, data analysis, and software development. I specialize in end-to-end ML pipelines and RAG systems.",
-                icon: "📊"
+                text: "I'm currently pursuing an MSc in Data Science & AI at Bournemouth University and have a strong foundation in machine learning, data analysis, and software development. I specialize in end-to-end ML pipelines and RAG systems."
             },
             skills: {
-                text: "My core skills include Python, SQL, PyTorch, TensorFlow, Docker, AWS, and various MLOps tools. I'm proficient in building scalable ML systems and deploying them to production environments.",
-                icon: "🛠️"
+                text: "My core skills include Python, SQL, PyTorch, TensorFlow, Docker, AWS, and various MLOps tools. I'm proficient in building scalable ML systems and deploying them to production environments."
             },
             projects: {
-                text: "I've worked on various projects including AI-powered document analysis systems, real-time object detection, and stock price prediction models. Check out my projects page for detailed case studies!",
-                icon: "🚀"
+                text: "I've worked on various projects including AI-powered document analysis systems, real-time object detection, and stock price prediction models. Check out my projects page for detailed case studies!"
             },
             contact: {
-                text: "Feel free to reach out via email at sahabajalam@yahoo.com or connect with me on LinkedIn. I'm always open to discussing new opportunities and collaborations!",
-                icon: "📞"
+                text: "Feel free to reach out via email at sahabajalam@yahoo.com or connect with me on LinkedIn. I'm always open to discussing new opportunities and collaborations!"
             }
         };
     }
@@ -79,34 +75,34 @@ export class ChatManager {
         const response = this.responses[questionType];
         if (response) {
             this.addUserMessage(`Tell me about your ${questionType}`);
-            this.addBotMessage(response.text, response.icon);
+            this.addBotMessage(response.text);
         }
     }
 
     /**
      * Optimized message creation with template
      */
-    createMessageElement(isUser, message, icon) {
+    createMessageElement(isUser, message) {
         const messageElement = document.createElement('div');
 
         if (isUser) {
-            messageElement.className = 'message flex items-start gap-3 justify-end';
+            messageElement.className = 'message message-user';
             messageElement.innerHTML = `
-                <div class="user-message p-3 rounded-lg rounded-tr-none max-w-xs bg-primary-600 text-white">
-                    <p class="text-sm">${message}</p>
+                <div class="msg-bubble user-bubble">
+                    <p>${message}</p>
                 </div>
-                <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <i class="fas fa-user text-white text-sm"></i>
+                <div class="msg-avatar">
+                    <i class="fas fa-user"></i>
                 </div>
             `;
         } else {
-            messageElement.className = 'message flex items-start gap-3';
+            messageElement.className = 'message message-bot';
             messageElement.innerHTML = `
-                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span class="text-sm">${icon}</span>
+                <div class="msg-avatar bot-avatar-icon">
+                    <i class="fas fa-code"></i>
                 </div>
-                <div class="bot-message p-3 rounded-lg rounded-tl-none max-w-xs">
-                    <p class="text-white text-sm">${message}</p>
+                <div class="msg-bubble bot-bubble">
+                    <p>${message}</p>
                 </div>
             `;
         }
@@ -117,12 +113,12 @@ export class ChatManager {
     addUserMessage(message) {
         if (!this.chatMessages) return;
 
-        const messageElement = this.createMessageElement(true, message, null);
+        const messageElement = this.createMessageElement(true, message);
         this.chatMessages.appendChild(messageElement);
         this.scrollToBottom();
     }
 
-    addBotMessage(message, icon = "🤖") {
+    addBotMessage(message) {
         if (!this.chatMessages) return;
 
         this.isProcessing = true;
@@ -135,7 +131,7 @@ export class ChatManager {
                 typingElement.remove();
             }
 
-            const messageElement = this.createMessageElement(false, message, icon);
+            const messageElement = this.createMessageElement(false, message);
             this.chatMessages.appendChild(messageElement);
             this.scrollToBottom();
             this.isProcessing = false;
@@ -146,12 +142,12 @@ export class ChatManager {
         if (!this.chatMessages) return;
 
         const typingElement = document.createElement('div');
-        typingElement.className = 'message flex items-start gap-3 typing-indicator';
+        typingElement.className = 'message message-bot typing-indicator';
         typingElement.innerHTML = `
-            <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
-                <span class="text-sm">🤖</span>
+            <div class="msg-avatar bot-avatar-icon">
+                <i class="fas fa-code"></i>
             </div>
-            <div class="bot-message p-3 rounded-lg rounded-tl-none">
+            <div class="msg-bubble bot-bubble">
                 <div class="typing-dots">
                     <span></span><span></span><span></span>
                 </div>
@@ -190,11 +186,10 @@ export class ChatManager {
         const response = responseKey
             ? this.responses[responseKey]
             : {
-                text: "I'm here to help you learn more about Sahabaj's background and expertise. Try asking about his experience, skills, projects, or contact information!",
-                icon: "💭"
+                text: "I'm here to help you learn more about Sahabaj's background and expertise. Try asking about his experience, skills, projects, or contact information!"
             };
 
-        this.addBotMessage(response.text, response.icon);
+        this.addBotMessage(response.text);
     }
 
     scrollToBottom() {
