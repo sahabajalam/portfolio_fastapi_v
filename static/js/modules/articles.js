@@ -3,6 +3,17 @@
  * Matches the functionality from the blog folder
  */
 
+// Toggle mobile categories menu - Make it globally accessible
+window.toggleMobileCategories = function () {
+    const categoriesContainer = document.getElementById('mobile-categories-container');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+
+    if (categoriesContainer && hamburgerBtn) {
+        categoriesContainer.classList.toggle('expanded');
+        hamburgerBtn.classList.toggle('active');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const blogItems = document.querySelectorAll('.blog-item');
     const categoryFilters = document.querySelectorAll('.category-filter');
@@ -10,6 +21,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Mobile filters
     const mobileCategoryChips = document.querySelectorAll('.mobile-category-chip');
+    const categoriesContainer = document.getElementById('mobile-categories-container');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileFilterHeader = document.querySelector('.mobile-filter-header');
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        if (categoriesContainer && hamburgerBtn && categoriesContainer.classList.contains('expanded')) {
+            const isClickInsideHeader = mobileFilterHeader && mobileFilterHeader.contains(event.target);
+            const isClickInsideDropdown = categoriesContainer.contains(event.target);
+
+            // Close if click is outside both header and dropdown
+            if (!isClickInsideHeader && !isClickInsideDropdown) {
+                categoriesContainer.classList.remove('expanded');
+                hamburgerBtn.classList.remove('active');
+            }
+        }
+    });
 
     // Pagination variables
     let currentPage = 1;
@@ -68,6 +96,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Filter blog posts
             filterPosts(category);
+
+            // Auto-collapse the menu after selection on mobile
+            const categoriesContainer = document.getElementById('mobile-categories-container');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            if (categoriesContainer && hamburgerBtn) {
+                setTimeout(() => {
+                    categoriesContainer.classList.remove('expanded');
+                    hamburgerBtn.classList.remove('active');
+                }, 300); // Small delay for visual feedback
+            }
         });
     });
 
@@ -120,9 +158,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const blogRect = blogContainer.getBoundingClientRect();
             const blogTop = blogRect.top + scrollTop;
 
-            // Scroll to position blog container at 120px from top (aligned with sidebar)
+            // On mobile, account for navbar height + category bar height + extra padding
+            // Navbar: clamp(60px, 8vh, 80px) ≈ 60-80px
+            // Category bar: ~45px (compact design)
+            // Extra padding: 20px buffer
+            // Total: ~125-145px, using 130px as middle ground
+            const isMobile = window.innerWidth <= 768;
+            const offset = isMobile ? 130 : 120;
+
+            // Scroll to position blog container below sticky elements
             window.scrollTo({
-                top: blogTop - 120, // 120px = navbar height + spacing to match sidebar sticky position
+                top: blogTop - offset,
                 behavior: 'smooth'
             });
         } else {
@@ -131,7 +177,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Only scroll if the main container is above viewport
             if (mainRect.top < 0) {
-                const targetPosition = scrollTop + mainRect.top - 120;
+                const isMobile = window.innerWidth <= 768;
+                const offset = isMobile ? 130 : 120;
+                const targetPosition = scrollTop + mainRect.top - offset;
 
                 window.scrollTo({
                     top: Math.max(0, targetPosition),
@@ -150,9 +198,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const blogRect = blogContainer.getBoundingClientRect();
         const blogTop = blogRect.top + scrollTop;
 
-        // Scroll to position blog container at 120px from top (aligned with sidebar)
+        // On mobile, account for navbar + category bar (compact) = ~130px
+        // On desktop, use 120px as before
+        const isMobile = window.innerWidth <= 768;
+        const offset = isMobile ? 130 : 120;
+
+        // Scroll to position blog container below sticky elements
         window.scrollTo({
-            top: blogTop - 120, // 120px = navbar height + spacing to match sidebar sticky position
+            top: blogTop - offset,
             behavior: 'smooth'
         });
     }

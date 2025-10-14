@@ -1,5 +1,6 @@
-<!-- Hero Section -->
-<section id="home" class="relative overflow-hidden min-h-screen flex items-center py-16 lg:py-20 hero-section">
+<!-- Hero Section with 3D Project Carousel -->
+<section id="home" class="relative overflow-hidden min-h-screen flex items-center py-16 lg:py-20">
+    <!-- Hero Backdrop -->
     <div class="hero-backdrop" aria-hidden="true">
         <div class="hero-backdrop__gradient"></div>
         <div class="hero-backdrop__mesh"></div>
@@ -14,108 +15,314 @@
     </div>
 
     <div class="container mx-auto px-4 relative z-10">
-        <div class="hero-layout">
-            <div class="hero-copy">
-                <div class="hero-chip">
-                    <i class="fas fa-code mr-2"></i>
+        <div class="hero-container-grid">
+
+            <!-- Left Column - Hero Content -->
+            <div class="hero-left">
+                <div
+                    style="display: inline-flex; align-self: flex-start; background: linear-gradient(135deg, #ccfbf1, #cffafe); padding: 6px 14px; border-radius: 18px; margin-bottom: 16px; font-size: 0.8rem; font-weight: 500; color: #0f766e; border: 1px solid #99f6e4;">
+                    <i class="fas fa-brain" style="margin-right: 6px;"></i>
                     Applied AI & ML Practitioner
                 </div>
 
-                <h1 class="hero-title text-gray-900">
-                    <span class="gradient-text">{{ portfolio.personal_info.title }}</span>
+                <h1
+                    style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; line-height: 1.15; color: var(--color-primary); margin-bottom: 14px;">
+                    Innovative Solutions<br>
+                    <span
+                        style="background: linear-gradient(135deg, #0d9488 0%, #0891b2 50%, #2563eb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Built
+                        with AI/ML</span>
                 </h1>
 
-                <p class="hero-subtext">
-                    {{ portfolio.personal_info.bio }}
+                <p style="font-size: 1rem; line-height: 1.6; color: #6b7280; margin-bottom: 20px; max-width: 520px;">
+                    Explore cutting-edge projects combining machine learning, cloud infrastructure, and modern web
+                    technologies to solve real-world problems.
                 </p>
 
-                <div class="hero-highlights">
-                    <span class="highlight-chip">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        Cloud Deployment & MLOps
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                    <span
+                        style="display: inline-flex; align-items: center; gap: 6px; background: white; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: #374151; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+                        <i class="fas fa-project-diagram" style="color: #2563eb;"></i>
+                        Graph RAG
                     </span>
-                    <span class="highlight-chip">
-                        <i class="fas fa-project-diagram"></i>
-                        End-to-end ML Pipeline Development
+                    <span
+                        style="display: inline-flex; align-items: center; gap: 6px; background: white; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: #374151; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+                        <i class="fas fa-cloud" style="color: #0891b2;"></i>
+                        Cloud & MLOps
                     </span>
-                    <span class="highlight-chip">
-                        <i class="fas fa-brain"></i>
-                        Agentic Retrieval‑Augmented Generation (RAG) systems
+                    <span
+                        style="display: inline-flex; align-items: center; gap: 6px; background: white; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; color: #374151; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+                        <i class="fas fa-brain" style="color: #0d9488;"></i>
+                        ML Pipeline Development
                     </span>
                 </div>
 
-                <div class="hero-cta">
-                    <a href="/projects" class="btn-primary">
-                        <i class="fas fa-briefcase mr-2"></i>
-                        Explore Projects
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a href="#projects"
+                        style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #0d9488, #0891b2, #2563eb); color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3); transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);">
+                        <i class="fas fa-arrow-right"></i>
+                        View All Projects
                     </a>
-                    <a href="{{ linkedin_url }}" target="_blank" class="btn-secondary">
-                        <i class="fab fa-linkedin mr-2"></i>
-                        Connect
-                    </a>
+                    <button onclick="alert('Chat functionality would go here!')"
+                        style="display: inline-flex; align-items: center; gap: 8px; background: white; color: #111827; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1); cursor: pointer;">
+                        <i class="fas fa-comment-dots"></i>
+                        Ask Alam
+                    </button>
                 </div>
             </div>
 
-            <div class="hero-visual" aria-hidden="true">
-                <div class="hero-visual__card">
-                    <header>
-                        <p>GraphRAG Pipeline</p>
-                    </header>
-                    <div class="graphrag-overview">
-                        <p class="graphrag-intro">Hybrid retrieval: structured graphs + vector embeddings for
-                            context-aware AI.</p>
+            <!-- Right Column - 3D Carousel -->
+            <div class="hero-right">
+                <div class="carousel-wrapper">
+                    <div class="carousel-container">
+                        <div class="carousel-scene" id="carouselScene">
 
-                        <div class="graphrag-diagram">
-                            <div class="diagram-layer">
-                                <div class="diagram-node node-query">
-                                    <i class="fas fa-search"></i>
-                                    <span>Query</span>
+                            <!-- Project Card 1: LangGraph Pipeline -->
+                            <div class="carousel-card center" data-index="0">
+                                <div class="hero-project-card">
+                                    <div class="hero-card-glow"></div>
+                                    <div class="hero-card-content">
+                                        <!-- Icon Badge -->
+                                        <div class="hero-card-icon">
+                                            <i class="fas fa-project-diagram"></i>
+                                        </div>
+
+                                        <!-- Title -->
+                                        <h3 class="hero-card-title">
+                                            Automated Data Science Pipeline with LangGraph
+                                        </h3>
+
+                                        <!-- Description -->
+                                        <p class="hero-card-description">
+                                            End-to-end automated data science pipeline leveraging LangGraph for
+                                            orchestrating complex ML workflows
+                                        </p>
+
+                                        <!-- Tech Stack Pills -->
+                                        <div class="hero-card-tech">
+                                            <span class="hero-tech-pill">LangGraph</span>
+                                            <span class="hero-tech-pill">Python</span>
+                                            <span class="hero-tech-pill">MLflow</span>
+                                            <span class="hero-tech-pill">Docker</span>
+                                        </div>
+
+                                        <!-- Action Links -->
+                                        <div class="hero-card-actions">
+                                            <a href="https://automated-data-science-pipeline-demo.com"
+                                                class="hero-action-primary">
+                                                <i class="fas fa-external-link-alt"></i>
+                                                <span>View Demo</span>
+                                            </a>
+                                            <a href="https://github.com/sahabaj/automated-data-science-pipeline"
+                                                class="hero-action-secondary">
+                                                <i class="fab fa-github"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="diagram-layer">
-                                <div class="diagram-node node-graph">
-                                    <i class="fas fa-project-diagram"></i>
-                                    <span>Graph</span>
-                                </div>
-                                <div class="diagram-node node-vector">
-                                    <i class="fas fa-vector-square"></i>
-                                    <span>Vector</span>
+                            <!-- Project Card 2: Healthcare Assistant -->
+                            <div class="carousel-card" data-index="1">
+                                <div class="hero-project-card">
+                                    <div class="hero-card-glow"></div>
+                                    <div class="hero-card-content">
+                                        <!-- Icon Badge -->
+                                        <div class="hero-card-icon">
+                                            <i class="fas fa-heartbeat"></i>
+                                        </div>
+
+                                        <!-- Title -->
+                                        <h3 class="hero-card-title">
+                                            Intelligent Healthcare Diagnosis Assistant
+                                        </h3>
+
+                                        <!-- Description -->
+                                        <p class="hero-card-description">
+                                            AI-powered diagnostic assistant combining medical imaging analysis and
+                                            treatment recommendations
+                                        </p>
+
+                                        <!-- Tech Stack Pills -->
+                                        <div class="hero-card-tech">
+                                            <span class="hero-tech-pill">PyTorch</span>
+                                            <span class="hero-tech-pill">Computer Vision</span>
+                                            <span class="hero-tech-pill">FastAPI</span>
+                                            <span class="hero-tech-pill">MongoDB</span>
+                                        </div>
+
+                                        <!-- Action Links -->
+                                        <div class="hero-card-actions">
+                                            <a href="https://healthcare-diagnosis-assistant-demo.com"
+                                                class="hero-action-primary">
+                                                <i class="fas fa-external-link-alt"></i>
+                                                <span>View Demo</span>
+                                            </a>
+                                            <a href="https://github.com/sahabaj/healthcare-diagnosis-assistant"
+                                                class="hero-action-secondary">
+                                                <i class="fab fa-github"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="diagram-layer">
-                                <div class="diagram-node node-llm">
-                                    <i class="fas fa-brain"></i>
-                                    <span>LLM</span>
+                            <!-- Project Card 3: Multi-Agent Analytics -->
+                            <div class="carousel-card" data-index="2">
+                                <div class="hero-project-card">
+                                    <div class="hero-card-glow"></div>
+                                    <div class="hero-card-content">
+                                        <!-- Icon Badge -->
+                                        <div class="hero-card-icon">
+                                            <i class="fas fa-users-cog"></i>
+                                        </div>
+
+                                        <!-- Title -->
+                                        <h3 class="hero-card-title">
+                                            Multi-Agent Customer Analytics Platform
+                                        </h3>
+
+                                        <!-- Description -->
+                                        <p class="hero-card-description">
+                                            Intelligent platform using multiple AI agents for customer segmentation and
+                                            personalized recommendations
+                                        </p>
+
+                                        <!-- Tech Stack Pills -->
+                                        <div class="hero-card-tech">
+                                            <span class="hero-tech-pill">AutoGen</span>
+                                            <span class="hero-tech-pill">LangChain</span>
+                                            <span class="hero-tech-pill">Redis</span>
+                                            <span class="hero-tech-pill">Streamlit</span>
+                                        </div>
+
+                                        <!-- Action Links -->
+                                        <div class="hero-card-actions">
+                                            <a href="https://multi-agent-customer-analytics-demo.com"
+                                                class="hero-action-primary">
+                                                <i class="fas fa-external-link-alt"></i>
+                                                <span>View Demo</span>
+                                            </a>
+                                            <a href="https://github.com/sahabaj/multi-agent-customer-analytics"
+                                                class="hero-action-secondary">
+                                                <i class="fab fa-github"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="diagram-layer">
-                                <div class="diagram-node node-response">
-                                    <i class="fas fa-comment-dots"></i>
-                                    <span>Output</span>
-                                </div>
-                            </div>
-
-                            <svg class="diagram-connectors" viewBox="0 0 200 220" preserveAspectRatio="none">
-                                <line x1="100" y1="35" x2="75" y2="85" class="connector-line" />
-                                <line x1="100" y1="35" x2="125" y2="85" class="connector-line" />
-                                <line x1="75" y1="115" x2="100" y2="155" class="connector-line" />
-                                <line x1="125" y1="115" x2="100" y2="155" class="connector-line" />
-                                <line x1="100" y1="180" x2="100" y2="210" class="connector-line" />
-                            </svg>
                         </div>
                     </div>
-                    <footer>
-                        <div>
-                            <p class="footer-title">Core Advantage</p>
-                            <p class="footer-copy">Relationship-aware retrieval for grounded, accurate responses.</p>
-                        </div>
-                        <i class="fas fa-chart-network"></i>
-                    </footer>
+
+                    <!-- Indicators -->
+                    <div class="carousel-indicators" id="indicators"></div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
+
+<!-- 3D Carousel JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const scene = document.getElementById('carouselScene');
+        const cards = document.querySelectorAll('.carousel-card');
+        const indicatorsContainer = document.getElementById('indicators');
+
+        if (!scene || cards.length === 0) return;
+
+        let currentIndex = 0;
+        let rotation = 0;
+        let isRotating = false;
+        let autoRotateInterval;
+
+        // Create indicators with click handlers
+        for (let i = 0; i < cards.length; i++) {
+            const indicator = document.createElement('div');
+            indicator.className = 'indicator';
+            if (i === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => rotateTo(i));
+            indicatorsContainer.appendChild(indicator);
+        }
+
+        const indicators = document.querySelectorAll('.indicator');
+
+        function updateCards() {
+            cards.forEach((card, index) => {
+                card.classList.remove('center');
+                if (index === currentIndex) {
+                    card.classList.add('center');
+                }
+            });
+
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function rotateTo(index, smooth = true) {
+            if (isRotating) return;
+
+            isRotating = true;
+            const diff = index - currentIndex;
+            const steps = ((diff % cards.length) + cards.length) % cards.length;
+
+            if (steps === 0) {
+                isRotating = false;
+                return;
+            }
+
+            rotation -= steps * 120;
+            currentIndex = index;
+
+            scene.style.transition = smooth ? 'transform 2.5s cubic-bezier(0.4, 0.0, 0.2, 1)' : 'none';
+            scene.style.transform = `rotateY(${rotation}deg)`;
+
+            updateCards();
+
+            setTimeout(() => {
+                isRotating = false;
+            }, 2500);
+        }
+
+        function next() {
+            const nextIndex = (currentIndex + 1) % cards.length;
+            rotateTo(nextIndex);
+        }
+
+        function startAutoRotate() {
+            if (autoRotateInterval) return;
+
+            autoRotateInterval = setInterval(() => {
+                if (!isRotating) {
+                    next();
+                }
+            }, 8000);
+        }
+
+        // Card click handlers - side cards rotate to center, center card opens link
+        cards.forEach((card, index) => {
+            card.addEventListener('click', (e) => {
+                // If card is not center, rotate to center
+                if (!card.classList.contains('center')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    rotateTo(index);
+                } else {
+                    // Center card clicked - find and open the demo or code link
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const demoLink = card.querySelector('a[href]:not([href="#"])');
+                    if (demoLink && demoLink.href && demoLink.href !== '#') {
+                        window.open(demoLink.href, '_blank');
+                    }
+                }
+            });
+        });
+
+        // Start auto-rotation (continues even with interactions)
+        startAutoRotate();
+    });
+</script>

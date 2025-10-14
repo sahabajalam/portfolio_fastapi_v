@@ -68,6 +68,79 @@
     color: white;
 }
 
+.footer-address {
+    color: rgba(203, 213, 225, 0.9);
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.footer-address address {
+    font-style: normal;
+    margin: 0;
+}
+
+.address-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.address-icon {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--footer-social-bg);
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 0.95rem;
+    flex: 0 0 2rem;
+    margin-top: 2px;
+}
+
+.address-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.address-line {
+    color: rgba(203, 213, 225, 0.9);
+    font-size: 0.85rem;
+    line-height: 1.2;
+}
+
+.address-link {
+    margin-top: 0.25rem;
+    color: rgba(209, 213, 219, 0.95);
+    font-size: 0.825rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.address-link:hover {
+    color: #ffffff;
+}
+
+/* Street vs Country styling */
+.address-line--street {
+    font-family: var(--font-primary);
+    font-weight: 500;
+}
+
+.address-line--country {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.6px;
+    /* subtle gradient text effect */
+    background: linear-gradient(90deg, #cbd5e1 0%, #e6eef6 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .footer-section h3 {
     font-weight: 600;
     margin-bottom: 0.75rem;
