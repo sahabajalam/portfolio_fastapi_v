@@ -175,6 +175,11 @@ pre,
     padding-right: 0.75rem;
 }
 
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
 .py-1 {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
@@ -183,6 +188,11 @@ pre,
 .py-2 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+}
+
+.py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 .py-6 {
@@ -319,6 +329,14 @@ pre,
 
 .right-4 {
     right: 1rem;
+}
+
+.right-6 {
+    right: 1.5rem;
+}
+
+.bottom-6 {
+    bottom: 1.5rem;
 }
 
 .z-10 {
@@ -528,6 +546,10 @@ pre,
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+.shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
 .backdrop-blur-sm {
     backdrop-filter: blur(4px);
 }
@@ -542,6 +564,19 @@ pre,
 
 .pointer-events-none {
     pointer-events: none;
+}
+
+/* === VISIBILITY UTILITIES === */
+.hidden {
+    display: none;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
 }
 
 /* === TRANSITION UTILITIES === */
@@ -609,6 +644,20 @@ pre,
     .md\:py-24 {
         padding-top: 6rem;
         padding-bottom: 6rem;
+    }
+
+    .md\:inline {
+        display: inline;
+    }
+
+    .md\:px-5 {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .md\:py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
     }
 }
 

@@ -6,7 +6,7 @@
 <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet">
-<script src="/static/js/modules/articles.js?v=11" defer></script>
+<script src="/static/js/modules/articles.js?v=14" defer></script>
 <style>
     /* Updated pagination layout v1.1 - Sticky sidebar v1.0 */
     /* Blog-inspired light theme variables - scoped to avoid navbar conflicts */
@@ -285,6 +285,11 @@
             border-bottom: 1px solid var(--page-border-color);
             margin-bottom: 0;
             /* No bottom margin - dropdown handles spacing */
+        }
+
+        /* Hide page header when category is filtered on mobile */
+        .page-header.filtered {
+            display: none;
         }
 
         .mobile-filters-container {

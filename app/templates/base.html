@@ -133,9 +133,16 @@
 
         window.toggleChat = function () {
             console.log('🖱️ toggleChat called! Current state:', isChatOpen);
+
+            if (!chatToggleBtn || !chatInterface) {
+                console.error('❌ Chat elements not found in toggleChat');
+                return;
+            }
+
             isChatOpen = !isChatOpen;
 
             if (isChatOpen) {
+                // Open chat
                 chatInterface.classList.remove('hidden');
                 chatInterface.classList.add('animate-fade-in-up');
                 chatToggleBtn.classList.add('hidden');
@@ -148,12 +155,18 @@
 
                 console.log('✅ Chat opened');
             } else {
+                // Close chat
                 chatInterface.classList.add('hidden');
                 chatInterface.classList.remove('animate-fade-in-up');
-                chatToggleBtn.classList.remove('hidden');
-                chatToggleBtn.innerHTML = '<i class="fas fa-comment-dots text-xl"></i><span class="font-semibold text-sm hidden md:inline">Ask Alam</span>';
-                chatToggleBtn.setAttribute('aria-label', 'Open Chat');
-                chatToggleBtn.setAttribute('aria-expanded', 'false');
+
+                // Ensure button is visible before updating content
+                requestAnimationFrame(() => {
+                    chatToggleBtn.classList.remove('hidden');
+                    chatToggleBtn.style.display = ''; // Clear any inline styles
+                    chatToggleBtn.innerHTML = '<i class="fas fa-comment-dots text-xl"></i><span class="font-semibold text-sm hidden md:inline">Ask Alam</span>';
+                    chatToggleBtn.setAttribute('aria-label', 'Open Chat');
+                    chatToggleBtn.setAttribute('aria-expanded', 'false');
+                });
 
                 // Unlock body scroll
                 document.body.classList.remove('chat-open-mobile');

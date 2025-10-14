@@ -111,6 +111,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Filter function
     function filterPosts(category) {
+        const pageHeader = document.querySelector('.page-header');
+        const isMobile = window.innerWidth <= 768;
+
+        // On mobile, hide page header when filtering by specific category
+        if (isMobile && pageHeader) {
+            if (category === 'all') {
+                pageHeader.classList.remove('filtered');
+            } else {
+                pageHeader.classList.add('filtered');
+            }
+        }
+
         // Show/hide featured post based on category
         if (featuredPost) {
             if (category === 'all') {
@@ -132,53 +144,68 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         currentPage = 1;
+
+        // Scroll FIRST before displaying posts (to avoid layout shifts)
+        if (category !== 'all' && isMobile) {
+            scrollToBlogTop(category);
+        }
+
         displayPosts();
         updateCategoryCounts();
         updatePagination();
 
-        // Scroll to the top of blog container AFTER display animation completes
-        // Display takes 200ms + (5 posts * 50ms) = 450ms total
-        setTimeout(() => {
-            scrollToBlogTop(category);
-        }, 500);
+        // For non-mobile or "all" category, scroll after display
+        if (category === 'all' || !isMobile) {
+            setTimeout(() => {
+                scrollToBlogTop(category);
+            }, 500);
+        }
     }
 
     // Scroll to blog container top
     function scrollToBlogTop(category) {
         const blogContainer = document.getElementById('blog-container');
         const mainContainer = document.querySelector('.main-container');
+        const mobileFiltersBar = document.querySelector('.mobile-filters-bar');
 
         if (!blogContainer || !mainContainer) return;
 
-        // Get viewport and scroll position
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const isMobile = window.innerWidth <= 768;
 
-        // If filtering by specific category (not "all"), scroll to align blog container with sidebar
+        // If filtering by specific category (not "all"), scroll to show filtered content
         if (category !== 'all') {
-            const blogRect = blogContainer.getBoundingClientRect();
-            const blogTop = blogRect.top + scrollTop;
+            if (isMobile && mobileFiltersBar) {
+                // On mobile, scroll so the mobile filters bar aligns with the navbar
+                // This ensures the page header is completely hidden above
+                const filtersRect = mobileFiltersBar.getBoundingClientRect();
+                const filtersTop = filtersRect.top + scrollTop;
 
-            // On mobile, account for navbar height + category bar height + extra padding
-            // Navbar: clamp(60px, 8vh, 80px) ≈ 60-80px
-            // Category bar: ~45px (compact design)
-            // Extra padding: 20px buffer
-            // Total: ~125-145px, using 130px as middle ground
-            const isMobile = window.innerWidth <= 768;
-            const offset = isMobile ? 130 : 120;
+                // Navbar height (clamp(60px, 8vh, 80px) averages to ~70px)
+                const navbarHeight = 70;
 
-            // Scroll to position blog container below sticky elements
-            window.scrollTo({
-                top: blogTop - offset,
-                behavior: 'smooth'
-            });
+                // Scroll to position filters bar just below navbar
+                window.scrollTo({
+                    top: filtersTop - navbarHeight,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Desktop behavior
+                const blogRect = blogContainer.getBoundingClientRect();
+                const blogTop = blogRect.top + scrollTop;
+                const offset = 120;
+
+                window.scrollTo({
+                    top: blogTop - offset,
+                    behavior: 'smooth'
+                });
+            }
         } else {
-            // For "All Posts", use the original minimal scroll behavior
+            // For "All Posts", minimal scroll only if content is above viewport
             const mainRect = mainContainer.getBoundingClientRect();
 
-            // Only scroll if the main container is above viewport
             if (mainRect.top < 0) {
-                const isMobile = window.innerWidth <= 768;
-                const offset = isMobile ? 130 : 120;
+                const offset = isMobile ? 115 : 120;
                 const targetPosition = scrollTop + mainRect.top - offset;
 
                 window.scrollTo({
