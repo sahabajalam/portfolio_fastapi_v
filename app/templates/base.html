@@ -115,7 +115,7 @@
     </button>
 
     <!-- Chat Interface (Hidden by default) -->
-    <div id="chatInterface" class="fixed bottom-16 right-6 z-50 hidden">
+    <div id="chatInterface" class="hidden">
         {% include 'components/chat_interface.html' %}
     </div>
 
@@ -140,6 +140,12 @@
                 chatInterface.classList.add('animate-fade-in-up');
                 chatToggleBtn.classList.add('hidden');
                 chatToggleBtn.setAttribute('aria-expanded', 'true');
+
+                // Lock body scroll on mobile
+                if (window.innerWidth <= 640) {
+                    document.body.classList.add('chat-open-mobile');
+                }
+
                 console.log('✅ Chat opened');
             } else {
                 chatInterface.classList.add('hidden');
@@ -148,6 +154,10 @@
                 chatToggleBtn.innerHTML = '<i class="fas fa-comment-dots text-xl"></i><span class="font-semibold text-sm hidden md:inline">Ask Alam</span>';
                 chatToggleBtn.setAttribute('aria-label', 'Open Chat');
                 chatToggleBtn.setAttribute('aria-expanded', 'false');
+
+                // Unlock body scroll
+                document.body.classList.remove('chat-open-mobile');
+
                 console.log('✅ Chat closed');
             }
         };
@@ -175,13 +185,24 @@
                 window.toggleChat();
             });
 
-            // Close chat when clicking outside
+            // Close chat when clicking outside (desktop only) or on backdrop (mobile)
             document.addEventListener('click', (e) => {
-                if (isChatOpen &&
-                    !chatInterface.contains(e.target) &&
-                    !chatToggleBtn.contains(e.target)) {
-                    console.log('🖱️ Clicked outside, closing chat');
-                    window.toggleChat();
+                if (isChatOpen) {
+                    const isMobile = window.innerWidth <= 640;
+                    const clickedOutside = !chatInterface.contains(e.target) && !chatToggleBtn.contains(e.target);
+
+                    // On mobile, only close if clicked on backdrop (outside chat panel)
+                    // On desktop, close if clicked anywhere outside
+                    if (isMobile) {
+                        const chatPanel = chatInterface.querySelector('.chat-panel');
+                        if (clickedOutside || (chatPanel && !chatPanel.contains(e.target))) {
+                            console.log('🖱️ Clicked on backdrop, closing chat');
+                            window.toggleChat();
+                        }
+                    } else if (clickedOutside) {
+                        console.log('🖱️ Clicked outside, closing chat');
+                        window.toggleChat();
+                    }
                 }
             });
 
