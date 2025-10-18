@@ -78,6 +78,7 @@ async def articles(request: Request):
     """Serve the consolidated articles page with filtering and pagination."""
     context = ContextBuilder.build_base_context(request, "Articles")
     context["articles"] = context["portfolio"].articles
+    context["category_counts"] = portfolio_service.get_category_counts()
     
     return template_manager.render("pages/articles.html", context)
 

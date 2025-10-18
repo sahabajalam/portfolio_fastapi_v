@@ -41,9 +41,10 @@
         </div>
 
         <!-- Tech Stack Tags (keep single-line on laptop/desktop; allow horizontal scroll if needed) -->
-        <div class="flex flex-wrap md:flex-nowrap gap-1.5 mb-4 overflow-hidden md:overflow-x-auto">
+        <div
+            class="flex flex-wrap md:flex-nowrap gap-1.5 mb-4 overflow-hidden md:overflow-x-auto justify-center items-center">
             {% for tech in project.tech_stack %}
-            {% if loop.index <= 5 %} <span
+            {% if loop.index <= 4 %} <span
                 class="tech-tag bg-gray-100 hover:bg-gray-200 text-gray-700 px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-200 whitespace-nowrap">
                 {{ tech }}
                 </span>
