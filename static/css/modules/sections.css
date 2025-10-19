@@ -672,3 +672,20 @@ section .project-card .h-48 {
     line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+/* Projects page specific header spacing */
+.projects-header {
+    padding-top: 3.5rem;
+    /* increase top spacing */
+    padding-bottom: 3.5rem;
+    /* increase bottom spacing */
+}
+
+.projects-header .section-heading {
+    margin-bottom: 1rem;
+    /* extra spacing between heading and subtitle */
+}
+
+.projects-subtitle {
+    padding-top: 0.5rem;
+}
