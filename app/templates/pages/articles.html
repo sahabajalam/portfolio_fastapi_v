@@ -51,10 +51,12 @@
                         All <span class="chip-count">{{ articles|length }}</span>
                     </button>
                     {% for category_name, count in category_counts.items() %}
+                    {% if count > 0 %}
                     {% set data_category = category_name.lower().replace(' ', '-') %}
                     <button class="mobile-category-chip" data-category="{{ data_category }}">
                         {{ category_name }} <span class="chip-count">{{ count }}</span>
                     </button>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -76,6 +78,7 @@
                         </button>
                     </li>
                     {% for category_name, count in category_counts.items() %}
+                    {% if count > 0 %}
                     {% set data_category = category_name.lower().replace(' ', '-') %}
                     <li>
                         <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
@@ -84,6 +87,7 @@
                                 count }})</span>
                         </button>
                     </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
 
