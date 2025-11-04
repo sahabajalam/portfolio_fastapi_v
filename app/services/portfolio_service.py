@@ -4,6 +4,9 @@ Optimized Portfolio Service with improved data management and caching.
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from functools import lru_cache
+from collections import Counter
+import json
+from pathlib import Path
 from app.models.portfolio import (
     PortfolioData, PersonalInfo, ContactInfo, Education, 
     Certification, TechStack, Project, Article
@@ -125,25 +128,32 @@ class OptimizedPortfolioService:
         """Create certifications data."""
         return [
             Certification(
-                title="TensorFlow Developer Certificate",
-                issuer="TensorFlow",
-                year="2024",
-                credential_url="https://www.credential.net/tensorflow-developer",
-                description="Professional certification demonstrating expertise in TensorFlow framework for machine learning and deep learning applications."
+                title="Oracle Cloud Infrastructure 2025 Certified Data Science Professional",
+                issuer="Oracle",
+                year="2025",
+                credential_url="https://catalog-education.oracle.com/pls/certview/sharebadge?id=357A618227AB9767E8E9B9BCEFB7BE2EDA9E8BC711F5CB142A445F36ABD150E3",
+                description="Professional certification demonstrating expertise in Oracle Cloud Infrastructure for data science applications and machine learning."
             ),
             Certification(
-                title="Deep Learning Specialization",
-                issuer="Coursera (Andrew Ng)",
-                year="2023",
-                credential_url="https://www.coursera.org/specializations/deep-learning",
-                description="Comprehensive specialization covering neural networks, deep learning, and practical implementation of AI systems."
+                title="Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+                issuer="Oracle",
+                year="2025",
+                credential_url="https://catalog-education.oracle.com/ords/certview/sharebadge?id=B99737ED713696021B3849BF094691270FA7D97456CD28D3923D1910F5325A23",
+                description="Associate-level certification validating foundational knowledge of AI concepts and Oracle Cloud AI services."
             ),
             Certification(
-                title="IBM Data Science Professional Certificate",
-                issuer="IBM",
-                year="2023",
-                credential_url="https://www.coursera.org/professional-certificates/ibm-data-science",
-                description="Professional certificate program covering data science methodology, tools, and hands-on experience with real-world projects."
+                title="Neo4j Fundamentals",
+                issuer="Neo4j",
+                year="2025",
+                credential_url="https://graphacademy.neo4j.com/c/f93de9c4-72c1-4cb7-838b-d26b4d9360d9/",
+                description="Certification demonstrating fundamental knowledge of Neo4j graph database concepts, Cypher query language, and graph data modeling."
+            ),
+            Certification(
+                title="Data or Specimens Only Research",
+                issuer="CITI Program",
+                year="2025",
+                credential_url="https://www.citiprogram.org/verify/?w70704609-57fe-4147-a6cc-d0e3a0bf671b-66603758",
+                description="Research ethics certification for data or specimens only research, covering responsible conduct of research and data management."
             )
         ]
     
@@ -257,271 +267,38 @@ class OptimizedPortfolioService:
         ]
     
     def _create_articles_data(self) -> List[Article]:
-        """Create articles data with factory method."""
-        articles_data = [
-            # Featured Articles
-            {
-                "id": "fine-tuning-llms",
-                "title": "Fine-tuning LLMs on Custom Data: Complete Guide",
-                "category": "Tutorial",
-                "tags": ["LLM", "Fine-tuning", "AI", "Machine Learning"],
-                "featured": True,
-                "read_time": 8,
-                "date": datetime(2024, 12, 10)
-            },
-            {
-                "id": "mlops-best-practices",
-                "title": "MLOps Best Practices for Production Systems",
-                "category": "Best Practices",
-                "tags": ["MLOps", "Production", "DevOps", "Machine Learning"],
-                "featured": True,
-                "read_time": 10,
-                "date": datetime(2024, 11, 28)
-            },
-            
-            # Tutorial Category
-            {
-                "id": "pytorch-fundamentals",
-                "title": "PyTorch Fundamentals: Building Neural Networks",
-                "category": "Tutorial",
-                "tags": ["PyTorch", "Deep Learning", "Neural Networks"],
-                "featured": False,
-                "read_time": 12,
-                "date": datetime(2024, 12, 8)
-            },
-            {
-                "id": "data-preprocessing",
-                "title": "Data Preprocessing Techniques for ML",
-                "category": "Tutorial",
-                "tags": ["Data Science", "Preprocessing", "Feature Engineering"],
-                "featured": False,
-                "read_time": 9,
-                "date": datetime(2024, 12, 3)
-            },
-            {
-                "id": "docker-ml-guide",
-                "title": "Containerizing ML Models with Docker",
-                "category": "Tutorial",
-                "tags": ["Docker", "MLOps", "Deployment"],
-                "featured": False,
-                "read_time": 11,
-                "date": datetime(2024, 11, 25)
-            },
-            {
-                "id": "fastapi-ml-api",
-                "title": "Building ML APIs with FastAPI",
-                "category": "Tutorial",
-                "tags": ["FastAPI", "API", "Machine Learning"],
-                "featured": False,
-                "read_time": 13,
-                "date": datetime(2024, 11, 20)
-            },
-            {
-                "id": "apache-kafka-streaming",
-                "title": "Real-time Data Streaming with Apache Kafka",
-                "category": "Tutorial",
-                "tags": ["Kafka", "Streaming", "Data Engineering"],
-                "featured": False,
-                "read_time": 15,
-                "date": datetime(2024, 11, 15)
-            },
-            
-            # Analysis Category
-            {
-                "id": "ai-ethics",
-                "title": "AI Ethics in Practice: Real-World Considerations",
-                "category": "Analysis",
-                "tags": ["AI Ethics", "Responsible AI", "Industry", "Governance"],
-                "featured": False,
-                "read_time": 6,
-                "date": datetime(2024, 12, 5)
-            },
-            {
-                "id": "transformer-architecture",
-                "title": "Understanding Transformer Architecture",
-                "category": "Analysis",
-                "tags": ["Transformers", "NLP", "Architecture"],
-                "featured": False,
-                "read_time": 14,
-                "date": datetime(2024, 11, 30)
-            },
-            {
-                "id": "gpt-vs-bert",
-                "title": "GPT vs BERT: A Comprehensive Comparison",
-                "category": "Analysis",
-                "tags": ["GPT", "BERT", "NLP", "Language Models"],
-                "featured": False,
-                "read_time": 10,
-                "date": datetime(2024, 11, 22)
-            },
-            {
-                "id": "ai-market-trends",
-                "title": "AI Market Trends and Future Predictions",
-                "category": "Analysis",
-                "tags": ["AI Trends", "Market Analysis", "Industry"],
-                "featured": False,
-                "read_time": 8,
-                "date": datetime(2024, 11, 10)
-            },
-            {
-                "id": "data-privacy-ml",
-                "title": "Data Privacy Challenges in Machine Learning",
-                "category": "Analysis",
-                "tags": ["Privacy", "GDPR", "Data Security"],
-                "featured": False,
-                "read_time": 7,
-                "date": datetime(2024, 11, 5)
-            },
-            
-            # Best Practices Category
-            {
-                "id": "model-versioning",
-                "title": "Model Versioning and Experiment Tracking",
-                "category": "Best Practices",
-                "tags": ["MLflow", "Versioning", "Experiments"],
-                "featured": False,
-                "read_time": 9,
-                "date": datetime(2024, 12, 1)
-            },
-            {
-                "id": "code-quality-ml",
-                "title": "Code Quality Best Practices in ML Projects",
-                "category": "Best Practices",
-                "tags": ["Code Quality", "Testing", "ML Engineering"],
-                "featured": False,
-                "read_time": 11,
-                "date": datetime(2024, 11, 18)
-            },
-            {
-                "id": "scalable-ml-systems",
-                "title": "Building Scalable Machine Learning Systems",
-                "category": "Best Practices",
-                "tags": ["Scalability", "Architecture", "Systems Design"],
-                "featured": False,
-                "read_time": 13,
-                "date": datetime(2024, 11, 12)
-            },
-            {
-                "id": "feature-store-design",
-                "title": "Feature Store Design Patterns",
-                "category": "Best Practices",
-                "tags": ["Feature Store", "ML Infrastructure", "Data Management"],
-                "featured": False,
-                "read_time": 12,
-                "date": datetime(2024, 10, 28)
-            },
-            {
-                "id": "monitoring-ml-models",
-                "title": "Monitoring ML Models in Production",
-                "category": "Best Practices",
-                "tags": ["Monitoring", "Production", "Model Drift"],
-                "featured": False,
-                "read_time": 10,
-                "date": datetime(2024, 10, 20)
-            },
-            
-            # Technical Deep Dive Category
-            {
-                "id": "attention-mechanisms",
-                "title": "Deep Dive into Attention Mechanisms",
-                "category": "Technical Deep Dive",
-                "tags": ["Attention", "Deep Learning", "Neural Networks"],
-                "featured": False,
-                "read_time": 16,
-                "date": datetime(2024, 11, 8)
-            },
-            {
-                "id": "gradient-descent-optimization",
-                "title": "Gradient Descent Optimization Algorithms",
-                "category": "Technical Deep Dive",
-                "tags": ["Optimization", "Algorithms", "Mathematics"],
-                "featured": False,
-                "read_time": 14,
-                "date": datetime(2024, 10, 25)
-            },
-            {
-                "id": "distributed-training",
-                "title": "Distributed Training Strategies for Deep Learning",
-                "category": "Technical Deep Dive",
-                "tags": ["Distributed Computing", "Deep Learning", "Scaling"],
-                "featured": False,
-                "read_time": 18,
-                "date": datetime(2024, 10, 15)
-            },
-            {
-                "id": "reinforcement-learning-fundamentals",
-                "title": "Reinforcement Learning: From Theory to Practice",
-                "category": "Technical Deep Dive",
-                "tags": ["Reinforcement Learning", "Algorithms", "AI"],
-                "featured": False,
-                "read_time": 20,
-                "date": datetime(2024, 10, 8)
-            },
-            {
-                "id": "neural-architecture-search",
-                "title": "Neural Architecture Search: Automated Design",
-                "category": "Technical Deep Dive",
-                "tags": ["NAS", "AutoML", "Neural Networks"],
-                "featured": False,
-                "read_time": 17,
-                "date": datetime(2024, 9, 30)
-            },
-            
-            # Research Category
-            {
-                "id": "multimodal-ai-research",
-                "title": "Recent Advances in Multimodal AI Research",
-                "category": "Research",
-                "tags": ["Multimodal", "Research", "Computer Vision", "NLP"],
-                "featured": False,
-                "read_time": 12,
-                "date": datetime(2024, 10, 12)
-            },
-            {
-                "id": "quantum-ml-applications",
-                "title": "Quantum Machine Learning Applications",
-                "category": "Research",
-                "tags": ["Quantum Computing", "Machine Learning", "Research"],
-                "featured": False,
-                "read_time": 15,
-                "date": datetime(2024, 9, 28)
-            },
-            {
-                "id": "federated-learning-privacy",
-                "title": "Federated Learning and Privacy Preservation",
-                "category": "Research",
-                "tags": ["Federated Learning", "Privacy", "Distributed AI"],
-                "featured": False,
-                "read_time": 13,
-                "date": datetime(2024, 9, 20)
-            },
-            {
-                "id": "generative-ai-creativity",
-                "title": "Generative AI and Creative Applications",
-                "category": "Research",
-                "tags": ["Generative AI", "Creativity", "Art", "Innovation"],
-                "featured": False,
-                "read_time": 11,
-                "date": datetime(2024, 9, 15)
-            }
-        ]
+        """Load articles data from JSON file."""
+        articles_file = Path(__file__).parent.parent.parent / "data" / "articles.json"
         
-        return [
-            Article(
-                id=a["id"],
-                title=a["title"],
-                excerpt=f"An insightful article about {a['title'].lower()} covering key concepts and practical implementations.",
-                content=f"A comprehensive exploration of {a['title'].lower()} with detailed analysis and practical examples.",
-                category=a["category"],
-                tags=a["tags"],
-                published_date=a["date"],
-                read_time=a["read_time"],
-                featured=a["featured"],
-                image_url=None,
-                external_url=f"https://medium.com/@sahabaj/{a['id']}"
-            )
-            for a in articles_data
-        ]
+        try:
+            with open(articles_file, 'r', encoding='utf-8') as f:
+                articles_data = json.load(f)
+            
+            return [
+                Article(
+                    id=a["id"],
+                    title=a["title"],
+                    excerpt=a.get("excerpt", ""),
+                    content=a.get("content"),
+                    category=a["category"],
+                    tags=a["tags"],
+                    published_date=datetime.fromisoformat(a["published_date"]),
+                    read_time=a["read_time"],
+                    featured=a.get("featured", False),
+                    image_url=a.get("image_url"),
+                    external_url=a.get("external_url")
+                )
+                for a in articles_data
+            ]
+        except FileNotFoundError:
+            print(f"Warning: Articles file not found at {articles_file}. Using empty list.")
+            return []
+        except json.JSONDecodeError as e:
+            print(f"Error: Failed to parse articles JSON: {e}. Using empty list.")
+            return []
+        except Exception as e:
+            print(f"Error loading articles: {e}. Using empty list.")
+            return []
     
     # Optimized getter methods with better error handling
     def get_portfolio_data(self) -> PortfolioData:
@@ -557,6 +334,26 @@ class OptimizedPortfolioService:
     def get_tech_by_category(self, category: str) -> List[TechStack]:
         """Get technologies filtered by category with caching."""
         return [t for t in self.tech_stack if t.category.lower() == category.lower()]
+    
+    @lru_cache(maxsize=20)
+    def get_articles_by_category(self, category: str) -> List[Article]:
+        """Get articles filtered by category with caching."""
+        return [a for a in self.articles if a.category.lower() == category.lower()]
+    
+    def get_category_counts(self) -> Dict[str, int]:
+        """Get count of articles per category."""
+        from collections import Counter
+        categories = [article.category for article in self.articles]
+        counts = Counter(categories)
+        # Ensure all expected categories are present with 0 if not
+        expected_categories = [
+            "Core AI", "Natural Language", "AI Engineering", "Tools & Frameworks",
+            "Research & Insights", "Ethics & Security", "Guides & Career", "Tutorial Series"
+        ]
+        for cat in expected_categories:
+            if cat not in counts:
+                counts[cat] = 0
+        return dict(counts)
     
     def get_portfolio_stats(self) -> Dict[str, Any]:
         """Get portfolio statistics."""

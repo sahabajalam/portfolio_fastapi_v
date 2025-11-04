@@ -17,13 +17,26 @@ window.toggleMobileCategories = function () {
 document.addEventListener('DOMContentLoaded', function () {
     const blogItems = document.querySelectorAll('.blog-item');
     const categoryFilters = document.querySelectorAll('.category-filter');
-    const featuredPost = document.querySelector('.featured-post');
+    const featuredPost = document.querySelector('.redesigned-featured');
+
+    // Debug: Log if featured post is found
+    console.log('Featured post element found:', !!featuredPost);
 
     // Mobile filters
     const mobileCategoryChips = document.querySelectorAll('.mobile-category-chip');
     const categoriesContainer = document.getElementById('mobile-categories-container');
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileFilterHeader = document.querySelector('.mobile-filter-header');
+
+    // Keep track of featured post original place so we can detach/restore without leaving gaps
+    let featuredOriginalParent = null;
+    let featuredOriginalNextSibling = null;
+    let featuredDetached = false;
+
+    if (featuredPost) {
+        featuredOriginalParent = featuredPost.parentNode;
+        featuredOriginalNextSibling = featuredPost.nextSibling;
+    }
 
     // Close dropdown when clicking outside
     document.addEventListener('click', function (event) {
@@ -41,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Pagination variables
     let currentPage = 1;
-    const postsPerPage = 5;
+    const postsPerPage = 10;
     let filteredPosts = Array.from(blogItems);
 
     // Make featured post clickable
@@ -112,6 +125,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Filter function
     function filterPosts(category) {
         const pageHeader = document.querySelector('.page-header');
+        const blogContent = document.querySelector('.blog-content');
+        const blogContainer = document.getElementById('blog-container');
         const isMobile = window.innerWidth <= 768;
 
         // On mobile, hide page header when filtering by specific category
@@ -123,12 +138,36 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Show/hide featured post based on category
+        // Show/hide featured post based on category - ONLY show on "All Posts"
         if (featuredPost) {
-            if (category === 'all') {
+            // If the featured article itself belongs to the selected category, keep it shown
+            // as a normal card (no detaching). Otherwise detach it to avoid layout gaps.
+            const featuredCategory = featuredPost.dataset && featuredPost.dataset.category;
+
+            if (category === 'all' || featuredCategory === category) {
+                // restore if previously detached
+                if (featuredDetached && featuredOriginalParent) {
+                    featuredOriginalParent.insertBefore(featuredPost, featuredOriginalNextSibling);
+                    featuredDetached = false;
+                }
+
                 featuredPost.style.display = 'block';
+                featuredPost.classList.remove('hidden');
+                if (blogContent) {
+                    blogContent.classList.remove('no-featured');
+                }
             } else {
-                featuredPost.style.display = 'none';
+                // detach from DOM to ensure no space is reserved by the hidden element
+                if (!featuredDetached && featuredPost.parentNode) {
+                    featuredOriginalParent = featuredPost.parentNode;
+                    featuredOriginalNextSibling = featuredPost.nextSibling;
+                    featuredPost.parentNode.removeChild(featuredPost);
+                    featuredDetached = true;
+                }
+
+                if (blogContent) {
+                    blogContent.classList.add('no-featured');
+                }
             }
         }
 
@@ -145,96 +184,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
         currentPage = 1;
 
-        // Scroll FIRST before displaying posts (to avoid layout shifts)
-        if (category !== 'all' && isMobile) {
-            scrollToBlogTop(category);
-        }
-
+        // Display posts first, then scroll
         displayPosts();
         updateCategoryCounts();
         updatePagination();
 
-        // For non-mobile or "all" category, scroll after display
-        if (category === 'all' || !isMobile) {
-            setTimeout(() => {
-                scrollToBlogTop(category);
-            }, 500);
-        }
+        // Scroll after a longer delay to ensure layout is completely stable
+        setTimeout(() => {
+            scrollToFirstVisiblePost();
+        }, 300);
     }
 
-    // Scroll to blog container top
+    // Scroll to blog container top - simplified version
     function scrollToBlogTop(category) {
-        const blogContainer = document.getElementById('blog-container');
-        const mainContainer = document.querySelector('.main-container');
-        const mobileFiltersBar = document.querySelector('.mobile-filters-bar');
-
-        if (!blogContainer || !mainContainer) return;
-
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const isMobile = window.innerWidth <= 768;
-
-        // If filtering by specific category (not "all"), scroll to show filtered content
-        if (category !== 'all') {
-            if (isMobile && mobileFiltersBar) {
-                // On mobile, scroll so the mobile filters bar aligns with the navbar
-                // This ensures the page header is completely hidden above
-                const filtersRect = mobileFiltersBar.getBoundingClientRect();
-                const filtersTop = filtersRect.top + scrollTop;
-
-                // Navbar height (clamp(60px, 8vh, 80px) averages to ~70px)
-                const navbarHeight = 70;
-
-                // Scroll to position filters bar just below navbar
-                window.scrollTo({
-                    top: filtersTop - navbarHeight,
-                    behavior: 'smooth'
-                });
-            } else {
-                // Desktop behavior
-                const blogRect = blogContainer.getBoundingClientRect();
-                const blogTop = blogRect.top + scrollTop;
-                const offset = 120;
-
-                window.scrollTo({
-                    top: blogTop - offset,
-                    behavior: 'smooth'
-                });
-            }
-        } else {
-            // For "All Posts", minimal scroll only if content is above viewport
-            const mainRect = mainContainer.getBoundingClientRect();
-
-            if (mainRect.top < 0) {
-                const offset = isMobile ? 115 : 120;
-                const targetPosition = scrollTop + mainRect.top - offset;
-
-                window.scrollTo({
-                    top: Math.max(0, targetPosition),
-                    behavior: 'smooth'
-                });
-            }
-        }
+        // Just use the main scroll function for consistency
+        setTimeout(() => {
+            scrollToFirstVisiblePost();
+        }, 300);
     }
 
-    // Scroll to blog container for pagination
+    // Scroll to the first visible blog post so it aligns with the sticky sidebar/filter bar.
+    // This is more reliable than scrolling to the container when items/images can change height.
+    function scrollToFirstVisiblePost() {
+        // Small delay to ensure DOM updates are complete
+        setTimeout(() => {
+            const posts = Array.from(document.querySelectorAll('.blog-item'));
+            if (!posts.length) return;
+
+            const firstVisible = posts.find(p => {
+                return p.style.display !== 'none' && p.offsetParent !== null && getComputedStyle(p).visibility !== 'hidden';
+            });
+
+            if (!firstVisible) return;
+
+            const isMobile = window.innerWidth <= 768;
+
+            // Calculate navbar height (matches CSS clamp(60px, 8vh, 80px))
+            const navbarHeight = Math.min(Math.max(60, window.innerHeight * 0.08), 80);
+
+            // Scroll to position where posts appear right below navbar
+            // This allows the sticky sidebar to overlay naturally
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const firstPostRect = firstVisible.getBoundingClientRect();
+            const currentPostTop = scrollTop + firstPostRect.top;
+
+            // Target position: navbar height + small padding (30px)
+            const targetPosition = navbarHeight + 30;
+
+            // Only scroll if the post is not already properly positioned
+            if (Math.abs(currentPostTop - targetPosition) > 50) { // Allow 50px tolerance
+                window.scrollTo({
+                    top: Math.max(0, scrollTop + firstPostRect.top - targetPosition),
+                    behavior: 'smooth'
+                });
+            }
+        }, 150); // Slightly longer delay to ensure layout is completely stable
+    }
+
+    // Backwards-compatible wrapper - now just calls the main function
     function scrollToBlogContainer() {
-        const blogContainer = document.getElementById('blog-container');
-        if (!blogContainer) return;
-
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const blogRect = blogContainer.getBoundingClientRect();
-        const blogTop = blogRect.top + scrollTop;
-
-        // On mobile, account for navbar + category bar (compact) = ~130px
-        // On desktop, use 120px as before
-        const isMobile = window.innerWidth <= 768;
-        const offset = isMobile ? 130 : 120;
-
-        // Scroll to position blog container below sticky elements
-        window.scrollTo({
-            top: blogTop - offset,
-            behavior: 'smooth'
-        });
+        setTimeout(() => {
+            scrollToFirstVisiblePost();
+        }, 300);
     }
 
     // Display posts for current page
@@ -295,8 +306,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Generate page numbers
         pageNumbersContainer.innerHTML = '';
 
-        if (totalPages <= 5) {
-            // Show all pages if 5 or fewer
+        if (totalPages <= 10) {
+            // Show all pages if 10 or fewer
             for (let i = 1; i <= totalPages; i++) {
                 const pageBtn = createPageButton(i);
                 pageNumbersContainer.appendChild(pageBtn);
@@ -362,10 +373,10 @@ document.addEventListener('DOMContentLoaded', function () {
             displayPosts();
             updatePagination();
 
-            // Scroll to align blog container with sidebar AFTER display animation
+            // Scroll to align the first visible post with the sidebar AFTER display animation
             setTimeout(() => {
-                scrollToBlogContainer();
-            }, 500);
+                scrollToFirstVisiblePost();
+            }, 300);
         });
 
         return button;
@@ -383,8 +394,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 updatePagination();
                 // Delay scroll until display animation completes
                 setTimeout(() => {
-                    scrollToBlogContainer();
-                }, 500);
+                    scrollToFirstVisiblePost();
+                }, 300);
             }
         });
     }
@@ -398,8 +409,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 updatePagination();
                 // Delay scroll until display animation completes
                 setTimeout(() => {
-                    scrollToBlogContainer();
-                }, 500);
+                    scrollToFirstVisiblePost();
+                }, 300);
             }
         });
     }
@@ -423,11 +434,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 countSpan.textContent = `(${count})`;
             }
         });
+
+        // Update mobile category chips counts too
+        mobileCategoryChips.forEach(chip => {
+            const category = chip.dataset.category;
+            let count = 0;
+
+            if (category === 'all') {
+                count = blogItems.length;
+            } else {
+                count = Array.from(blogItems).filter(item =>
+                    item.dataset.category === category
+                ).length;
+            }
+
+            const countSpan = chip.querySelector('.chip-count');
+            if (countSpan) {
+                countSpan.textContent = count;
+            }
+        });
     }
 
     // Initialize
+    updateCategoryCounts(); // Update counts first before displaying
     displayPosts();
     updatePagination();
+
+    // Initial scroll to ensure proper alignment
+    setTimeout(() => {
+        scrollToFirstVisiblePost();
+    }, 500);
 
     // Add transition styles to blog items
     blogItems.forEach(item => {

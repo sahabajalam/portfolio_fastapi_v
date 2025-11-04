@@ -438,10 +438,7 @@
         min-height: auto !important;
     }
 
-    /* Hide Recent Posts on Mobile */
-    .recent-posts {
-        display: none !important;
-    }
+    /* Recent posts removed from template; no mobile-specific rule required */
 
     /* Pagination - Bottom Bar Style */
     .pagination-card {
