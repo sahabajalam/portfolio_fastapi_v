@@ -819,4 +819,9 @@
     .carousel-card:nth-child(3) {
         transform: translate(-50%, -50%) rotateY(240deg) translateZ(180px) !important;
     }
+
+    /* Mobile: Make ML Pipeline Development full-width on first line */
+    .hero-left > div > span:first-child {
+        flex-basis: 100% !important;
+    }
 }
