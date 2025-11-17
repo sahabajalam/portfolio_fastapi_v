@@ -26,7 +26,7 @@ export class ChatManager {
                 text: "I've worked on various projects including AI-powered document analysis systems, real-time object detection, and stock price prediction models. Check out my projects page for detailed case studies!"
             },
             contact: {
-                text: "Feel free to reach out via email at sahabajalam@yahoo.com or connect with me on LinkedIn. I'm always open to discussing new opportunities and collaborations!"
+                text: "Feel free to reach out via email at aisahabaj@gmail.com or connect with me on LinkedIn. I'm always open to discussing new opportunities and collaborations!"
             }
         };
     }

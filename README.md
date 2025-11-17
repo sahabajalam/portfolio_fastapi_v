@@ -209,7 +209,7 @@ APP_NAME=Portfolio
 HOST=0.0.0.0
 PORT=8000
 DEBUG=False
-CONTACT_EMAIL=your.email@example.com
+CONTACT_EMAIL=aisahabaj@gmail.com
 ```
 
 ### Railway (Recommended)

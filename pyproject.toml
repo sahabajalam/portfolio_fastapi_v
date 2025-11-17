@@ -3,7 +3,7 @@ name = "portfolio-fastapi"
 version = "0.1.0"
 description = "A FastAPI portfolio website"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Your Name", email = "aisahabaj@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.11"

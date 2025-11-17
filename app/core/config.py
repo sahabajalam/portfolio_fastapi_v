@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     allowed_headers: List[str] = Field(default=["*"], description="Allowed headers")
     
     # Contact Information
-    contact_email: str = Field(default="sahabajalam@yahoo.com", description="Contact email")
+    contact_email: str = Field(default="aisahabaj@gmail.com", description="Contact email")
     linkedin_url: str = Field(default="https://linkedin.com/in/sahabajalam", description="LinkedIn profile")
     github_url: str = Field(default="https://github.com/sahabajalam", description="GitHub profile")
     twitter_url: str = Field(default="https://x.com/sahabaj_alam", description="Twitter profile")
