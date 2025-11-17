@@ -229,6 +229,7 @@
         const scene = document.getElementById('carouselScene');
         const cards = document.querySelectorAll('.carousel-card');
         const indicatorsContainer = document.getElementById('indicators');
+        const heroSection = document.getElementById('home');
 
         if (!scene || cards.length === 0) return;
 
@@ -236,6 +237,7 @@
         let rotation = 0;
         let isRotating = false;
         let autoRotateInterval;
+        let isVisible = true;
 
         // Create indicators with click handlers
         for (let i = 0; i < cards.length; i++) {
@@ -295,11 +297,55 @@
             if (autoRotateInterval) return;
 
             autoRotateInterval = setInterval(() => {
-                if (!isRotating) {
+                // Only rotate if visible and not currently rotating
+                if (isVisible && !isRotating) {
                     next();
                 }
             }, 8000);
         }
+
+        function stopAutoRotate() {
+            if (autoRotateInterval) {
+                clearInterval(autoRotateInterval);
+                autoRotateInterval = null;
+            }
+        }
+
+        // Intersection Observer to detect when hero section is visible
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2 // Trigger when at least 20% of the hero is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isVisible = entry.isIntersecting;
+                
+                if (entry.isIntersecting) {
+                    // Hero is visible - start auto-rotation
+                    startAutoRotate();
+                } else {
+                    // Hero is not visible - stop auto-rotation
+                    stopAutoRotate();
+                }
+            });
+        }, observerOptions);
+
+        // Observe the hero section
+        if (heroSection) {
+            observer.observe(heroSection);
+        }
+
+        // Pause when tab is not visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopAutoRotate();
+            } else if (isVisible) {
+                // Only restart if hero section is also visible
+                startAutoRotate();
+            }
+        });
 
         // Card click handlers - side cards rotate to center, center card opens link
         cards.forEach((card, index) => {
@@ -322,7 +368,7 @@
             });
         });
 
-        // Start auto-rotation (continues even with interactions)
+        // Start auto-rotation initially
         startAutoRotate();
     });
 </script>
