@@ -163,17 +163,13 @@ class OptimizedPortfolioService:
             ("Python", "devicon-python-plain colored", "Programming", 5),  # Official Python icon
             ("FastAPI", "devicon-fastapi-plain colored", "Framework", 4),  # Official FastAPI icon
             ("PyTorch", "devicon-pytorch-original colored", "ML Framework", 4),  # Official PyTorch icon
-            ("LangChain", "fas fa-link", "AI", 4),  # No official icon - chain links
             ("LangGraph", "fas fa-project-diagram", "AI", 4),  # No official icon - graph/diagram
             ("AutoGen", "fas fa-robot", "AI", 4),  # No official icon - robot
             ("Neo4j", "devicon-neo4j-plain colored", "Database", 4),  # Official Neo4j icon
-            ("GraphRAG", "fas fa-diagram-project", "AI", 4),  # No official icon - diagram
-            ("FAISS", "fas fa-vector-square", "AI", 4),  # No official icon - vector
             ("Docker", "devicon-docker-plain colored", "DevOps", 4),  # Official Docker icon
             ("Kubernetes", "devicon-kubernetes-plain colored", "DevOps", 4),  # Official Kubernetes icon
             ("AWS", "devicon-amazonwebservices-plain colored", "Cloud", 4),  # Official AWS icon
             ("PostgreSQL", "devicon-postgresql-plain colored", "Database", 4),  # Official PostgreSQL icon
-            ("MLOps", "fas fa-gears", "Operations", 4),  # Concept - gears
             ("Apache Airflow", "devicon-apacheairflow-plain colored", "Data Pipeline", 4),  # Official Airflow icon
             # Devicon doesn't provide MLflow yet; use Simple Icons SVG for official logo
             ("MLflow", "https://cdn.simpleicons.org/mlflow/0194E2", "MLOps", 4),
@@ -268,7 +264,8 @@ class OptimizedPortfolioService:
     
     def _create_articles_data(self) -> List[Article]:
         """Load articles data from JSON file."""
-        articles_file = Path(__file__).parent.parent.parent / "data" / "noteonai.json"
+        # Use settings for data directory
+        articles_file = Path(__file__).parent.parent.parent / settings.data_dir / "noteonai.json"
         
         try:
             with open(articles_file, 'r', encoding='utf-8') as f:
@@ -342,7 +339,6 @@ class OptimizedPortfolioService:
     
     def get_category_counts(self) -> Dict[str, int]:
         """Get count of articles per category."""
-        from collections import Counter
         categories = [article.category for article in self.articles]
         counts = Counter(categories)
         # Ensure all expected categories are present with 0 if not

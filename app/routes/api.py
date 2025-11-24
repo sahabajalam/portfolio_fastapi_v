@@ -2,7 +2,7 @@
 Optimized API routes with consolidated filtering logic.
 """
 from fastapi import APIRouter, HTTPException, Query
-from typing import List, Optional, TypeVar, Generic
+from typing import List, Optional, TypeVar
 from app.models.portfolio import Project, Article, ContactInfo
 from app.services.portfolio_service import portfolio_service
 

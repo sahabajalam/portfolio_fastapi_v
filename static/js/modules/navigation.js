@@ -55,7 +55,26 @@ export class NavigationManager {
 
         // Close on mobile link click
         mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
+            link.addEventListener('click', (e) => {
+                closeMobileMenu();
+                
+                // Enhanced mobile navigation: Scroll to top if clicking current page
+                const href = link.getAttribute('href');
+                const currentPath = window.location.pathname;
+                
+                // Check if it's a link to the current page without a hash
+                if (href === currentPath || (href === '/' && currentPath === '/index.html')) {
+                    // If it's the NoteonAI page, we might want to reset filters or scroll to top
+                    if (href.includes('noteonai')) {
+                        // Let default behavior happen (reload) to reset state, 
+                        // or prevent default and scroll to top if preferred.
+                        // For now, we'll let it reload to ensure clean state.
+                    } else {
+                        // For other pages, scroll to top is nice
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            });
         });
     }
 

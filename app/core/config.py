@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     template_dir: str = Field(default="app/templates", description="Templates directory")
     static_dir: str = Field(default="static", description="Static files directory")
     assets_dir: str = Field(default="assets", description="Assets directory")
+    data_dir: str = Field(default="data", description="Data directory")
     
     # CORS Configuration
     allowed_origins: List[str] = Field(default=["https://portfolio-fastapi-v.onrender.com", "http://localhost:3000", "http://localhost:8000"], description="Allowed CORS origins")

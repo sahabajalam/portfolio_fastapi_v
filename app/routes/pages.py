@@ -3,7 +3,7 @@ Optimized page routes with consolidated context building.
 """
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 from app.core.templates import template_manager
 from app.services.portfolio_service import portfolio_service
 
