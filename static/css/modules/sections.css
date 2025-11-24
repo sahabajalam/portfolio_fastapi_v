@@ -43,6 +43,39 @@
     padding: 1.5rem 0;
 }
 
+/* Typing Effect Bio Text */
+.bio-container {
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bio-text-typing {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: #111827;
+    letter-spacing: 0.02em;
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
+.typing-cursor {
+    display: inline-block;
+    font-weight: 400;
+    color: #14b8a6;
+    animation: blink 0.8s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
 /* Specific styling for About section to reduce spacing */
 #about .section-heading-wrapper {
     margin-bottom: 0.5rem;
@@ -103,6 +136,54 @@
     transform: scaleX(1);
 }
 
+/* Modern Highlighted Keywords with Animation */
+.bio-highlight-modern {
+    font-weight: 700;
+    background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+    padding: 0 0.2em;
+    transition: all 0.4s ease;
+    animation: gradient-flow 3s ease infinite;
+}
+
+@keyframes gradient-flow {
+    0%, 100% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+}
+
+.bio-highlight-modern::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #14b8a6, #06b6d4, #3b82f6);
+    opacity: 0.4;
+    border-radius: 2px;
+    transform: scaleX(0.8);
+    transition: all 0.4s ease;
+}
+
+.bio-text-modern:hover .bio-highlight-modern::after {
+    transform: scaleX(1);
+    opacity: 0.6;
+}
+
+.bio-highlight-modern:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+}
+
 @media (max-width: 768px) {
     .bio-text {
         font-size: 1.1rem;
@@ -113,6 +194,15 @@
         left: -1rem;
         font-size: 3rem;
         top: 0rem;
+    }
+
+    .bio-text-typing {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    .bio-container {
+        min-height: 100px;
     }
 }
 

@@ -820,8 +820,52 @@
         transform: translate(-50%, -50%) rotateY(240deg) translateZ(180px) !important;
     }
 
-    /* Mobile: Make ML Pipeline Development full-width on first line */
-    .hero-left > div > span:first-child {
-        flex-basis: 100% !important;
+    /* Mobile: Skill tags pyramid layout using Grid - Left Aligned */
+    .hero-skills-container {
+        display: grid !important;
+        grid-template-columns: auto auto;
+        justify-content: start;
+        justify-items: start;
+        gap: 10px;
+    }
+
+    /* Graph RAG alone on first line (shorter) */
+    .skill-tag-3 {
+        grid-column: 1 / -1; /* Span full width of grid */
+        width: max-content; /* Only take necessary width */
+    }
+
+    /* ML Pipeline and Cloud & MLOps on second line */
+    .skill-tag-1,
+    .skill-tag-2 {
+        grid-row: 2;
+    }
+}
+
+/* Additional mobile breakpoint for better control */
+@media (max-width: 640px) {
+    .hero-skills-container {
+        display: grid !important;
+        grid-template-columns: auto auto;
+        justify-content: start;
+        justify-items: start;
+        gap: 10px;
+    }
+
+    .skill-tag-3 {
+        grid-column: 1 / -1;
+        width: max-content;
+    }
+
+    .skill-tag-1,
+    .skill-tag-2 {
+        grid-row: 2;
+    }
+}
+
+/* Hide line break on desktop - not needed anymore but keeping for safety if referenced */
+@media (min-width: 641px) {
+    .skill-break {
+        display: none !important;
     }
 }
