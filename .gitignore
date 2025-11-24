@@ -141,6 +141,14 @@ Thumbs.db
 *.log
 logs/
 
+# Security / Secrets
+get_totp_code.py
+setup_2fa.py
+generate_qr.py
+*.png
+!assets/**/*.png
+!static/**/*.png
+
 # Runtime data
 pids/
 *.pid

@@ -1,0 +1,18 @@
+{
+    "id": "feature-store-design",
+    "title": "Feature Store Design Patterns",
+    "excerpt": "Design patterns and architectures for building effective feature stores.",
+    "category": "AI Engineering",
+    "tags": [
+        "Feature Store",
+        "ML Infrastructure",
+        "Data Management"
+    ],
+    "published_date": "2024-10-28T00:00:00",
+    "read_time": 12,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/feature-store-design",
+    "primary_id": "29873a0e-a80c-4104-952c-01a59614541c",
+    "slug": "feature-store-design"
+}

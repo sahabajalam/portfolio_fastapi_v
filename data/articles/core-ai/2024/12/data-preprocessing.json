@@ -1,0 +1,18 @@
+{
+    "id": "data-preprocessing",
+    "title": "Data Preprocessing Techniques for ML",
+    "excerpt": "Learn essential data preprocessing techniques to prepare your datasets for machine learning models.",
+    "category": "Core AI",
+    "tags": [
+        "Data Science",
+        "Preprocessing",
+        "Feature Engineering"
+    ],
+    "published_date": "2024-12-03T00:00:00",
+    "read_time": 9,
+    "featured": true,
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/data-preprocessing",
+    "primary_id": "d26bbec1-37c8-4aa5-adee-b36691e0b5d0",
+    "slug": "data-preprocessing"
+}

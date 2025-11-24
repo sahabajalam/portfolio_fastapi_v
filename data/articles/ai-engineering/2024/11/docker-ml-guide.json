@@ -1,0 +1,18 @@
+{
+    "id": "docker-ml-guide",
+    "title": "Containerizing ML Models with Docker",
+    "excerpt": "A comprehensive guide to containerizing machine learning models using Docker for easy deployment.",
+    "category": "AI Engineering",
+    "tags": [
+        "Docker",
+        "MLOps",
+        "Deployment"
+    ],
+    "published_date": "2024-11-25T00:00:00",
+    "read_time": 11,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/docker-ml-guide",
+    "primary_id": "82a215db-8f69-4e19-9ae4-f2459011dd42",
+    "slug": "docker-ml-guide"
+}

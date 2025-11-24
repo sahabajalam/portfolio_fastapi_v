@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - {{ app_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Ensure clean background for login page */
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    
+    /* Hide chat button on login page */
+    #chatToggleBtn {
+        display: none !important;
+    }
+    
+    /* Custom styling for login card */
+    .login-container {
+        min-height: calc(100vh - 160px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        padding-top: 140px;
+    }
+    
+    @media (max-width: 768px) {
+        .login-container {
+            padding-top: 100px;
+        }
+    }
+    
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        padding: 2.5rem;
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .icon-circle {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .submit-btn {
+        width: 100%;
+        padding: 0.875rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .submit-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+    
+    .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    
+    .error-message {
+        padding: 0.75rem;
+        background: #fee;
+        border: 1px solid #fcc;
+        border-radius: 8px;
+        color: #c33;
+        font-size: 14px;
+        text-align: center;
+    }
+    
+    @media (max-width: 640px) {
+        .login-card {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="icon-circle">
+            <i class="fas fa-shield-alt text-white text-2xl"></i>
+        </div>
+        
+        <h2 class="text-center text-2xl font-bold text-gray-900 mb-2">
+            Admin Login
+        </h2>
+        <p class="text-center text-sm text-gray-600 mb-8">
+            Sign in to access the admin dashboard
+        </p>
+        
+        <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-1.5">
+                    Username
+                </label>
+                <input 
+                    id="username" 
+                    name="username" 
+                    type="text" 
+                    required 
+                    class="form-input"
+                    placeholder="Enter your username"
+                    autocomplete="username">
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1.5">
+                    Password
+                </label>
+                <input 
+                    id="password" 
+                    name="password" 
+                    type="password" 
+                    required 
+                    class="form-input"
+                    placeholder="Enter your password"
+                    autocomplete="current-password">
+            </div>
+            
+            <div>
+                <label for="totp_code" class="block text-sm font-medium text-gray-700 mb-1.5">
+                    2FA Code
+                </label>
+                <input 
+                    id="totp_code" 
+                    name="totp_code" 
+                    type="text" 
+                    required 
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    class="form-input"
+                    placeholder="Enter 6-digit code"
+                    autocomplete="off">
+                <p class="mt-1 text-xs text-gray-500">
+                    Enter the code from your authenticator app
+                </p>
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Sign In
+            </button>
+        </form>
+        
+        <div class="mt-6 text-center">
+            <a href="/" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                <i class="fas fa-arrow-left mr-1"></i>
+                Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+async function handleLogin(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const errorDiv = document.getElementById('error-message');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnContent = submitBtn.innerHTML;
+    
+    // Reset error
+    errorDiv.style.display = 'none';
+    errorDiv.textContent = '';
+    
+    // Loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Signing in...';
+    
+    try {
+        const response = await fetch('/admin/login', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Success! Redirecting...';
+            setTimeout(() => {
+                window.location.href = '/admin/manage-articles';
+            }, 500);
+        } else {
+            const data = await response.json();
+            errorDiv.textContent = data.detail || 'Login failed. Please check your credentials.';
+            errorDiv.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnContent;
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        errorDiv.textContent = 'Connection error. Please try again.';
+        errorDiv.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnContent;
+    }
+}
+
+// Auto-focus username field
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('username').focus();
+});
+</script>
+{% endblock %}
+

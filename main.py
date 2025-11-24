@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.routes import pages, api
+from app.routes import pages, api, admin
 
 
 def create_app() -> FastAPI:
@@ -36,6 +36,7 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(pages.router, tags=["pages"])
     app.include_router(api.router, tags=["api"])
+    app.include_router(admin.router, prefix="/admin", tags=["admin"])
     
     return app
 

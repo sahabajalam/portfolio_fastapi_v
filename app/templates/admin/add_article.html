@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Article - Admin{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 pt-28 pb-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Header -->
+        <div class="mb-8 text-center relative">
+            <div class="absolute right-0 top-0 hidden sm:flex gap-3">
+                <a href="/admin/logout" class="text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors">
+                    <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                </a>
+                <a href="/admin/manage-articles" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+                    <i class="fas fa-tasks mr-1"></i> Manage Articles
+                </a>
+            </div>
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                <span class="bg-clip-text text-transparent" style="background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%); -webkit-background-clip: text; background-clip: text;">
+                    Create New Article
+                </span>
+            </h1>
+            <p class="mt-2 text-lg text-gray-600">Add a new piece to your portfolio or import from Medium.</p>
+            <div class="mt-4 sm:hidden">
+                <a href="/admin/manage-articles" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
+                    <i class="fas fa-tasks mr-1"></i> Manage Articles
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            
+            <!-- Medium Import Section -->
+            <div class="bg-gradient-to-r from-teal-50 to-blue-50 p-6 border-b border-cyan-100">
+                <div class="flex items-center mb-4">
+                    <div class="bg-white p-2 rounded-lg shadow-sm mr-3">
+                        <i class="fab fa-medium text-xl bg-clip-text text-transparent" style="background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%); -webkit-background-clip: text; background-clip: text;"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Import from Medium</h3>
+                        <p class="text-sm text-gray-500">Paste your article URL to auto-fill details</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-link text-gray-400"></i>
+                        </div>
+                        <input type="url" id="mediumUrl" 
+                            class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-sm transition-all" 
+                            placeholder="https://medium.com/@username/article-slug">
+                    </div>
+                    <button type="button" id="fetchBtn" 
+                        class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white shadow-lg transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                        style="background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);">
+                        <i class="fas fa-magic mr-2"></i> Auto-fill
+                    </button>
+                </div>
+            </div>
+
+            <form id="articleForm" class="p-6 md:p-8 space-y-8">
+                
+                <!-- Basic Info Section -->
+                <div>
+                    <h4 class="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Basic Information</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-2">
+                            <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Article Title</label>
+                            <input type="text" id="title" name="title" required
+                                class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow shadow-sm text-lg font-medium placeholder-gray-400"
+                                placeholder="Enter a catchy title...">
+                        </div>
+
+                        <div>
+                            <label for="id" class="block text-sm font-medium text-gray-700 mb-1">Slug (ID)</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-fingerprint text-gray-400"></i>
+                                </div>
+                                <input type="text" id="id" name="id" required pattern="[a-z0-9-]+"
+                                    class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    placeholder="my-article-slug">
+                            </div>
+                            <p class="mt-1 text-xs text-gray-500">URL-friendly unique identifier.</p>
+                        </div>
+
+                        <div>
+                            <label for="published_date" class="block text-sm font-medium text-gray-700 mb-1">Publish Date</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="far fa-calendar-alt text-gray-400"></i>
+                                </div>
+                                <input type="datetime-local" id="published_date" name="published_date" required
+                                    class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <div>
+                    <h4 class="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Content Details</h4>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-1">Excerpt / Description</label>
+                            <textarea id="excerpt" name="excerpt" rows="3" required
+                                class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-shadow resize-none"
+                                placeholder="A brief summary of the article..."></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <div class="relative">
+                                    <select id="category" name="category" required
+                                        class="block w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm appearance-none bg-white">
+                                        <option value="" selected disabled>Select Category</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category }}">{{ category }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                        <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="read_time" class="block text-sm font-medium text-gray-700 mb-1">Read Time</label>
+                                <div class="relative">
+                                    <input type="number" id="read_time" name="read_time" min="1" required
+                                        class="block w-full pl-4 pr-12 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                        <span class="text-gray-500 sm:text-sm">min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media & Meta Section -->
+                <div>
+                    <h4 class="text-sm uppercase tracking-wide text-gray-500 font-bold mb-4 border-b pb-2">Media & Metadata</h4>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                    <div class="flex flex-wrap gap-2 mb-3" id="tagsContainer">
+                                        {% for tag in tags %}
+                                        <label class="inline-flex items-center cursor-pointer group">
+                                            <input type="checkbox" name="tags" value="{{ tag }}" class="hidden peer">
+                                            <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-white border border-gray-300 text-gray-700 peer-checked:bg-blue-100 peer-checked:text-blue-700 peer-checked:border-blue-300 transition-all group-hover:border-blue-200">
+                                                {{ tag }}
+                                            </span>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="relative">
+                                        <input type="text" id="newTag" 
+                                            class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
+                                            placeholder="Type new tag & press Enter">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="external_url" class="block text-sm font-medium text-gray-700 mb-1">External Link</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-external-link-alt text-gray-400 text-xs"></i>
+                                    </div>
+                                    <input type="url" id="external_url" name="external_url"
+                                        class="block w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        placeholder="https://...">
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center p-4 bg-yellow-50 rounded-lg border border-yellow-100">
+                                <div class="flex items-center h-5">
+                                    <input id="featured" name="featured" type="checkbox" 
+                                        class="focus:ring-yellow-500 h-5 w-5 text-yellow-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="featured" class="font-medium text-yellow-800">Featured Article</label>
+                                    <p class="text-yellow-600">Pin this article to the top of the list.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label for="image_url" class="block text-sm font-medium text-gray-700">Cover Image</label>
+                            <div class="relative group">
+                                <input type="url" id="image_url" name="image_url"
+                                    class="block w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm mb-2"
+                                    placeholder="Image URL...">
+                                
+                                <!-- Image Preview -->
+                                <div class="aspect-video w-full bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden relative" id="imagePreview">
+                                    <div class="text-center p-6 text-gray-400" id="imagePlaceholder">
+                                        <i class="far fa-image text-4xl mb-2"></i>
+                                        <p class="text-sm">Image preview will appear here</p>
+                                    </div>
+                                    <img src="" alt="Preview" class="absolute inset-0 w-full h-full object-cover hidden" id="previewImg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-6 border-t border-gray-100 flex items-center justify-end gap-4">
+                    <button type="button" onclick="window.history.back()" class="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-8 py-3 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                        style="background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);">
+                        <i class="fas fa-save mr-2"></i> Publish Article
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default date to now
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('published_date').value = now.toISOString().slice(0, 16);
+
+    // Image Preview Logic
+    const imageUrlInput = document.getElementById('image_url');
+    const previewImg = document.getElementById('previewImg');
+    const imagePlaceholder = document.getElementById('imagePlaceholder');
+
+    function updateImagePreview(url) {
+        if (url) {
+            previewImg.src = url;
+            previewImg.classList.remove('hidden');
+            imagePlaceholder.classList.add('hidden');
+        } else {
+            previewImg.classList.add('hidden');
+            imagePlaceholder.classList.remove('hidden');
+        }
+    }
+
+    imageUrlInput.addEventListener('input', (e) => updateImagePreview(e.target.value));
+    imageUrlInput.addEventListener('change', (e) => updateImagePreview(e.target.value));
+
+    // Fetch from Medium
+    document.getElementById('fetchBtn').addEventListener('click', async function() {
+        const url = document.getElementById('mediumUrl').value;
+        if (!url) return alert('Please enter a URL');
+        
+        const btn = this;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Fetching...';
+        btn.disabled = true;
+        btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+        try {
+            const response = await fetch('/admin/fetch-medium', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({url: url})
+            });
+            
+            const data = await response.json();
+            
+            if (data.error) throw new Error(data.error);
+            
+            // Fill fields with animation
+            const fillField = (id, value) => {
+                if (value) {
+                    const el = document.getElementById(id);
+                    el.value = value;
+                    el.classList.add('bg-blue-50');
+                    setTimeout(() => el.classList.remove('bg-blue-50'), 1000);
+                }
+            };
+
+            fillField('title', data.title);
+            fillField('excerpt', data.description);
+            fillField('image_url', data.image);
+            fillField('external_url', data.url);
+            fillField('read_time', data.read_time);
+            
+            // Update preview immediately
+            updateImagePreview(data.image);
+
+            if (data.published_date) {
+                const date = new Date(data.published_date);
+                date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                fillField('published_date', date.toISOString().slice(0, 16));
+            }
+            
+            if (!document.getElementById('id').value && data.title) {
+                const slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                fillField('id', slug);
+            }
+            
+        } catch (e) {
+            alert('Error fetching data: ' + e.message);
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            btn.classList.remove('opacity-75', 'cursor-not-allowed');
+        }
+    });
+
+    // Handle new tags
+    document.getElementById('newTag').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const tag = this.value.trim();
+            if (tag) {
+                const container = document.getElementById('tagsContainer');
+                const id = 'new_tag_' + Date.now();
+                const html = `
+                    <label class="inline-flex items-center cursor-pointer group animate-fade-in">
+                        <input type="checkbox" name="tags" value="${tag}" checked class="hidden peer">
+                        <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-white border border-gray-300 text-gray-700 peer-checked:bg-blue-100 peer-checked:text-blue-700 peer-checked:border-blue-300 transition-all group-hover:border-blue-200">
+                            ${tag}
+                        </span>
+                    </label>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+                this.value = '';
+            }
+        }
+    });
+
+    // Submit form
+    document.getElementById('articleForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        data.tags = formData.getAll('tags');
+        data.featured = document.getElementById('featured').checked;
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Publishing...';
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        
+        try {
+            const response = await fetch('/admin/save-article', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                // Show success message nicely
+                const btn = submitBtn;
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i> Published!';
+                btn.style.background = ''; // Remove gradient
+                btn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    alert('Article published successfully!');
+                    window.location.reload();
+                }, 500);
+            } else {
+                alert('Error saving article: ' + result.message);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+            }
+        } catch (e) {
+            alert('Error: ' + e.message);
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        }
+    });
+});
+</script>
+
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in {
+    animation: fadeIn 0.2s ease-out forwards;
+}
+</style>
+{% endblock %}

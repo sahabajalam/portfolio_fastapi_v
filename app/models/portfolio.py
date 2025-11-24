@@ -40,7 +40,9 @@ class Project(BaseModel):
 
 class Article(BaseModel):
     """Article/blog post model."""
-    id: str = Field(..., description="Unique article identifier")
+    id: str = Field(..., description="Unique article identifier (slug)")
+    primary_id: str = Field(..., description="Unique UUID for database operations")
+    slug: str = Field(..., description="URL-friendly slug")
     title: str = Field(..., description="Article title")
     excerpt: str = Field(..., description="Article excerpt")
     content: Optional[str] = Field(None, description="Full article content")

@@ -38,6 +38,16 @@ class Settings(BaseSettings):
     twitter_url: str = Field(default="https://x.com/sahabaj_alam", description="Twitter profile")
     medium_url: str = Field(default="https://medium.com/@sahabaj1101", description="Medium profile")
     
+    # Security Configuration
+    secret_key: str = Field(default="your-super-secret-key-change-this-in-prod", description="Secret key for JWT")
+    algorithm: str = Field(default="HS256", description="Algorithm for JWT")
+    access_token_expire_minutes: int = Field(default=30, description="Token expiration time")
+    
+    # Admin Credentials (should be set via env vars in production)
+    admin_username: str = Field(default="admin", description="Admin username")
+    admin_password: str = Field(default="admin123", description="Admin password")
+    admin_totp_secret: str = Field(default="JBSWY3DPEHPK3PXP", description="TOTP Secret (Base32)")
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

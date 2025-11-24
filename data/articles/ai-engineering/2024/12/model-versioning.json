@@ -1,0 +1,18 @@
+{
+    "id": "model-versioning",
+    "title": "Model Versioning and Experiment Tracking",
+    "excerpt": "Best practices for versioning ML models and tracking experiments effectively.",
+    "category": "AI Engineering",
+    "tags": [
+        "MLflow",
+        "Versioning",
+        "Experiments"
+    ],
+    "published_date": "2024-12-01T00:00:00",
+    "read_time": 9,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/model-versioning",
+    "primary_id": "dda4004f-41f4-4c38-9204-a2eaacc1d518",
+    "slug": "model-versioning"
+}

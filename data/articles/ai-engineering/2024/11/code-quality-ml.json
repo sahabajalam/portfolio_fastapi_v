@@ -1,0 +1,18 @@
+{
+    "id": "code-quality-ml",
+    "title": "Code Quality Best Practices in ML Projects",
+    "excerpt": "Maintaining high code quality standards in machine learning projects through testing and reviews.",
+    "category": "AI Engineering",
+    "tags": [
+        "Code Quality",
+        "Testing",
+        "ML Engineering"
+    ],
+    "published_date": "2024-11-18T00:00:00",
+    "read_time": 11,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/code-quality-ml",
+    "primary_id": "4919a0ae-1a30-42e4-a818-d89fe9bdadbd",
+    "slug": "code-quality-ml"
+}

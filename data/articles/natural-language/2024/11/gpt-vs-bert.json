@@ -1,0 +1,19 @@
+{
+    "id": "gpt-vs-bert",
+    "title": "GPT vs BERT: A Comprehensive Comparison",
+    "excerpt": "Compare and contrast GPT and BERT architectures to understand their strengths and use cases.",
+    "category": "Natural Language",
+    "tags": [
+        "GPT",
+        "BERT",
+        "NLP",
+        "Language Models"
+    ],
+    "published_date": "2024-11-22T00:00:00",
+    "read_time": 10,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/gpt-vs-bert",
+    "primary_id": "bb7a56a1-ebe4-4ab8-ab1e-500692778200",
+    "slug": "gpt-vs-bert"
+}

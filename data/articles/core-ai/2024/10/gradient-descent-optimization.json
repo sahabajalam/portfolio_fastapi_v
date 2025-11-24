@@ -1,0 +1,18 @@
+{
+    "id": "gradient-descent-optimization",
+    "title": "Gradient Descent Optimization Algorithms",
+    "excerpt": "Understanding various gradient descent optimization algorithms and their applications.",
+    "category": "Core AI",
+    "tags": [
+        "Optimization",
+        "Algorithms",
+        "Mathematics"
+    ],
+    "published_date": "2024-10-25T00:00:00",
+    "read_time": 14,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/gradient-descent-optimization",
+    "primary_id": "5acf3677-f03e-490a-a4d3-62a30ea2ecbf",
+    "slug": "gradient-descent-optimization"
+}

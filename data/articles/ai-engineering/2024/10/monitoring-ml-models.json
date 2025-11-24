@@ -1,0 +1,18 @@
+{
+    "id": "monitoring-ml-models",
+    "title": "Monitoring ML Models in Production",
+    "excerpt": "Essential monitoring strategies for machine learning models in production environments.",
+    "category": "AI Engineering",
+    "tags": [
+        "Monitoring",
+        "Production",
+        "Model Drift"
+    ],
+    "published_date": "2024-10-20T00:00:00",
+    "read_time": 10,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/monitoring-ml-models",
+    "primary_id": "b6339a68-2fc5-4ff5-9d74-29de196c1ac6",
+    "slug": "monitoring-ml-models"
+}

@@ -1,0 +1,18 @@
+{
+    "id": "apache-kafka-streaming",
+    "title": "Real-time Data Streaming with Apache Kafka",
+    "excerpt": "Explore real-time data streaming capabilities with Apache Kafka for data engineering pipelines.",
+    "category": "AI Engineering",
+    "tags": [
+        "Kafka",
+        "Streaming",
+        "Data Engineering"
+    ],
+    "published_date": "2024-11-15T00:00:00",
+    "read_time": 15,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/apache-kafka-streaming",
+    "primary_id": "da79aaa0-7aad-4788-8ece-9fc5c50d342d",
+    "slug": "apache-kafka-streaming"
+}

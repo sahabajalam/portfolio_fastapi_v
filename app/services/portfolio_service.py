@@ -263,39 +263,41 @@ class OptimizedPortfolioService:
         ]
     
     def _create_articles_data(self) -> List[Article]:
-        """Load articles data from JSON file."""
-        # Use settings for data directory
-        articles_file = Path(__file__).parent.parent.parent / settings.data_dir / "noteonai.json"
+        """Load articles data from nested JSON files."""
+        articles_dir = Path(__file__).parent.parent.parent / settings.data_dir / "articles"
+        articles = []
         
-        try:
-            with open(articles_file, 'r', encoding='utf-8') as f:
-                articles_data = json.load(f)
+        if not articles_dir.exists():
+            print(f"Warning: Articles directory not found at {articles_dir}")
+            return []
             
-            return [
-                Article(
-                    id=a["id"],
-                    title=a["title"],
-                    excerpt=a.get("excerpt", ""),
-                    content=a.get("content"),
-                    category=a["category"],
-                    tags=a["tags"],
-                    published_date=datetime.fromisoformat(a["published_date"]),
-                    read_time=a["read_time"],
-                    featured=a.get("featured", False),
-                    image_url=a.get("image_url"),
-                    external_url=a.get("external_url")
-                )
-                for a in articles_data
-            ]
-        except FileNotFoundError:
-            print(f"Warning: Articles file not found at {articles_file}. Using empty list.")
-            return []
-        except json.JSONDecodeError as e:
-            print(f"Error: Failed to parse articles JSON: {e}. Using empty list.")
-            return []
-        except Exception as e:
-            print(f"Error loading articles: {e}. Using empty list.")
-            return []
+        # Recursively find all .json files in the articles directory
+        for file_path in articles_dir.rglob("*.json"):
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    article_data = json.load(f)
+                
+                # Convert date string to datetime
+                if 'published_date' in article_data and isinstance(article_data['published_date'], str):
+                        try:
+                            article_data['published_date'] = datetime.fromisoformat(article_data['published_date'])
+                        except ValueError:
+                            pass
+                
+                # Ensure backward compatibility
+                if 'primary_id' not in article_data:
+                    import uuid
+                    article_data['primary_id'] = str(uuid.uuid4())
+                if 'slug' not in article_data:
+                    article_data['slug'] = article_data.get('id')
+
+                articles.append(Article(**article_data))
+            except Exception as e:
+                print(f"Error loading article {file_path}: {e}")
+                
+        # Sort by date descending
+        articles.sort(key=lambda x: x.published_date, reverse=True)
+        return articles
     
     # Optimized getter methods with better error handling
     def get_portfolio_data(self) -> PortfolioData:
@@ -362,6 +364,15 @@ class OptimizedPortfolioService:
             "total_technologies": len(self.tech_stack),
             "education_levels": len(self.education)
         }
+    
+    def refresh_data(self):
+        """Refresh portfolio data from disk and clear caches."""
+        self._load_portfolio_data()
+        self.get_featured_projects.cache_clear()
+        self.get_featured_articles.cache_clear()
+        self.get_projects_by_category.cache_clear()
+        self.get_tech_by_category.cache_clear()
+        self.get_articles_by_category.cache_clear()
 
 
 # Global optimized portfolio service instance

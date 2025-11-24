@@ -1,0 +1,18 @@
+{
+    "id": "reinforcement-learning-fundamentals",
+    "title": "Reinforcement Learning: From Theory to Practice",
+    "excerpt": "A comprehensive guide to reinforcement learning from fundamental theory to practical applications.",
+    "category": "Core AI",
+    "tags": [
+        "Reinforcement Learning",
+        "Algorithms",
+        "AI"
+    ],
+    "published_date": "2024-10-08T00:00:00",
+    "read_time": 20,
+    "featured": false,
+    "image_url": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop",
+    "external_url": "https://medium.com/@sahabaj/reinforcement-learning-fundamentals",
+    "primary_id": "e41d7755-6c35-4cc9-9ef7-c2a7af679835",
+    "slug": "reinforcement-learning-fundamentals"
+}
