@@ -75,7 +75,7 @@ async def get_project(project_id: str):
     return project
 
 
-@router.get("/articles", response_model=List[Article])
+@router.get("/noteonai", response_model=List[Article])
 async def get_articles(
     category: Optional[str] = Query(None, description="Filter by category"),
     featured: Optional[bool] = Query(None, description="Filter by featured status"),
@@ -91,7 +91,7 @@ async def get_articles(
     return articles[:limit] if limit else articles
 
 
-@router.get("/articles/{article_id}", response_model=Article)
+@router.get("/noteonai/{article_id}", response_model=Article)
 async def get_article(article_id: str):
     """Get a specific article by ID."""
     article = portfolio_service.get_article_by_id(article_id)

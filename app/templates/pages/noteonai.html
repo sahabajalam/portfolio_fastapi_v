@@ -16,7 +16,7 @@
 <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet">
-<script src="/static/js/modules/articles.js?v=20" defer></script>
+<script src="/static/js/modules/noteonai.js?v=20" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -195,7 +195,7 @@
                             {{ article.title }}
                         </a>
                         {% else %}
-                        <a href="/articles/{{ article.id }}" class="title hover:text-blue-600 transition-colors">
+                        <a href="/noteonai/{{ article.id }}" class="title hover:text-blue-600 transition-colors">
                             {{ article.title }}
                         </a>
                         {% endif %}

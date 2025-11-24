@@ -268,7 +268,7 @@ class OptimizedPortfolioService:
     
     def _create_articles_data(self) -> List[Article]:
         """Load articles data from JSON file."""
-        articles_file = Path(__file__).parent.parent.parent / "data" / "articles.json"
+        articles_file = Path(__file__).parent.parent.parent / "data" / "noteonai.json"
         
         try:
             with open(articles_file, 'r', encoding='utf-8') as f:

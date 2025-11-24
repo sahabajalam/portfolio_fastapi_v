@@ -72,15 +72,15 @@ async def projects(request: Request):
     return template_manager.render("pages/projects.html", context)
 
 
-@router.get("/articles", response_class=HTMLResponse)
-@router.get("/articles.html", response_class=HTMLResponse)
+@router.get("/noteonai", response_class=HTMLResponse)
+@router.get("/noteonai.html", response_class=HTMLResponse)
 async def articles(request: Request):
     """Serve the consolidated articles page with filtering and pagination."""
-    context = ContextBuilder.build_base_context(request, "Articles")
+    context = ContextBuilder.build_base_context(request, "NoteonAI")
     context["articles"] = context["portfolio"].articles
     context["category_counts"] = portfolio_service.get_category_counts()
     
-    return template_manager.render("pages/articles.html", context)
+    return template_manager.render("pages/noteonai.html", context)
 
 
 # Optional: Add a generic page renderer for future extensibility

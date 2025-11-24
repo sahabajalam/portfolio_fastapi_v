@@ -37,7 +37,7 @@
                                 <a class="title-link" href="{{ article.external_url }}" target="_blank"
                                     rel="noopener noreferrer">{{ article.title }}</a>
                                 {% else %}
-                                <a class="title-link" href="/articles/{{ article.id }}">{{ article.title }}</a>
+                                <a class="title-link" href="/noteonai/{{ article.id }}">{{ article.title }}</a>
                                 {% endif %}
                             </h2>
 
@@ -62,7 +62,7 @@
             </div>
 
             <div class="flex justify-center mt-16">
-                <a href="/articles"
+                <a href="/noteonai"
                     class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium rounded-full shadow-md hover:shadow-lg hover:from-primary-700 hover:to-secondary-700 transition-all duration-300 transform hover:scale-105">
                     <span>Read All Notes</span>
                     <i class="fas fa-arrow-right text-sm"></i>
