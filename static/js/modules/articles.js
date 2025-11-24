@@ -16,7 +16,7 @@ window.toggleMobileCategories = function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const blogItems = document.querySelectorAll('.blog-item');
-    const categoryFilters = document.querySelectorAll('.category-filter');
+    const categoryFilters = document.querySelectorAll('.category-link');
     const featuredPost = document.querySelector('.redesigned-featured');
 
     // Debug: Log if featured post is found
@@ -429,9 +429,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 ).length;
             }
 
-            const countSpan = filter.querySelector('span');
+            const countSpan = filter.querySelector('.count');
             if (countSpan) {
-                countSpan.textContent = `(${count})`;
+                countSpan.textContent = count;
             }
         });
 

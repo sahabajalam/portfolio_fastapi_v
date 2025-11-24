@@ -2,6 +2,16 @@
 
 {% block title %}{{ page_title }} - {{ app_name }}{% endblock %}
 
+{% block extra_css %}
+<style>
+    /* Force pure white background for the articles page */
+    body {
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+    }
+</style>
+{% endblock %}
+
 {% block extra_head %}
 <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap"
@@ -64,30 +74,28 @@
     <div class="main-container flex gap-8">
         <!-- Sidebar with Categories -->
         <aside class="sidebar w-64 flex-shrink-0">
-            <div class="sidebar-card rounded-lg shadow-sm p-6">
-                <h3 class="text-lg font-semibold mb-4" style="color: var(--page-text-primary);">Categories
-                </h3>
-                <ul class="sidebar-categories space-y-2">
+            <div class="sidebar-clean">
+                <h3 class="sidebar-section-title">Categories</h3>
+                <ul class="sidebar-categories space-y-1">
                     <li>
                         <button
-                            class="category-filter active w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+                            class="category-link active"
                             data-category="all">
-                            All Posts <span class="float-right text-current">({{ articles|length }})</span>
+                            <span>All Posts</span>
+                            <span class="count">{{ articles|length }}</span>
                         </button>
                     </li>
                     {% for category_name, count in category_counts.items() %}
                     {% set data_category = category_name.lower().replace(' ', '-') %}
                     <li>
-                        <button class="category-filter w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
-                            data-category="{{ data_category }}" style="color: var(--page-text-secondary);">
-                            {{ category_name }} <span class="float-right" style="color: var(--page-text-tertiary);">({{
-                                count }})</span>
+                        <button class="category-link"
+                            data-category="{{ data_category }}">
+                            <span>{{ category_name }}</span>
+                            <span class="count">{{ count }}</span>
                         </button>
                     </li>
                     {% endfor %}
                 </ul>
-
-                <hr class="my-6" style="border-color: var(--page-border-color);">
             </div>
         </aside>
 
@@ -158,41 +166,70 @@
 
         <!-- Right Sidebar - Most Viewed Posts -->
         <aside class="sidebar w-80 flex-shrink-0">
-            <div class="sidebar-card rounded-lg shadow-sm p-6">
-                <h3 class="text-lg font-semibold mb-4" style="color: var(--page-text-primary);">Most Viewed Posts</h3>
-                <div class="space-y-4">
-                    {% for article in articles[:5] %}
-                    <article class="most-viewed-item border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
-                        <div class="flex flex-col gap-2">
-                            <h4 class="text-sm font-medium line-clamp-2" style="color: var(--page-text-primary);">
-                                {% if article.external_url %}
-                                <a href="{{ article.external_url }}" target="_blank" rel="noopener noreferrer"
-                                    class="hover:text-blue-600 transition-colors">
-                                    {{ article.title }}
-                                </a>
-                                {% else %}
-                                <a href="/articles/{{ article.id }}" class="hover:text-blue-600 transition-colors">
-                                    {{ article.title }}
-                                </a>
-                                {% endif %}
-                            </h4>
-                            <div class="flex items-center gap-2 text-xs" style="color: var(--page-text-secondary);">
-                                <time datetime="{{ article.published_date.isoformat() }}">
-                                    {{ article.published_date.strftime('%b %d, %Y') }}
-                                </time>
-                                <span>•</span>
-                                <span>{{ article.read_time }} min read</span>
+            <div class="sidebar-clean">
+                <!-- Author Section -->
+                <div class="mb-12">
+                    <h3 class="sidebar-section-title">About the Author</h3>
+                    <div class="author-profile p-2">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden mt-1">
+                                <img src="/assets/profile%20pic.jpeg" alt="Sahabaj Alam" class="w-full h-full object-cover">
                             </div>
-                            <p class="text-xs line-clamp-2" style="color: var(--page-text-tertiary);">
-                                {{ article.excerpt }}
-                            </p>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-lg font-bold mb-1 leading-tight" style="color: var(--page-text-primary);">Sahabaj Alam</h4>
+                                <p class="text-sm mb-3 leading-relaxed" style="color: var(--page-text-secondary);">
+                                    Applied AI & ML Practitioner
+                                </p>
+                            </div>
                         </div>
-                    </article>
+                    </div>
+                </div>
+
+                <h3 class="sidebar-section-title">Most Viewed</h3>
+                <div class="most-viewed-clean">
+                    {% for article in articles[:5] %}
+                    <div class="item">
+                        {% if article.external_url %}
+                        <a href="{{ article.external_url }}" target="_blank" rel="noopener noreferrer"
+                            class="title hover:text-blue-600 transition-colors">
+                            {{ article.title }}
+                        </a>
+                        {% else %}
+                        <a href="/articles/{{ article.id }}" class="title hover:text-blue-600 transition-colors">
+                            {{ article.title }}
+                        </a>
+                        {% endif %}
+                        <div class="meta">
+                            <time datetime="{{ article.published_date.isoformat() }}">
+                                {{ article.published_date.strftime('%b %d') }}
+                            </time>
+                            <span>•</span>
+                            <span>{{ article.read_time }} min read</span>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
         </aside>
         <!-- End of Main Content -->
+    </div>
+
+    <!-- Mobile Author Section (Visible only on mobile/tablet) -->
+    <div class="lg:hidden mt-12 border-t pt-8 pb-8">
+        <h3 class="text-lg font-bold mb-4" style="color: var(--page-text-primary);">About the Author</h3>
+        <div class="author-profile p-2">
+            <div class="flex items-start gap-4">
+                <div class="w-16 h-16 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden mt-1">
+                    <img src="/assets/profile%20pic.jpeg" alt="Sahabaj Alam" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h4 class="text-lg font-bold mb-1 leading-tight" style="color: var(--page-text-primary);">Sahabaj Alam</h4>
+                    <p class="text-sm mb-3 leading-relaxed" style="color: var(--page-text-secondary);">
+                        Applied AI & ML Practitioner
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
     </div>
